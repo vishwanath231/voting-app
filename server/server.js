@@ -2,7 +2,10 @@ import express from 'express';
 import color from 'colors';
 import dotenv from 'dotenv';
 import morgan from 'morgan';
+import cors from 'cors';
 import connectDB from './config/db.js';
+import { errorHandle, notFound } from './middlewares/errorMiddleware.js';
+import userRouter from './routers/userRouter.js';
 
 
 // config for environment vaiables
@@ -13,6 +16,11 @@ connectDB()
 
 // initial express app
 const app = express();
+
+// Express middleware
+app.use(express.urlencoded({ extended: false }))
+app.use(express.json())
+app.use(cors()) // Cross Origin Resource Sharing
 
 
 // morgan only for development environment
@@ -25,6 +33,12 @@ app.get('/', (req, res) => {
     res.send('server is running...')
 })
 
+// Router
+app.use('/api/users', userRouter)
+
+// Error handle 
+app.use(errorHandle)
+app.use(notFound)
 
 // app port
 const PORT = process.env.PORT || 5000; 
