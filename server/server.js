@@ -6,6 +6,8 @@ import cors from 'cors';
 import connectDB from './config/db.js';
 import { errorHandle, notFound } from './middlewares/errorMiddleware.js';
 import userRouter from './routers/userRouter.js';
+import adminRouter from './routers/adminRouter.js';
+
 
 
 // config for environment vaiables
@@ -35,6 +37,7 @@ app.get('/', (req, res) => {
 
 // Router
 app.use('/api/users', userRouter)
+app.use('/api/admin', adminRouter)
 
 // Error handle 
 app.use(errorHandle)
