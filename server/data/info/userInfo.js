@@ -1272,6 +1272,22 @@ const userInfoData = [
             district: "Palakkad",
             pincode: 678624
         }
+    },{
+        reg_no: "21CSEA100",
+        name: "test",
+        email: "test@gmail.com",
+        phone_no: 6385213119,
+        gender: "male",
+        birth_date: "01-01-2011",
+        blood_group: "B+",
+        parent_name: "test",
+        community: "OC",
+        address: {
+            street:"test",
+            city: "test",
+            district: "test",
+            pincode: 123456
+        }
     }
 ]
 
