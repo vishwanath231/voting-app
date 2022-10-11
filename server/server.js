@@ -9,7 +9,6 @@ import userRouter from './routers/userRouter.js';
 import adminRouter from './routers/adminRouter.js';
 
 
-
 // config for environment vaiables
 dotenv.config()
 
