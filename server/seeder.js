@@ -36,7 +36,7 @@ const importData = async () => {
 
         for (let i = 0; i < userLogin.length; i++) {
             
-            userInfoArr.push(userInfoData[i].user = userLogin._id)
+            userInfoArr.push(userInfoData[i].user = userLogin[i]._id)
         }
 
         // remove same id in user_info collection
