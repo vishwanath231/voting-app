@@ -11,7 +11,7 @@ const errorHandle = (err, req, res, next) => {
     const stCode = res.statusCode === 200 ? 500 : res.statusCode
 
     res.status(stCode).json({
-        msg: err.message,
+        message: err.message,
         stack: process.env.NODE_ENV === 'development' ? err.stack : null
     })
 }
