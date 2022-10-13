@@ -65,7 +65,6 @@ const userLogin = asyncHandler(async (req, res) => {
         throw Error("You not eligible to vote!, age is greater than 18")
     }
     
-    
 
     res.status(200).json({
         msg: 'Login successful!',
@@ -81,8 +80,26 @@ const userLogin = asyncHandler(async (req, res) => {
 })
 
 
+const generatePin = asyncHandler(async (req, res) => {
+
+    const { userPin } = req.params;
+
+
+    const random = Math.floor(Math.random() * 90 + 10)
+    
+
+    const pin = ''+ random + userPin;
+
+    // console.log(Number(pin));
+
+    res.status(200).json(Number(pin))
+
+})
+
+
 export {
     userLogin,
+    generatePin,
     userGet,
     userInfoGet
 };

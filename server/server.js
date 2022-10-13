@@ -18,6 +18,12 @@ connectDB()
 // initial express app
 const app = express();
 
+
+// Generate two digit random number 
+
+
+
+
 // Express middleware
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
