@@ -10,6 +10,14 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
+    email: {
+        type: String,
+        default: null 
+    },
+    phone_no: {
+        type: Number,
+        default: null, 
+    },
     code: {
         type: Number,
         default: 0,
