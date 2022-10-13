@@ -82,7 +82,43 @@ const userLogin = asyncHandler(async (req, res) => {
 
 const generatePin = asyncHandler(async (req, res) => {
 
-    const { userPin } = req.params;
+    const { emailOrPhone, userPin } = req.body;
+
+
+    if (!emailOrPhone || !userPin) {
+        res.status(400)
+        throw Error('please add all fields!')
+
+    }
+
+   
+    // if (emailOrPhone.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,6}$/)){
+
+    //     const random = Math.floor(Math.random() * 90 + 10)
+    
+    //     const pin = ''+ random + userPin;
+
+    //     res.status(200).json({
+    //         email: emailOrPhone,
+    //         pin: (Number(pin))
+    //     })
+
+    // }else {
+
+    //     if (emailOrPhone.match(/^\d{10}$/)){
+
+    //         const random = Math.floor(Math.random() * 90 + 10)
+        
+    //         const pin = ''+ random + userPin;
+    
+    //         res.status(200).json({
+    //             phone: emailOrPhone,
+    //             pin: (Number(pin))
+    //         })
+    //     }
+    // }
+
+    
 
 
     const random = Math.floor(Math.random() * 90 + 10)
