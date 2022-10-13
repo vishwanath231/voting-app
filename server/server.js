@@ -45,8 +45,8 @@ app.use('/api/users', userRouter)
 app.use('/api/admin', adminRouter)
 
 // Error handle 
-app.use(errorHandle)
 app.use(notFound)
+app.use(errorHandle)
 
 // app port
 const PORT = process.env.PORT || 5000; 
