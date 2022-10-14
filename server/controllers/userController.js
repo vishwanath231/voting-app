@@ -1,5 +1,6 @@
 import bcrypt from 'bcryptjs';
 import asyncHandler from 'express-async-handler';
+import nodemailer from 'nodemailer';
 import generateToken from '../utils/generateToken.js';
 import User from '../models/auth/userModel.js';
 import UserInfo from '../models/info/userInfoModel.js';
@@ -82,53 +83,110 @@ const userLogin = asyncHandler(async (req, res) => {
 
 const generatePin = asyncHandler(async (req, res) => {
 
-    const { emailOrPhone, userPin } = req.body;
+    const { email, phone_no , pin } = req.body;
 
 
-    if (!emailOrPhone || !userPin) {
+    if (!pin) {
         res.status(400)
-        throw Error('please add all fields!')
+        throw Error('Enter two digits number...')
+    }
+
+    const user = await User.findById(req.user._id);
+    if (!user) {
+        res.status(404)
+        throw new Error('User not found')
+    }
+
+    if (email !== '') {
+
+        const random = Math.floor(Math.random() * 90 + 10)
+        const otp = ''+ random + pin;
+    
+        
+        if (email) {
+            user.email = email || user.email
+        }
+        
+        if (otp) {
+            user.code = otp || user.code
+        }
+        
+        await user.save();
+        
+        
+        const output = `
+        <div style="font-family:'Sen',sans-serif;">
+            <h3>E-Voting OTP</h3>
+            <p style="margin-left: 1rem;">${otp}</p>
+        </div>`;
+
+        // create reusable transporter object using the default SMTP transport
+        let transporter = nodemailer.createTransport({
+            service: 'gmail',
+            port: 465,
+            secure: true, // use SSL // true for 465, false for other ports
+            auth: {
+                user: `vishwanathvishwabai@gmail.com`, // generated ethereal user
+                pass: 'fqepeazarrgoydyy'  // generated ethereal password
+            },
+            tls:{
+                rejectUnAuthorized:true
+            }
+        
+        });
+
+        // setup email data with unicode symbols
+        let mailOptions = {
+            from: 'vishwanathvishwabai@gmail.com', // sender address
+            to: email, // list of receivers
+            subject: 'E-Voting OTP', // Subject line
+            text: `Your E-Voting OTP`, // plain text body
+            html: output // html body
+        };
+
+        // send mail with defined transport object
+        transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+                return res.status(401).json({
+                    msg: error
+                });
+            }
+            // console.log('Message sent: %s', info.messageId);   
+            // console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+
+            if (info) {
+                return res.status(200).json({
+                    msg: `Message has been sent ${email}`,
+                    token: generateToken(user._id),
+                    success: true,
+                    data: {
+                        id: user._id,
+                        reg_no: user.reg_no,
+                        email: user.email,
+                        role: user.role
+                    }
+                })
+            }
+        });
 
     }
 
-   
-    // if (emailOrPhone.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,6}$/)){
 
-    //     const random = Math.floor(Math.random() * 90 + 10)
-    
-    //     const pin = ''+ random + userPin;
 
-    //     res.status(200).json({
-    //         email: emailOrPhone,
-    //         pin: (Number(pin))
-    //     })
-
-    // }else {
-
-    //     if (emailOrPhone.match(/^\d{10}$/)){
-
-    //         const random = Math.floor(Math.random() * 90 + 10)
+    if (phone_no !== '') {
         
-    //         const pin = ''+ random + userPin;
-    
-    //         res.status(200).json({
-    //             phone: emailOrPhone,
-    //             pin: (Number(pin))
-    //         })
-    //     }
-    // }
-
+        const random = Math.floor(Math.random() * 90 + 10)
     
 
-
-    const random = Math.floor(Math.random() * 90 + 10)
+        const otp = ''+ random + pin;
     
+        console.log("phone");
+    
+        res.status(200).json(Number(otp))
+    }
 
-    const pin = ''+ random + userPin;
 
-    // console.log(Number(pin));
-
-    res.status(200).json(Number(pin))
+   
 
 })
 

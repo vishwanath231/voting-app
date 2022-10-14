@@ -5,7 +5,10 @@ import {
     ADMIN_LOGIN_REQUEST,
     ADMIN_LOGIN_SUCCESS,
     ADMIN_LOGIN_FAIL,
-    LOGOUT
+    LOGOUT,
+    USER_GENERATE_OTP_REQUEST,
+    USER_GENERATE_OTP_SUCCESS,
+    USER_GENERATE_OTP_FAIL
 } from '../constants/authConstants';
 
 
@@ -66,3 +69,29 @@ export const adminLoginReducer = (state = {}, { type, payload }) => {
             return state;
     }
 } 
+
+
+export const userGenerateOtpReducer = (state = {}, { type, payload }) => {
+
+    switch (type) {
+        case USER_GENERATE_OTP_REQUEST:
+            return {
+                loading: true
+            }
+
+        case USER_GENERATE_OTP_SUCCESS:
+            return {
+                loading: false,
+                info: payload
+            }
+
+        case USER_GENERATE_OTP_FAIL:
+            return {
+                loading: false,
+                error: payload
+            }
+    
+        default:
+            return state;
+    }
+}

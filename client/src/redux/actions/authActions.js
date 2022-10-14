@@ -5,7 +5,10 @@ import {
     ADMIN_LOGIN_REQUEST,
     ADMIN_LOGIN_SUCCESS,
     ADMIN_LOGIN_FAIL,
-    LOGOUT
+    LOGOUT,
+    USER_GENERATE_OTP_REQUEST,
+    USER_GENERATE_OTP_SUCCESS,
+    USER_GENERATE_OTP_FAIL
 } from '../constants/authConstants';
 import axios from 'axios';
 
@@ -51,3 +54,48 @@ export const userLogin = (loginData) => async (dispatch) => {
     }
 
 }
+
+
+
+
+
+export const userGenerateOTP = (datas) => async (dispatch, getState) => {
+    
+    try {
+        
+        dispatch({
+            type: USER_GENERATE_OTP_REQUEST
+        })
+
+        const { userLoginInfo: { info } } = getState();
+
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization : `Bearer ${info.token}`
+            }
+        }
+
+        const { data } = await axios.post('http://localhost:5000/api/users/pin', datas, config)
+
+
+        dispatch({
+            type: USER_GENERATE_OTP_SUCCESS,
+            payload: data.token
+        })
+
+        localStorage.setItem('userPin', data.token)
+
+    } catch (error) {
+
+        const resErr =  error.response && error.response.data.message ? error.response.data.message : error.message
+        
+        dispatch({
+            type: USER_GENERATE_OTP_FAIL,
+            payload: resErr
+        })
+    }
+
+}
+

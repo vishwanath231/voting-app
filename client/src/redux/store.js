@@ -5,11 +5,15 @@ import { reducers } from './reducers';
 
 
 const userInfoFromStroage = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null;
+const userPinFromStroage = localStorage.getItem('userPin') ? JSON.parse(localStorage.getItem('userPin')) : null;
 const adminInfoFromStroage = localStorage.getItem('adminInfo') ? JSON.parse(localStorage.getItem('adminInfo')) : null;
 
 const initialState = {
     userLoginInfo: {
         info: userInfoFromStroage,
+    },
+    generateOtp:{
+        info: userPinFromStroage
     },
     adminLoginInfo: {
         info: adminInfoFromStroage

@@ -1,25 +1,57 @@
 import React,{ useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import LOGO from '../../../assets/img/logo.jpg';
-// import Loader from '../../../components/Loader';
-// import Message from '../../../components/Message';
+import Loader from '../../../components/Loader';
+import Message from '../../../components/Message';
+import { userGenerateOTP } from '../../../redux/actions/authActions';
+import { connect } from 'react-redux';
 
-const UserGenerateOtpScreen = () => {
+const UserGenerateOtpScreen = ({ generateOtp , userGenerateOTP}) => {
+
+    const navigate = useNavigate();
 
     const [contactInfo, setContactInfo] = useState('email')
 
-    const [loginData, setLoginData] = useState({
+    const [emailType, setEmailType] = useState({
+        phone_no: '',
+        email: '',
+        pin: '',
+    });
+
+    const [phoneType, setPhoneType] = useState({
         email: '',
         phone_no: '',
         pin: '',
     });
 
 
-    const handleChange = e => {
+    
+    const { loading, info, error } = generateOtp;
+
+
+    useEffect(() => {
+      
+        if (info) {
+            navigate('/verfiy')
+        }
+
+    }, [info, navigate])
+
+
+    const emailTypehandleChange = e => {
         const { name, value } = e.target;
 
-        setLoginData({
-            ...loginData,
+        setEmailType({
+            ...emailType,
+            [name]: value
+        })
+    }
+
+    const phoneTypehandleChange = e => {
+        const { name, value } = e.target;
+
+        setPhoneType({
+            ...phoneType,
             [name]: value
         })
     }
@@ -28,12 +60,31 @@ const UserGenerateOtpScreen = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        console.log(loginData);
+        if (contactInfo === 'email') {
+            userGenerateOTP(emailType)
+        }else{
+            userGenerateOTP(phoneType);
+        }
     }
+
 
     const contactInfoHandler = (e) => {
 
         setContactInfo(e.target.value)
+
+        if (contactInfo === 'email') {
+            setEmailType({
+                phone_no: '',
+                email: '',
+                pin: '',
+            })
+        }else{
+           setPhoneType({
+                email: '',
+                phone_no: '',
+                pin: '',
+           })
+        }
     }
 
 
@@ -45,7 +96,9 @@ const UserGenerateOtpScreen = () => {
                         <img src={LOGO} alt="logo" className='w-40' />
                     </Link>
                 </div>
+                {loading && <Loader />}
                 <div className='text-4xl font-light uppercase mb-7'>Generate OTP</div>
+                {error && <Message error msg={error} />}
                 
                 <form onSubmit={handleSubmit}>
 
@@ -83,9 +136,10 @@ const UserGenerateOtpScreen = () => {
                                     type="email" 
                                     id="email" 
                                     name='email' 
-                                    onChange={handleChange}
-                                    value={loginData.reg_no}
+                                    onChange={emailTypehandleChange}
+                                    value={emailType.email}
                                     placeholder="example@support.com"
+                                    required
                                     className="shadow-sm lowercase bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"  
                                 />
                             </div>
@@ -95,8 +149,8 @@ const UserGenerateOtpScreen = () => {
                                     type="number" 
                                     id="pin" 
                                     name='pin' 
-                                    onChange={handleChange}
-                                    value={loginData.password}
+                                    onChange={emailTypehandleChange}
+                                    value={emailType.pin}
                                     placeholder="*****"
                                     className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"  
                                 />
@@ -115,9 +169,10 @@ const UserGenerateOtpScreen = () => {
                                     type="number" 
                                     id="phone_no" 
                                     name='phone_no' 
-                                    onChange={handleChange}
-                                    value={loginData.reg_no}
+                                    onChange={phoneTypehandleChange}
+                                    value={phoneType.phone_no}
                                     placeholder="1234567890"
+                                    required
                                     className="shadow-sm lowercase bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"  
                                 />
                             </div>
@@ -127,8 +182,8 @@ const UserGenerateOtpScreen = () => {
                                     type="number" 
                                     id="pin" 
                                     name='pin' 
-                                    onChange={handleChange}
-                                    value={loginData.password}
+                                    onChange={phoneTypehandleChange}
+                                    value={phoneType.pin}
                                     placeholder="*****"
                                     className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"  
                                 />
@@ -142,4 +197,11 @@ const UserGenerateOtpScreen = () => {
     )
 }
 
-export default UserGenerateOtpScreen;
+
+const mapStateToProps = (state) =>({
+    generateOtp: state.generateOtp
+})
+
+
+
+export default connect(mapStateToProps,{ userGenerateOTP })(UserGenerateOtpScreen);
