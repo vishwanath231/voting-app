@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 // CLIENT
 import LoginScreen from '../screens/client/auth/LoginScreen';
 import UserGenerateOtpScreen from '../screens/client/auth/UserGenerateOtpScreen';
-import VerfiyOptScreen from '../screens/client/auth/VerfiyOptScreen';
+import VerifyOtpScreen from '../screens/client/auth/VerifyOtpScreen';
 import HomeScreen from '../screens/client/HomeScreen';
 
 // ADMIN
@@ -42,7 +42,7 @@ const Router = () => {
                         </Route>
 
                         <Route element={ <RequireGenerateOtp /> } >
-                            <Route path='/verfiy' element={<VerfiyOptScreen /> } />
+                            <Route path='/verfiy' element={<VerifyOtpScreen /> } />
                         </Route>
 
                         <Route element={ <RequireVerifyOtp /> } >
