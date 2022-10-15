@@ -6,19 +6,6 @@ import User from '../models/auth/userModel.js';
 import UserInfo from '../models/info/userInfoModel.js';
 
 
-const userGet = asyncHandler(async (req, res) => {
-
-    const users = await User.find({});
-
-    res.status(200).json(users)
-})
-
-const userInfoGet = asyncHandler(async (req, res) => {
-
-    const users = await UserInfo.find({});
-
-    res.status(200).json(users)
-})
 
 
 const userLogin = asyncHandler(async (req, res) => {
@@ -43,7 +30,9 @@ const userLogin = asyncHandler(async (req, res) => {
     }
     
     const userId = await UserInfo.find({ user: isRegNo._id })
+
     let userDOB;
+
     userId.map(val => {
         userDOB = val.birth_date
     })
@@ -89,6 +78,11 @@ const generatePin = asyncHandler(async (req, res) => {
     if (!pin) {
         res.status(400)
         throw Error('Enter two digits number...')
+    }
+
+    if (pin.length !== 2) {
+        res.status(400)
+        throw Error('Only two digits are allowed!')
     }
 
     const user = await User.findById(req.user._id);
@@ -176,7 +170,6 @@ const generatePin = asyncHandler(async (req, res) => {
     if (phone_no !== '') {
         
         const random = Math.floor(Math.random() * 90 + 10)
-    
 
         const otp = ''+ random + pin;
     
@@ -185,16 +178,83 @@ const generatePin = asyncHandler(async (req, res) => {
         res.status(200).json(Number(otp))
     }
 
+})
 
-   
+
+
+const verfiyPin = asyncHandler(async (req, res) => {
+
+    const { pin } = req.body;
+
+    if (pin.length !== 4) {
+        res.status(400)
+        throw Error('OPT length is 4 digits!')
+    }
+
+    const user = await User.findById(req.user._id);
+    if (!user) {
+        res.status(400)
+        throw Error("user doesn't exists!")
+    }
+    
+    const isMatch = await User.findOne({ code: pin})
+    if (!isMatch) {
+        res.status(400)
+        throw Error('Invalid OPT')
+    }
+
+    res.status(200).json({
+        msg: `verification successful!`,
+        token: generateToken(user._id),
+        success: true,
+        data: {
+            id: user._id,
+            reg_no: user.reg_no,
+            email: user.email,
+            phone_no: user.phone_no,
+            role: user.role
+        }
+    })
+    
+})
+
+
+const userProfile = asyncHandler(async (req, res) => {
+
+    const user = await UserInfo.find({ user: req.user._id })
+
+    if (!user) {
+        res.status(400)
+        throw Error("user doesn't exists!") 
+    }
+
+    let _id;
+    let name;
+    let reg_no;
+    let email;
+
+    user.map(val => {
+        _id = val._id,
+        name = val.name,
+        reg_no = val.reg_no,
+        email = val.email
+    })
+
+
+    res.status(200).json({
+        _id: _id,
+        name: name,
+        reg_no: reg_no,
+        email: email,
+    })
 
 })
+
 
 
 export {
     userLogin,
     generatePin,
-    userGet,
-    userInfoGet
+    verfiyPin,
+    userProfile
 };
-
