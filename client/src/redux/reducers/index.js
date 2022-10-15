@@ -1,9 +1,11 @@
 import { combineReducers } from 'redux';
-import { userLoginReducer, adminLoginReducer, userGenerateOtpReducer } from './authReducers';
+import { userLoginReducer, adminLoginReducer, userGenerateOtpReducer, userVerifyOtpReducer, userLoadedReducer } from './authReducers';
 
 export const reducers = combineReducers({
     userLoginInfo: userLoginReducer,
     adminLoginInfo: adminLoginReducer,
-    generateOtp: userGenerateOtpReducer
+    generateOtp: userGenerateOtpReducer,
+    verifyOtp: userVerifyOtpReducer,
+    user: userLoadedReducer
 })
 
