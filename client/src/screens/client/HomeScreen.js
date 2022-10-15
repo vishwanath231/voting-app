@@ -1,8 +1,14 @@
-import React from 'react'
+import React from 'react';
+import Navbar from '../../components/navbar/Navbar';
 
 const HomeScreen = () => {
     return (
-        <div>HomeScreen</div>
+        <>
+            <Navbar />
+            <div className='mt-20'>
+                HomeScreen
+            </div>
+        </>
     )
 }
 
