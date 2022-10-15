@@ -13,6 +13,9 @@ import AdminDashboard from '../screens/admin/DashboardScreen';
 // AUTH 
 import RouterLayout from './auth/RouterLayout';
 import RequireAuth from './auth/RequireAuth';
+import RequireLogin from './auth/RequireLogin';
+import RequireGenerateOtp from './auth/RequireGenerateOtp';
+import RequireVerifyOtp from './auth/RequireVerifyOtp';
 
 // PAGES
 import NotFoundPage from './pages/NotFoundPage';
@@ -30,9 +33,23 @@ const Router = () => {
                
                     {/* CLIENT */}
                     <Route path='/' element={<LoginScreen /> } />
-                    <Route path='/home' element={<HomeScreen /> } />
-                    <Route path='/generate' element={<UserGenerateOtpScreen /> } />
-                    <Route path='/verfiy' element={<VerfiyOptScreen /> } />
+
+
+                    <Route element={ <RequireAuth allowRoles={'user'} /> }>
+
+                        <Route element={ <RequireLogin /> } >
+                            <Route path='/generate' element={<UserGenerateOtpScreen /> } />
+                        </Route>
+
+                        <Route element={ <RequireGenerateOtp /> } >
+                            <Route path='/verfiy' element={<VerfiyOptScreen /> } />
+                        </Route>
+
+                        <Route element={ <RequireVerifyOtp /> } >
+                            <Route path='/home' element={<HomeScreen /> } />
+                        </Route>
+
+                    </Route>
                 
                 
                     {/* AUTH */}
@@ -40,9 +57,9 @@ const Router = () => {
 
 
                     {/* ADMIN */}
-                    {/* <Route element={ <RequireAuth allowRoles={'admin'} /> } >
+                    <Route element={ <RequireAuth allowRoles={'admin'} /> } >
                         <Route path='admin/dashboard' element={ <AdminDashboard /> } /> 
-                    </Route> */}
+                    </Route>
 
 
                     {/* NOT FOUND PAGE */}
