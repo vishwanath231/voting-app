@@ -5,8 +5,8 @@ const HomeScreen = () => {
     return (
         <>
             <Navbar />
-            <div className='mt-20'>
-                HomeScreen
+            <div className='mt-20 '>
+                <div className='bg'></div>
             </div>
         </>
     )
