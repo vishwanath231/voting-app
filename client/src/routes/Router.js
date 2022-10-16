@@ -38,11 +38,11 @@ const Router = () => {
                     <Route element={ <RequireAuth allowRoles={'user'} /> }>
 
                         <Route element={ <RequireLogin /> } >
-                            <Route path='/generate' element={<UserGenerateOtpScreen /> } />
+                            <Route path='generate' element={<UserGenerateOtpScreen /> } />
                         </Route>
 
                         <Route element={ <RequireGenerateOtp /> } >
-                            <Route path='/verfiy' element={<VerifyOtpScreen /> } />
+                            <Route path='verfiy' element={<VerifyOtpScreen /> } />
                         </Route>
 
                         <Route element={ <RequireVerifyOtp /> } >
@@ -50,7 +50,7 @@ const Router = () => {
                         </Route>
 
                     </Route>
-                
+
                 
                     {/* AUTH */}
                     <Route path='unAuth' element={<UnauthorizedPage /> } />
