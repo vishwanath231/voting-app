@@ -144,7 +144,7 @@ const UserGenerateOtpScreen = ({ generateOtp , userGenerateOTP}) => {
                                 />
                             </div>
                             <div className="mb-6">
-                                <label htmlFor="pin" className="block mb-2 text-md font-medium text-gray-900">Generate Pin only two digits <span className='text-red-500 text-base'>*</span></label>
+                                <label htmlFor="pin" className="block mb-2 text-md font-medium text-gray-900">Enter two digits pin <span className='text-red-500 text-base'>*</span></label>
                                 <input 
                                     type="number" 
                                     id="pin" 
@@ -177,7 +177,7 @@ const UserGenerateOtpScreen = ({ generateOtp , userGenerateOTP}) => {
                                 />
                             </div>
                             <div className="mb-6">
-                                <label htmlFor="pin" className="block mb-2 text-md font-medium text-gray-900">Generate Pin only two digits<span className='text-red-500 text-base'>*</span></label>
+                                <label htmlFor="pin" className="block mb-2 text-md font-medium text-gray-900">Enter two digits pin <span className='text-red-500 text-base'>*</span></label>
                                 <input 
                                     type="number" 
                                     id="pin" 
