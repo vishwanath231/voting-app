@@ -49,15 +49,15 @@ const Navbar = () => {
 
 
 
-    const removeProfile = () => {
-        if (profile) {
-            setProfile(false)
-        }
-    }
+    // const removeProfile = () => {
+    //     if (profile) {
+    //         setProfile(false)
+    //     }
+    // }
 
 
     return (
-        <div onClick={removeProfile} className={scrolled ? "nav-scroll shadow-md bg-white px-4 sm:px-4 py-4" : "bg-white shadow px-4 sm:px-4 py-4 nav-container "}>
+        <div  className={scrolled ? "nav-scroll shadow-md bg-white px-4 sm:px-4 py-4" : "bg-white shadow px-4 sm:px-4 py-4 nav-container "}>
             <div className='flex justify-between items-center'>
                 <div className='w-24'>
                     <img src={LOGO} alt='app logo' /> 
