@@ -1,14 +1,20 @@
 import dotenv from 'dotenv';
 import color from 'colors';
+
 import connectDB from './config/db.js';
+
 import userLoginData from './data/auth/userLogin.js';
 import adminLoginData from './data/auth/adminLogin.js';
 import userInfoData from './data/info/userInfo.js';
 import adminInfoData from './data/info/adminInfo.js';
+import nominationData from './data/nomination.js';
+
+
 import User from './models/auth/userModel.js';
 import Admin from './models/auth/adminModel.js';
 import UserInfo from './models/info/userInfoModel.js';
 import AdminInfo from './models/info/adminInfoModel.js';
+import Nomination from './models/nominationModel.js';
 
 // confirguration environment
 dotenv.config()
@@ -55,6 +61,8 @@ const importData = async () => {
         const adminInfoObj = {...adminInfoData, admin: adminLogin[0]._id}
 
         await AdminInfo.create(adminInfoObj)
+
+        await Nomination.insertMany(nominationData)
 
 
         console.log(`Data imported`.bgGreen);
