@@ -3,16 +3,8 @@ import mongoose, { Schema } from 'mongoose';
 
 const votingSchema = new Schema({
 
-    user_id:{
+    user:{
         type: mongoose.Schema.Types.ObjectId
-    },
-    register_no: {
-        type: String,
-        required: true,
-    },
-    phone_no: {
-        type: String,
-        required: true
     },
     vote: {
         type: String,
