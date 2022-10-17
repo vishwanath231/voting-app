@@ -6,6 +6,10 @@ const nominationSchema = new Schema({
     profile:{
         type: String
     },
+    reg_no: {
+        type: String,
+        required: true
+    },
     name:{
         type: String,
         required: true
@@ -14,11 +18,23 @@ const nominationSchema = new Schema({
         type: String,
         required: true
     },
-    dob:{
+    phone_no:{
         type: String,
         required: true
     },
-    mobile_no:{
+    gender:{
+        type: String,
+        required: true
+    },
+    birth_date:{
+        type: String,
+        required: true
+    },
+    parent_name:{
+        type: String,
+        required: true
+    },
+    community:{
         type: String,
         required: true
     },
@@ -52,7 +68,7 @@ const nominationSchema = new Schema({
             required: true
         },
     },
-    logo:{
+    party_logo:{
         type: String,
     },
     party_name:{
@@ -62,7 +78,7 @@ const nominationSchema = new Schema({
     profile_cloudinary_id:{
         type: String,
     },
-    logo_cloudinary_id:{
+    party_logo_cloudinary_id:{
         type: String,
     }
 },{
