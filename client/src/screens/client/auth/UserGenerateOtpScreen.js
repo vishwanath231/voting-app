@@ -32,7 +32,7 @@ const UserGenerateOtpScreen = ({ generateOtp , userGenerateOTP}) => {
     useEffect(() => {
       
         if (info) {
-            navigate('/verfiy')
+            navigate('/verify')
         }
 
     }, [info, navigate])
