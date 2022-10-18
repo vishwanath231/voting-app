@@ -22,8 +22,6 @@ import NotFoundPage from './pages/NotFoundPage';
 import UnauthorizedPage from './pages/UnauthorizedPage';
 
 
-
-
 const Router = () => {
 
     return (
