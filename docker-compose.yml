@@ -1,1 +1,38 @@
 version: '3'
+services:
+  client-app:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    container_name: client
+    volumes:
+      - ./client/src:/usr/src/app/src
+      - ./client/public:/usr/src/app/public
+    networks:
+      - voting-app
+    depends_on:
+      - server-app
+    stdin_open: true
+    tty: true
+  server-app:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    container_name: server
+    ports:
+      - "5000:5000"
+    environment:
+      - NODE_ENV=development
+      - PORT=5000
+      - MONGO_URI=mongodb+srv://vishwanath:vishwanath@vishwanath.zs8kw.mongodb.net/voting-app?retryWrites=true&w=majority
+      - JWT_SECRET=vishwanath231
+    volumes:
+      - ./:/usr/src/app
+      - /usr/src/app/node_modules
+    networks:
+      - voting-app
+networks:
+  voting-app:
+    driver: bridge
