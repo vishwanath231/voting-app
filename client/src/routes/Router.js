@@ -42,11 +42,11 @@ const Router = () => {
                         </Route>
 
                         <Route element={ <RequireGenerateOtp /> } >
-                            <Route path='verfiy' element={<VerifyOtpScreen /> } />
+                            <Route path='verify' element={<VerifyOtpScreen /> } />
                         </Route>
 
                         <Route element={ <RequireVerifyOtp /> } >
-                            <Route path='/home' element={<HomeScreen /> } />
+                            <Route path='home' element={<HomeScreen /> } />
                         </Route>
 
                     </Route>
