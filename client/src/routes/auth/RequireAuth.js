@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { useLocation, Navigate, Outlet } from 'react-router-dom';
  
 
-const RequireAuth = ({ userLoginInfo, allowRoles }) => {
+const RequireAuth = ({ userLoginInfo, adminLoginInfo, allowRoles }) => {
 
 
     const [role, setRole] = useState([{
@@ -14,15 +14,24 @@ const RequireAuth = ({ userLoginInfo, allowRoles }) => {
 
     const { info:authRole } = userLoginInfo; 
 
+    const { info:adminRole } = adminLoginInfo; 
+
+
     useEffect(() => {
 
         if (authRole && authRole.role) {
             setRole([{ name: authRole.role }])
+
         }else{
-            setRole([{ }])
+            
+            if (adminRole && adminRole.role) {
+                setRole([{ name: adminRole.role }])
+            }else{
+                setRole([{ }])
+            }
         }
         
-    }, [authRole])
+    }, [authRole, adminRole])
 
 
     return (
@@ -36,7 +45,8 @@ const RequireAuth = ({ userLoginInfo, allowRoles }) => {
 
 
 const mapStateToProps = (state) => ({
-    userLoginInfo: state.userLoginInfo
+    userLoginInfo: state.userLoginInfo,
+    adminLoginInfo: state.adminLoginInfo
 })
 
 
