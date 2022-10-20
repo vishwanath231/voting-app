@@ -2,16 +2,10 @@ import bcrypt from 'bcryptjs';
 import asyncHandler from 'express-async-handler';
 import generateToken from '../utils/generateToken.js';
 import Admin from '../models/auth/adminModel.js';
-import UserInfo from '../models/info/userInfoModel.js';
+import AdminInfo from '../models/info/adminInfoModel.js';
 
 
 
-const userGet = asyncHandler(async (req, res) => {
-
-    const users = await UserInfo.find({});
-
-    res.status(200).json(users)
-})
 
 const adminLogin = asyncHandler( async (req, res) => {
 
@@ -51,8 +45,38 @@ const adminLogin = asyncHandler( async (req, res) => {
 })
 
 
+
+const profile = asyncHandler(async (req, res) => {
+
+    const user = await AdminInfo.find({ admin: req.user._id })
+
+    if (!user) {
+        res.status(400)
+        throw Error("user doesn't exists!") 
+    }
+
+    let _id;
+    let name;
+    let email;
+
+    user.map(val => {
+        _id = val._id,
+        name = val.name,
+        email = val.email
+    })
+
+
+    res.status(200).json({
+        _id: _id,
+        name: name,
+        email: email,
+    })
+
+})
+
+
 export {
     adminLogin,
-    userGet
+    profile
 };
 
