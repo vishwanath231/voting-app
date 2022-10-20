@@ -97,7 +97,7 @@ const UserGenerateOtpScreen = ({ generateOtp , userGenerateOTP}) => {
                     </Link>
                 </div>
                 {loading && <Loader />}
-                <div className='text-4xl font-light uppercase mb-7'>Generate OTP</div>
+                <div className='text-4xl font-light uppercase mb-8'>Generate OTP</div>
                 {error && <Message error msg={error} />}
                 
                 <form onSubmit={handleSubmit}>
