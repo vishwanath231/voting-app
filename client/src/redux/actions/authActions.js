@@ -9,38 +9,65 @@ import {
     USER_VERIFY_OTP_REQUEST,
     USER_VERIFY_OTP_SUCCESS,
     USER_VERIFY_OTP_FAIL,
-    USER_LOADED_REQUEST,
-    USER_LOADED_FAIL,
-    USER_LOADED_SUCCESS
+    ADMIN_LOGIN_REQUEST,
+    ADMIN_LOGIN_SUCCESS,
+    ADMIN_LOGIN_FAIL,
+    AUTH_LOADED_REQUEST,
+    AUTH_LOADED_SUCCESS,
+    AUTH_LOADED_FAIL
 } from '../constants/authConstants';
 import axios from 'axios';
 
 
-export const userLoaded = () => async (dispatch, getState) => {
+export const authLoaded = () => async (dispatch, getState) => {
 
     try {
         
         dispatch({
-            type: USER_LOADED_REQUEST
+            type: AUTH_LOADED_REQUEST
         })
 
         const { verifyOtp: { info } } = getState();
 
+        const { adminLoginInfo: { info:adminInfo } } = getState();
 
-        const config = {
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization : `Bearer ${info}`
+
+        if (info) {
+            
+            const config = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization : `Bearer ${info}`
+                }
             }
+    
+            const { data } = await axios.get('http://localhost:5000/api/users/profile', config)
+    
+            dispatch({
+                type: AUTH_LOADED_SUCCESS,
+                payload: data
+            })
+
+        }else {
+
+            if (adminInfo) {
+            
+                const config = {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization : `Bearer ${adminInfo.token}`
+                    }
+                }
+        
+                const { data } = await axios.get('http://localhost:5000/api/admin/profile', config)
+        
+                dispatch({
+                    type: AUTH_LOADED_SUCCESS,
+                    payload: data
+                })
+            }
+
         }
-
-        const { data } = await axios.get('http://localhost:5000/api/users/profile', config)
-
-        dispatch({
-            type: USER_LOADED_SUCCESS,
-            payload: data
-        })
-
 
     } catch (error) {
 
@@ -52,7 +79,7 @@ export const userLoaded = () => async (dispatch, getState) => {
         }
  
         dispatch({
-            type: USER_LOADED_FAIL,
+            type: AUTH_LOADED_FAIL,
             payload: message
         })
     }
@@ -178,7 +205,7 @@ export const userVerifyOTP = (datas) => async (dispatch, getState) => {
         })
 
         localStorage.setItem('userVerify', data.token)
-        dispatch(userLoaded())
+        dispatch(authLoaded())
 
     } catch (error) {
 
@@ -194,10 +221,55 @@ export const userVerifyOTP = (datas) => async (dispatch, getState) => {
 
 
 
+export const adminLogin = (loginData) => async (dispatch) => {
+    
+    try {
+        
+        dispatch({
+            type: ADMIN_LOGIN_REQUEST
+        })
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+
+        const { data } = await axios.post('http://localhost:5000/api/admin/login', loginData, config)
+
+
+        const authData = {
+            token: data.token,
+            role: data.data.role
+        }
+
+        dispatch({
+            type: ADMIN_LOGIN_SUCCESS,
+            payload: authData
+        })
+
+        localStorage.setItem('adminInfo', JSON.stringify(authData))
+
+    } catch (error) {
+
+        
+        const resErr =  error.response && error.response.data.message ? error.response.data.message : error.message
+        
+        dispatch({
+            type: ADMIN_LOGIN_FAIL,
+            payload: resErr
+        })
+    }
+
+}
+
+
+
 export const logout = () => (dispatch) => {
 
     dispatch({ type: LOGOUT })
     localStorage.removeItem('userInfo')
+    localStorage.removeItem('adminInfo')
     localStorage.removeItem('userPin')
     localStorage.removeItem('userVerify')
     document.location.href = '/';
