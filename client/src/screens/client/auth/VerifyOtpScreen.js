@@ -52,7 +52,7 @@ const VerifyOtpScreen = ({ verifyOtp, userVerifyOTP }) => {
                 </Link>
             </div>
             {loading && <Loader />}
-            <div className='text-4xl font-light uppercase mb-7'>Verification OTP</div>
+            <div className='text-4xl font-light uppercase mb-8'>Verification OTP</div>
             {error && <Message error msg={error} />}
             <form onSubmit={handleSubmit}>
                 <div className="mb-6">
