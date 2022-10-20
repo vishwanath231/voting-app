@@ -12,27 +12,27 @@ import {
     USER_VERIFY_OTP_REQUEST,
     USER_VERIFY_OTP_SUCCESS,
     USER_VERIFY_OTP_FAIL,
-    USER_LOADED_REQUEST,
-    USER_LOADED_SUCCESS,
-    USER_LOADED_FAIL
+    AUTH_LOADED_REQUEST,
+    AUTH_LOADED_SUCCESS,
+    AUTH_LOADED_FAIL
 } from '../constants/authConstants';
 
 
-export const userLoadedReducer = (state = {}, { type, payload }) => {
+export const authLoadedReducer = (state = {}, { type, payload }) => {
 
     switch (type) {
-        case USER_LOADED_REQUEST:
+        case AUTH_LOADED_REQUEST:
             return {
                 loading: true
             }
     
-        case USER_LOADED_SUCCESS:
+        case AUTH_LOADED_SUCCESS:
             return {
                 loading: false,
-                userInfo: payload
+                info: payload
             }
       
-        case USER_LOADED_FAIL:
+        case AUTH_LOADED_FAIL:
             return {
                 loading: false,
                 error: payload
