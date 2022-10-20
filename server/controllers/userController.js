@@ -52,7 +52,7 @@ const userLogin = asyncHandler(async (req, res) => {
     
     if (age < 17) {
         res.status(400)
-        throw Error("You not eligible to vote!, age is greater than 18")
+        throw Error("You not eligible to vote!, age is must be greater than 18")
     }
     
 
