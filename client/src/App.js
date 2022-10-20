@@ -1,17 +1,17 @@
 import React, { useEffect } from 'react';
-import { userLoaded } from './redux/actions/authActions';
+import { authLoaded } from './redux/actions/authActions';
 import Router from './routes/Router';
 import { connect } from 'react-redux';
 
-const App = ({ userLoaded }) => {
+const App = ({ authLoaded }) => {
 
     useEffect(() => {
-        userLoaded()
-     },[userLoaded])
+        authLoaded()
+     },[authLoaded])
 
     return (
         <Router />
     )
 }
 
-export default connect(null, { userLoaded })(App);
+export default connect(null, { authLoaded })(App);
