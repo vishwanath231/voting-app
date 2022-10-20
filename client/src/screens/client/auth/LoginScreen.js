@@ -55,7 +55,7 @@ const LoginScreen = ({ userLogin, userLoginInfo }) => {
                     </Link>
                 </div>
                 {loading && <Loader />}
-                <h2 className='text-4xl font-light uppercase mb-4'>Login</h2> 
+                <h2 className='text-4xl font-light uppercase mb-8'>Login</h2> 
                 {error && <Message error msg={error} />}
                 <form onSubmit={handleSubmit}>
                     <div className="mb-6">
@@ -82,11 +82,11 @@ const LoginScreen = ({ userLogin, userLoginInfo }) => {
                             className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"  
                         />
                     </div>
-                    <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Login account</button>
-                    <div className='mt-4 mb-2'>
-                        <Link to='/admin/login' className='underline text-blue-800'>Login Administrator</Link>
-                    </div>
+                    <button type="submit" className="text-white shadow-md bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Login account</button>
                 </form>
+                <div className='mt-4 mb-2'>
+                    <Link to='/admin/login' className='underline text-blue-800'>Administrator Login</Link>
+                </div>
             </div>
         </main>
         
