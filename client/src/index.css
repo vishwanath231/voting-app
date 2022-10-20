@@ -29,7 +29,7 @@ body {
     background: url('./assets/img/original_bg.jpg');
     width: 100%;
     height: calc(100vh - 5rem);
-   background-position: bottom;
+    background-position: bottom;
     background-repeat: no-repeat;
     background-size: cover;
     z-index: -1;
