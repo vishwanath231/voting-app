@@ -8,6 +8,7 @@ import VerifyOtpScreen from '../screens/client/auth/VerifyOtpScreen';
 import HomeScreen from '../screens/client/HomeScreen';
 
 // ADMIN
+import AdminLoginScreen from '../screens/admin/auth/AdminLoginScreen';
 import AdminDashboard from '../screens/admin/DashboardScreen';
 
 // AUTH 
@@ -31,6 +32,8 @@ const Router = () => {
                
                     {/* CLIENT */}
                     <Route path='/' element={<LoginScreen /> } />
+
+                    <Route path='admin/login' element={ <AdminLoginScreen /> }  />
 
 
                     <Route element={ <RequireAuth allowRoles={'user'} /> }>
