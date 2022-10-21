@@ -4,6 +4,7 @@ import nodemailer from 'nodemailer';
 import generateToken from '../utils/generateToken.js';
 import User from '../models/auth/userModel.js';
 import UserInfo from '../models/info/userInfoModel.js';
+import Nomination from '../models/nominationModel.js';
 
 
 
@@ -252,9 +253,33 @@ const userProfile = asyncHandler(async (req, res) => {
 
 
 
+
+const getNominationList = asyncHandler(async (req, res) => {
+
+    const nomination = await Nomination.find({})
+
+    res.status(200).json(nomination)
+})
+
+const getNominationById = asyncHandler(async (req, res) => {
+
+    const nominationId = await Nomination.findById(req.params.id)
+
+    if (!nominationId) {
+        res.status(400)
+        throw Error("Nomination ID doesn't exists!")
+    }
+
+    res.status(200).json(nominationId)
+})
+
+
+
 export {
     userLogin,
     generatePin,
     verfiyPin,
-    userProfile
+    userProfile,
+    getNominationList,
+    getNominationById
 };
