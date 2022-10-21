@@ -14,7 +14,7 @@ import VoteScreen from '../screens/admin/VoteScreen';
 import UserListScreen from '../screens/admin/UserListScreen';
 import UserDetailsScreen from '../screens/admin/UserDetailsScreen';
 import AdminNominationListScreen from '../screens/admin/AdminNominationListScreen';
-import AdminSingleNominationDetailsScreen from '../screens/admin/AdminSingleNominationDetailsScreen';
+import NominationDetailsScreen from '../screens/admin/NominationDetailsScreen';
 
 
 
@@ -71,7 +71,7 @@ const Router = () => {
                         <Route path='admin/userList' element={ <UserListScreen /> } /> 
                         <Route path='admin/user/:id' element={ <UserDetailsScreen /> } /> 
                         <Route path='admin/nominationList' element={ <AdminNominationListScreen /> } /> 
-                        <Route path='admin/nomination/:id' element={ <AdminSingleNominationDetailsScreen /> } /> 
+                        <Route path='admin/nomination/:id' element={ <NominationDetailsScreen /> } /> 
                     </Route>
 
 
