@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux';
 import { 
+    nominationDetailsReducer,
     nominationListReducer, 
+    userDetailsReducer, 
     userListReducer 
 } from './adminReducers';
 
@@ -19,6 +21,8 @@ export const reducers = combineReducers({
     verifyOtp: userVerifyOtpReducer,
     auth: authLoadedReducer,
     userList: userListReducer,
-    nominationList: nominationListReducer
+    nominationList: nominationListReducer,
+    userDetails: userDetailsReducer,
+    nominationDetails: nominationDetailsReducer
 })
 
