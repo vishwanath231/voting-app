@@ -5,7 +5,7 @@ import { getNominationDetails } from '../../redux/actions/adminActions';
 import Loader from '../../components/Loader';
 import Message from '../../components/Message';
 
-const AdminSingleNominationDetailsScreen = ({ getNominationDetails, nominationDetails }) => {
+const NominationDetailsScreen = ({ getNominationDetails, nominationDetails }) => {
 
     const { id } = useParams();
 
@@ -84,4 +84,4 @@ const mapStateToProps = (state) => ({
     nominationDetails: state.nominationDetails
 })
 
-export default connect(mapStateToProps, { getNominationDetails })(AdminSingleNominationDetailsScreen);
+export default connect(mapStateToProps, { getNominationDetails })(NominationDetailsScreen);
