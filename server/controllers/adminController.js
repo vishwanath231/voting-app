@@ -3,6 +3,8 @@ import asyncHandler from 'express-async-handler';
 import generateToken from '../utils/generateToken.js';
 import Admin from '../models/auth/adminModel.js';
 import AdminInfo from '../models/info/adminInfoModel.js';
+import Nomination from '../models/nominationModel.js';
+import UserInfo from '../models/info/userInfoModel.js';
 
 
 
@@ -71,12 +73,58 @@ const profile = asyncHandler(async (req, res) => {
         name: name,
         email: email,
     })
-
 })
+
+
+const getUsersList = asyncHandler(async (req, res) => {
+
+    const users = await UserInfo.find({})
+
+    res.status(200).json(users)
+})
+
+
+const getUserById = asyncHandler(async (req, res) => {
+
+    const userId = await UserInfo.findById(req.params.id)
+
+    if (!userId) {
+        res.status(400)
+        throw Error("User ID doesn't exists!")
+    }
+
+    res.status(200).json(userId)
+})
+
+const getNominationList = asyncHandler(async (req, res) => {
+
+    const nomination = await Nomination.find({})
+
+    res.status(200).json(nomination)
+})
+
+const getNominationById = asyncHandler(async (req, res) => {
+
+    const nominationId = await Nomination.findById(req.params.id)
+
+    if (!nominationId) {
+        res.status(400)
+        throw Error("Nomination ID doesn't exists!")
+    }
+
+    res.status(200).json(nominationId)
+})
+
+
+
+
 
 
 export {
     adminLogin,
-    profile
+    profile,
+    getUsersList,
+    getUserById,
+    getNominationList,
+    getNominationById
 };
-
