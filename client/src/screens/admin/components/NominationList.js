@@ -13,7 +13,7 @@ const NominationList = ({ val }) => {
             <td className="px-4 py-4 border border-gray-300">{val.gender}</td>
             <td className="px-4 py-4 border border-gray-300">{val.party_name}</td>
             <td className='flex justify-around items-center px-4 py-4 '>
-                <Link to={`/admin/update/${val._id}`} className='bg-white shadow-md flex items-center p-2 rounded'>
+                <Link to={`/admin/nomination/${val._id}`} className='bg-white shadow-md flex items-center p-2 rounded'>
                     <BiIdCard className='text-green-600 text-base mr-1' />
                     Details
                 </Link>
