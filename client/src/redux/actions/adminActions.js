@@ -5,6 +5,12 @@ import {
     NOMINATION_LIST_REQUEST,
     NOMINATION_LIST_SUCCESS,
     NOMINATION_LIST_FAIL,
+    NOMINATION_DETAILS_REQUEST,
+    NOMINATION_DETAILS_SUCCESS,
+    NOMINATION_DETAILS_FAIL,
+    USER_DETAILS_REQUEST,
+    USER_DETAILS_SUCCESS,
+    USER_DETAILS_FAIL,
 } from '../constants/adminConstants';
 import axios from 'axios';
 
@@ -35,21 +41,53 @@ export const getUserList = () => async (dispatch, getState) => {
             payload: data
         })
 
+    } catch (error) {
 
+        const resErr =  error.response && error.response.data.message ? error.response.data.message : error.message
+        
+        dispatch({
+            type: USER_LIST_FAIL,
+            payload: resErr
+        }) 
+    }
+}
+
+
+export const getUserDetails = (id) => async (dispatch, getState) => {
+
+    try {
+        
+        dispatch({
+            type: USER_DETAILS_REQUEST
+        })
+
+        const { adminLoginInfo: { info:adminInfo } } = getState();
+
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization : `Bearer ${adminInfo.token}`
+            }
+        }
+
+        const { data } = await axios.get(`http://localhost:5000/api/admin/user/${id}`, config)
+
+        dispatch({
+            type: USER_DETAILS_SUCCESS,
+            payload: data
+        })
 
     } catch (error) {
 
         const resErr =  error.response && error.response.data.message ? error.response.data.message : error.message
         
-
         dispatch({
-            type: USER_LIST_FAIL,
+            type: USER_DETAILS_FAIL,
             payload: resErr
-        })
-        
+        })  
     }
 }
-
 
 
 
@@ -78,8 +116,6 @@ export const getNominationList = () => async (dispatch, getState) => {
             payload: data
         })
 
-
-
     } catch (error) {
 
         const resErr =  error.response && error.response.data.message ? error.response.data.message : error.message
@@ -88,6 +124,43 @@ export const getNominationList = () => async (dispatch, getState) => {
             type: NOMINATION_LIST_FAIL,
             payload: resErr
         })
+    }
+}
+
+
+
+export const getNominationDetails = (id) => async (dispatch, getState) => {
+
+    try {
         
+        dispatch({
+            type: NOMINATION_DETAILS_REQUEST
+        })
+
+        const { adminLoginInfo: { info:adminInfo } } = getState();
+
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization : `Bearer ${adminInfo.token}`
+            }
+        }
+
+        const { data } = await axios.get(`http://localhost:5000/api/admin/nomination/${id}`, config)
+
+        dispatch({
+            type: NOMINATION_DETAILS_SUCCESS,
+            payload: data
+        })
+
+    } catch (error) {
+
+        const resErr =  error.response && error.response.data.message ? error.response.data.message : error.message
+
+        dispatch({
+            type: NOMINATION_DETAILS_FAIL,
+            payload: resErr
+        })
     }
 }
