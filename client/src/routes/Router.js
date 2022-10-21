@@ -9,7 +9,14 @@ import HomeScreen from '../screens/client/HomeScreen';
 
 // ADMIN
 import AdminLoginScreen from '../screens/admin/auth/AdminLoginScreen';
-import AdminDashboard from '../screens/admin/DashboardScreen';
+import DashboardScreen from '../screens/admin/DashboardScreen';
+import VoteScreen from '../screens/admin/VoteScreen';
+import UserListScreen from '../screens/admin/UserListScreen';
+import UserDetailsScreen from '../screens/admin/UserDetailsScreen';
+import AdminNominationListScreen from '../screens/admin/AdminNominationListScreen';
+import AdminSingleNominationDetailsScreen from '../screens/admin/AdminSingleNominationDetailsScreen';
+
+
 
 // AUTH 
 import RouterLayout from './auth/RouterLayout';
@@ -59,7 +66,12 @@ const Router = () => {
 
                     {/* ADMIN */}
                     <Route element={ <RequireAuth allowRoles={'admin'} /> } >
-                        <Route path='admin/dashboard' element={ <AdminDashboard /> } /> 
+                        <Route path='admin/dashboard' element={ <DashboardScreen /> } /> 
+                        <Route path='admin/vote' element={ <VoteScreen /> } /> 
+                        <Route path='admin/userList' element={ <UserListScreen /> } /> 
+                        <Route path='admin/user/:id' element={ <UserDetailsScreen /> } /> 
+                        <Route path='admin/nominationList' element={ <AdminNominationListScreen /> } /> 
+                        <Route path='admin/nomination/:id' element={ <AdminSingleNominationDetailsScreen /> } /> 
                     </Route>
 
 
