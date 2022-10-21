@@ -21,8 +21,6 @@ const ModelBox = ({ auth, logout  }) => {
 
     const { loading, info } = auth;
 
-    console.log(auth);
-
     return (
         <div className='adminModel__btn'>
             <button type="button"  onClick={handleProfile}>
