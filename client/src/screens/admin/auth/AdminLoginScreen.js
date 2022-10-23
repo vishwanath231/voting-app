@@ -67,7 +67,7 @@ const AdminLoginScreen = ({ adminLoginInfo, adminLogin }) => {
                             onChange={handleChange}
                             value={loginData.email}
                             placeholder="2de3"
-                            className="shadow-sm lowercase bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"  
+                            className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"  
                         />
                     </div>
                     <div className="mb-6">
