@@ -15,7 +15,7 @@ const MobileNav = () => {
     const handleHamburger = () => setHamburger(!hamburger)
 
     return (
-        <div className='mobile__nav px-4 py-2 sen-font shadow'>
+        <div className='mobile__nav px-4 py-2 bg-white sen-font shadow'>
             <div className='flex justify-between items-center'>
                 <div>
                     <Link to='/admin/dashboard'>
