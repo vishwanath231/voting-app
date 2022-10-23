@@ -85,7 +85,7 @@ const AdminNominationListScreen = ({ nominationList, getNominationList }) => {
                     Nomination 
                 </div>
                 <div className='flex justify-between items-center flex-col md:flex-row'>
-                    <Link to='' className='py-2 w-full mb-4 md:mb-0 md:w-fit px-4 sen-font bg-[#83c5be] rounded shadow flex items-center'>
+                    <Link to='/admin/nomination/add' className='py-2 w-full mb-4 md:mb-0 md:w-fit px-4 sen-font bg-[#83c5be] rounded shadow flex items-center'>
                         <BiPlus /> <span>Add Nomination</span>
                     </Link>
                     <div className='w-full md:w-fit flex flex-col md:flex-row items-center'>
