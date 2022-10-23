@@ -11,6 +11,9 @@ import {
     USER_DETAILS_REQUEST,
     USER_DETAILS_SUCCESS,
     USER_DETAILS_FAIL,
+    NEW_NOMINATION_REQUEST,
+    NEW_NOMINATION_SUCCESS,
+    NEW_NOMINATION_FAIL
 } from '../constants/adminConstants';
 import axios from 'axios';
 
@@ -86,6 +89,46 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
             type: USER_DETAILS_FAIL,
             payload: resErr
         })  
+    }
+}
+
+
+
+
+export const postNomination = (nominationData) => async (dispatch, getState) => {
+
+    try {
+        
+        dispatch({
+            type: NEW_NOMINATION_REQUEST
+        })
+
+        // const { adminLoginInfo: { info:adminInfo } } = getState();
+
+
+        console.log(nominationData);
+        const config = {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                
+            }
+        }
+
+        const { data } = await axios.post(`http://localhost:5000/api/admin/nomination/add`, nominationData, config)
+
+        dispatch({
+            type: NEW_NOMINATION_SUCCESS,
+            payload: data
+        })
+
+    } catch (error) {
+
+        const resErr =  error.response && error.response.data.message ? error.response.data.message : error.message
+
+        dispatch({
+            type: NEW_NOMINATION_FAIL,
+            payload: resErr
+        })
     }
 }
 
