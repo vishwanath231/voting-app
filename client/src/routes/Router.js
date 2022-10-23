@@ -28,6 +28,7 @@ import RequireVerifyOtp from './auth/RequireVerifyOtp';
 // PAGES
 import NotFoundPage from './pages/NotFoundPage';
 import UnauthorizedPage from './pages/UnauthorizedPage';
+import NominationFormScreen from '../screens/admin/NominationFormScreen';
 
 
 const Router = () => {
@@ -70,6 +71,7 @@ const Router = () => {
                         <Route path='admin/vote' element={ <VoteScreen /> } /> 
                         <Route path='admin/userList' element={ <UserListScreen /> } /> 
                         <Route path='admin/user/:id' element={ <UserDetailsScreen /> } /> 
+                        <Route path='admin/nomination/add' element={ <NominationFormScreen /> } /> 
                         <Route path='admin/nominationList' element={ <AdminNominationListScreen /> } /> 
                         <Route path='admin/nomination/:id' element={ <NominationDetailsScreen /> } /> 
                     </Route>
