@@ -5,6 +5,7 @@ import Admin from '../models/auth/adminModel.js';
 import AdminInfo from '../models/info/adminInfoModel.js';
 import Nomination from '../models/nominationModel.js';
 import UserInfo from '../models/info/userInfoModel.js';
+import cloudinary from '../utils/cloudinary.js';
 
 
 
@@ -118,6 +119,25 @@ const getNominationById = asyncHandler(async (req, res) => {
 
 
 
+const deleteNomination = asyncHandler(async (req, res) => {
+
+    const nominationId = await Nomination.findById(req.params.id);
+    
+    await cloudinary.uploader.destroy(nominationId.profile_cloudinary_id);
+    await cloudinary.uploader.destroy(nominationId.party_logo_cloudinary_id);
+
+    if (!nominationId) {
+        res.status(400)
+        throw Error("Nomination ID doesn't exists!")
+    }else{
+        await nominationId.remove();
+    }
+
+    res.status(200).json({
+        message: 'Deleted successful!'
+    })
+})
+
 
 
 export {
@@ -126,5 +146,6 @@ export {
     getUsersList,
     getUserById,
     getNominationList,
-    getNominationById
+    getNominationById,
+    deleteNomination
 };
