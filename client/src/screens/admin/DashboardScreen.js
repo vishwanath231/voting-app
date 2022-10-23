@@ -11,7 +11,8 @@ import VoteGif from '../../assets/gif/vote.gif';
 import { connect } from 'react-redux';
 import Loader from '../../components/Loader';
 import { getUserList, getNominationList } from '../../redux/actions/adminActions';
-
+// import { } from 'react-chartjs-2';
+// import { Chart as Chartjs } from 'chart.js';
 
 
 const DashboardScreen = ({ getUserList, getNominationList, userList, nominationList }) => {
@@ -19,6 +20,9 @@ const DashboardScreen = ({ getUserList, getNominationList, userList, nominationL
     const {loading:userLoading, users } = userList;
     const {loading:nominationLoading, nominations } = nominationList;
 
+    const male = userList.filter((val) => val.gender === 'male')
+
+    console.log(male);
 
     useEffect(() => {
         getUserList()
