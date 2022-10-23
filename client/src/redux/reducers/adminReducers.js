@@ -12,7 +12,10 @@ import {
     USER_DETAILS_FAIL,
     NOMINATION_DETAILS_REQUEST,
     NOMINATION_DETAILS_SUCCESS,
-    NOMINATION_DETAILS_FAIL
+    NOMINATION_DETAILS_FAIL,
+    NEW_NOMINATION_REQUEST,
+    NEW_NOMINATION_SUCCESS,
+    NEW_NOMINATION_FAIL
 } from '../constants/adminConstants';
 
 
@@ -64,6 +67,35 @@ export const userDetailsReducer = (state = { user: {} }, { type, payload }) => {
             }
 
         case USER_DETAILS_FAIL:
+            return {
+                loading: false,
+                error: payload
+            }
+
+        default:
+            return state;
+    }
+}
+
+
+
+export const newNominationReducer = (state = {}, { type, payload }) => {
+
+    switch (type) {
+        case NEW_NOMINATION_REQUEST:
+            return {
+                loading: true,
+                success: false
+            }
+        
+        case NEW_NOMINATION_SUCCESS:
+            return {
+                loading: false,
+                success: true,
+                nomination: payload
+            }
+
+        case NEW_NOMINATION_FAIL:
             return {
                 loading: false,
                 error: payload
