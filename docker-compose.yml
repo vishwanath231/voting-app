@@ -28,6 +28,9 @@ services:
       - PORT=5000
       - MONGO_URI=mongodb+srv://vishwanath:vishwanath@vishwanath.zs8kw.mongodb.net/voting-app?retryWrites=true&w=majority
       - JWT_SECRET=vishwanath231
+      - CLOUDINARY_NAME=ddni4sjyo, 
+      - CLOUDINARY_API_KEY=211571946931153, 
+      - CLOUDINARY_API_SECRET=w6h4pVJspTX4uQ6i5S3YyyP7gz4
     volumes:
       - ./:/usr/src/app
       - /usr/src/app/node_modules
