@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import { 
+    newNominationReducer,
     nominationDetailsReducer,
     nominationListReducer, 
     userDetailsReducer, 
@@ -21,6 +22,7 @@ export const reducers = combineReducers({
     verifyOtp: userVerifyOtpReducer,
     auth: authLoadedReducer,
     userList: userListReducer,
+    newNomination: newNominationReducer,
     nominationList: nominationListReducer,
     userDetails: userDetailsReducer,
     nominationDetails: nominationDetailsReducer
