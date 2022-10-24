@@ -11,8 +11,6 @@ import VoteGif from '../../assets/gif/vote.gif';
 import { connect } from 'react-redux';
 import Loader from '../../components/Loader';
 import { getUserList, getNominationList } from '../../redux/actions/adminActions';
-// import { } from 'react-chartjs-2';
-// import { Chart as Chartjs } from 'chart.js';
 
 
 const DashboardScreen = ({ getUserList, getNominationList, userList, nominationList }) => {
@@ -20,14 +18,12 @@ const DashboardScreen = ({ getUserList, getNominationList, userList, nominationL
     const {loading:userLoading, users } = userList;
     const {loading:nominationLoading, nominations } = nominationList;
 
-    const male = userList.filter((val) => val.gender === 'male')
-
-    console.log(male);
 
     useEffect(() => {
         getUserList()
-        getNominationList()
+        getNominationList()   
     }, [getUserList, getNominationList])
+    
 
     return (
         <div className='bg-gray-100 min-h-screen'>
@@ -63,13 +59,22 @@ const DashboardScreen = ({ getUserList, getNominationList, userList, nominationL
                            <div className='mt-1 text-md font-medium'>+7</div>
                         </div>
                     </Link>
+                    <Link to='/admin/analysis' className='flex bg-white items-center shadow p-4 rounded hover:shadow-xl'>
+                        <div className='p-4 rounded mr-6' style={{ background: ' linear-gradient(90deg, hsla(40, 63%, 85%, 1) 0%, hsla(22, 94%, 79%, 1) 100%)'  }}>
+                            <img src={ReportGif} alt='user' className='w-14 h-14' />
+                        </div>
+                        <div>
+                            <p className='text-xl font-semibold mont-font'>Analysis</p>
+                            <div className='mt-1 text-md font-medium'>+2</div>
+                        </div>
+                    </Link>
                     <Link to='' className='flex bg-white items-center shadow p-4 rounded hover:shadow-xl'>
                         <div className='p-4 rounded mr-6' style={{ background: 'linear-gradient(90deg, hsla(11, 82%, 87%, 1) 0%, hsla(299, 85%, 90%, 1) 100%)'  }}>
                             <img src={AdminGif} alt='user' className='w-14 h-14' />
                         </div>
                         <div>
                             <p className='text-xl font-semibold mont-font'>Admins</p>
-                            <div className='mt-1 text-md font-medium'>+5</div>
+                            <div className='mt-1 text-md font-medium'>+1</div>
                         </div>
                     </Link>
                     <Link to='' className='flex bg-white items-center shadow p-4 rounded hover:shadow-xl'>
@@ -81,15 +86,7 @@ const DashboardScreen = ({ getUserList, getNominationList, userList, nominationL
                            <div className='mt-1 text-md font-medium'>+5</div>
                         </div>
                     </Link>
-                    <Link to='' className='flex bg-white items-center shadow p-4 rounded hover:shadow-xl'>
-                        <div className='p-4 rounded mr-6' style={{ background: ' linear-gradient(90deg, hsla(40, 63%, 85%, 1) 0%, hsla(22, 94%, 79%, 1) 100%)'  }}>
-                            <img src={ReportGif} alt='user' className='w-14 h-14' />
-                        </div>
-                        <div>
-                            <p className='text-xl font-semibold mont-font'>Reports</p>
-                            <div className='mt-1 text-md font-medium'>+97867</div>
-                        </div>
-                    </Link>
+                    
                 </div>
             </div>
         </div>
