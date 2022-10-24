@@ -7,7 +7,9 @@ import {
     getUserById,
     getNominationList,
     getNominationById,
-    deleteNomination 
+    deleteNomination,
+    userGenderAnalysis,
+    userLocationAnalysis 
 } from '../controllers/adminController.js';
 import { adminProtect } from '../middlewares/authMiddleware.js';
 import asyncHandler from 'express-async-handler';
@@ -35,7 +37,9 @@ router.route('/user/:id').get(adminProtect, getUserById)
 router.route('/nomination/list').get(adminProtect, getNominationList)
 router.route('/nomination/:id').get(adminProtect, getNominationById)
 router.route('/nomination/del/:id').delete(adminProtect, deleteNomination)
-
+// ANALYSIS
+router.route('/analysis/userGender').get(userGenderAnalysis)
+router.route('/analysis/userLocation').get(userLocationAnalysis)
 
 
 router.post('/nomination/add', async (req, res) => {
