@@ -57,7 +57,7 @@ const MenuItem = ({ logout }) => {
             </div>
 
             <div className='mb-3'>
-                <Link to='/admin/orderList' className="block py-2 px-4 hover:bg-gray-100">
+                <Link to='/admin/analysis' className="block py-2 px-4 hover:bg-gray-100">
                     <div className='flex items-center'>
                         <TbDeviceAnalytics className='text-xl text-[#34508D] mr-1' />
                         <p>Analysis</p>
