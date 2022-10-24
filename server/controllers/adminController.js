@@ -139,6 +139,48 @@ const deleteNomination = asyncHandler(async (req, res) => {
 })
 
 
+const userGenderAnalysis = asyncHandler(async (req, res) => {
+
+    const users = await UserInfo.find({});
+    
+    const male = users.filter((val) => val.gender === "male")
+    const female = users.filter((val) => val.gender === "female")
+    
+    res.status(200).json({
+       user:{
+          male: male.length,
+       female: female.length
+       }
+    })
+
+})
+
+
+const userLocationAnalysis = asyncHandler(async (req, res) => {
+
+    const users = await UserInfo.find({});
+    
+    const district = [];
+
+    users.map(val => {
+        if (typeof val.address.district === 'string') {
+            district.push(val.address.district.toLowerCase())           
+        }
+    })
+
+    const obj= {}
+       
+    for (let i = 0; i < district.length; i++){
+       if(obj[district[i]] === undefined){
+          obj[district[i]] = 1;
+       }else{
+          obj[district[i]]++;
+       }
+    }
+
+    res.status(200).json(obj)
+})
+
 
 export {
     adminLogin,
@@ -147,5 +189,7 @@ export {
     getUserById,
     getNominationList,
     getNominationById,
-    deleteNomination
+    deleteNomination,
+    userGenderAnalysis,
+    userLocationAnalysis
 };
