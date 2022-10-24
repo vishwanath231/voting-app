@@ -15,7 +15,7 @@ import UserListScreen from '../screens/admin/UserListScreen';
 import UserDetailsScreen from '../screens/admin/UserDetailsScreen';
 import AdminNominationListScreen from '../screens/admin/AdminNominationListScreen';
 import NominationDetailsScreen from '../screens/admin/NominationDetailsScreen';
-
+import AnalysisScreen from '../screens/admin/AnalysisScreen';
 
 
 // AUTH 
@@ -74,6 +74,7 @@ const Router = () => {
                         <Route path='admin/nomination/add' element={ <NominationFormScreen /> } /> 
                         <Route path='admin/nominationList' element={ <AdminNominationListScreen /> } /> 
                         <Route path='admin/nomination/:id' element={ <NominationDetailsScreen /> } /> 
+                        <Route path='admin/analysis' element={ <AnalysisScreen /> } /> 
                     </Route>
 
 
