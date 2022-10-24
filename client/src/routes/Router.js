@@ -6,6 +6,8 @@ import LoginScreen from '../screens/client/auth/LoginScreen';
 import UserGenerateOtpScreen from '../screens/client/auth/UserGenerateOtpScreen';
 import VerifyOtpScreen from '../screens/client/auth/VerifyOtpScreen';
 import HomeScreen from '../screens/client/HomeScreen';
+import VoteFormScreen from '../screens/client/VoteFormScreen';
+import NominationListScreen from '../screens/client/NominationListScreen';
 
 // ADMIN
 import AdminLoginScreen from '../screens/admin/auth/AdminLoginScreen';
@@ -57,6 +59,9 @@ const Router = () => {
                         <Route element={ <RequireVerifyOtp /> } >
                             <Route path='home' element={<HomeScreen /> } />
                         </Route>
+                        
+                        <Route path='user/vote' element={<VoteFormScreen /> } />
+                        <Route path='user/nominationList' element={<NominationListScreen /> } />
 
                     </Route>
 
