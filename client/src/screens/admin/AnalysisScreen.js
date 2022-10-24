@@ -4,7 +4,7 @@ import MobileNav from './components/MobileNav';
 import SideBar from './components/SideBar';
 import axios from 'axios';
 import { Bar, Pie } from "react-chartjs-2";
-// import { Chart as ChartJS } from "chart.js/auto";
+import { Chart as ChartJS } from "chart.js/auto";
 
 const AnalysisScreen = () => {
 
@@ -46,7 +46,7 @@ const AnalysisScreen = () => {
             setUserLocation({
                 labels: Object.keys(res.data),
                 datasets:[{
-                    label: "USER GENDER",
+                    label: "USER LOCATION",
                      data: Object.values(res.data),
                      backgroundColor: [
                          "#264653",
