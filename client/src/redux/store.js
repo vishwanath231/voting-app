@@ -28,11 +28,13 @@ const initialState = {
 
 const middleware = [thunk]
 
+const devTools =  process.env.NODE_ENV === "production" ? applyMiddleware(...middleware) : composeWithDevTools(applyMiddleware(...middleware))
+
 const store = createStore(
     
     reducers,
     initialState,
-    composeWithDevTools(applyMiddleware(...middleware))
+    devTools
 )
 
 export default store;
