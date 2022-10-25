@@ -12,15 +12,19 @@ const UserModel = ({ profile, logout, auth }) => {
 
     const { loading, info } = auth;
     
+    
     return (
         <div className={ profile ? "z-50 my-4 text-base list-none bg-white sen-font rounded divide-y divide-gray-100 shadow showModel__box" : "hidden" }>
             { loading ? <Loader /> : (
                 <>
-                    <div className="py-3 px-4 text-md text-left">
-                        <span className="block">{info && info.reg_no}</span> 
-                        <span className="block font-semibold my-1">{info && info.name}</span>
-                        <span className="block font-semibold truncate">{info && info.email}</span>
+                    {info.map((val) => (
+                     <div className="py-3 px-4 text-md text-left" key={val._id}>
+                        <span className="block">{val && val.reg_no}</span> 
+                        <span className="block font-semibold my-1">{val && val.name}</span>
+                        <span className="block font-semibold truncate">{val && val.email}</span>
                     </div>
+                    
+                    ))}
                     <ul className="py-1 text-md text-left">
                         <li>
                             <Link to='/profile' className="block py-2 px-4 hover:bg-gray-200 ">Profile</Link>
