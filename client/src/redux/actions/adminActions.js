@@ -13,7 +13,10 @@ import {
     USER_DETAILS_FAIL,
     NEW_NOMINATION_REQUEST,
     NEW_NOMINATION_SUCCESS,
-    NEW_NOMINATION_FAIL
+    NEW_NOMINATION_FAIL,
+    VOTE_LIST_REQUEST,
+    VOTE_LIST_SUCCESS,
+    VOTE_LIST_FAIL
 } from '../constants/adminConstants';
 import axios from 'axios';
 
@@ -205,5 +208,44 @@ export const getNominationDetails = (id) => async (dispatch, getState) => {
             type: NOMINATION_DETAILS_FAIL,
             payload: resErr
         })
+    }
+}
+
+
+
+
+export const getVoteList = () => async (dispatch, getState) => {
+
+    try {
+        
+        dispatch({
+            type: VOTE_LIST_REQUEST
+        })
+
+        const { adminLoginInfo: { info:adminInfo } } = getState();
+
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization : `Bearer ${adminInfo.token}`
+            }
+        }
+
+        const { data } = await axios.get(`http://localhost:5000/api/admin/vote`, config)
+
+        dispatch({
+            type: VOTE_LIST_SUCCESS,
+            payload: data
+        })
+
+    } catch (error) {
+
+        const resErr =  error.response && error.response.data.message ? error.response.data.message : error.message
+        
+        dispatch({
+            type: VOTE_LIST_FAIL,
+            payload: resErr
+        }) 
     }
 }
