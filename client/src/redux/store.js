@@ -28,7 +28,10 @@ const initialState = {
 
 const middleware = [thunk]
 
-const devTools =  process.env.NODE_ENV === "production" ? applyMiddleware(...middleware) : composeWithDevTools(applyMiddleware(...middleware))
+const mode = 'development'
+
+const devTools =  mode !== "production" ?
+composeWithDevTools(applyMiddleware(...middleware)) : applyMiddleware(...middleware)
 
 const store = createStore(
     
