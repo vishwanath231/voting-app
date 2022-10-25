@@ -4,7 +4,8 @@ import {
     nominationDetailsReducer,
     nominationListReducer, 
     userDetailsReducer, 
-    userListReducer 
+    userListReducer,
+    voteListReducer
 } from './adminReducers';
 
 import { 
@@ -16,7 +17,8 @@ import {
 } from './authReducers';
 import { 
     userViewNominationDetailsReducer, 
-    userViewNominationListReducer 
+    userViewNominationListReducer, 
+    voteReducer
 } from './userReducers';
 
 export const reducers = combineReducers({
@@ -26,12 +28,14 @@ export const reducers = combineReducers({
     auth: authLoadedReducer,
     userViewNominationList: userViewNominationListReducer,
     userViewNominationDetails: userViewNominationDetailsReducer,
+    vote: voteReducer,
 
     adminLoginInfo: adminLoginReducer,
     userList: userListReducer,
     newNomination: newNominationReducer,
     nominationList: nominationListReducer,
     userDetails: userDetailsReducer,
-    nominationDetails: nominationDetailsReducer
+    nominationDetails: nominationDetailsReducer,
+    voteList: voteListReducer
 })
 
