@@ -50,7 +50,7 @@ const DashboardScreen = ({ getUserList, getNominationList, userList, nominationL
                             { nominationLoading ? <Loader /> :  <div className='mt-1 text-md font-medium'>+{ nominations && nominations.length}</div>  }
                         </div>
                     </Link>
-                    <Link to='/admin/vote' className='flex bg-white items-center shadow p-4 rounded hover:shadow-xl'>
+                    <Link to='/admin/voteList' className='flex bg-white items-center shadow p-4 rounded hover:shadow-xl'>
                         <div className='p-4 rounded mr-6' style={{ background: 'linear-gradient(90deg, hsla(186, 33%, 94%, 1) 0%, hsla(216, 41%, 79%, 1) 100%)'  }}>
                             <img src={VoteGif} alt='vote' className='w-14 h-14' />
                         </div>
