@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { getNominationDetails } from '../../redux/actions/adminActions';
 import Loader from '../../components/Loader';
 import Message from '../../components/Message';
+import { TbArrowBackUp } from 'react-icons/tb';
 
 const NominationDetailsScreen = ({ getNominationDetails, nominationDetails }) => {
 
@@ -22,12 +23,12 @@ const NominationDetailsScreen = ({ getNominationDetails, nominationDetails }) =>
         <div className='w-full bg-gray-100 min-h-screen'>
             <div className='px-4 max-w-screen-xl mx-auto'>
                 <div className='py-10'>
-                    <Link to='/admin/nominationList' className='block w-fit bg-[#34508D] shadow-lg rounded px-4 py-2 text-white text-sm'>BACK</Link>
+                    <Link to='/admin/nominationList' className='block flex items-center uppercase w-fit bg-[#34508D] shadow-lg rounded px-4 py-2 text-white text-sm'><TbArrowBackUp className='mr-1' />Back</Link>
                     { loading ? <Loader /> : error ? <Message error msg={error} /> : (
                         <>
                             <div className='flex justify-between items-center flex-col mb-4 relative' >
                                 <div>
-                                    { user && user.profile && <img src={user.profile} alt='profile' className='w-60 bg-white p-4 shadow rounded-full' /> }
+                                    { user && user.profile && <img src={user.profile} alt='profile' className='w-60 h-60 object-cover bg-white p-4 shadow rounded-full' /> }
                                 </div>
                                 { user && user.name && <div className=' my-4 text-center text-xl md:text-3xl'>{ user.name }</div> }
                             </div>
@@ -36,7 +37,7 @@ const NominationDetailsScreen = ({ getNominationDetails, nominationDetails }) =>
                                     <div className='uppercase mb-4 px-4 text-xl text-[#dc143c] font-bold'>Party details</div>
                                     <div className='p-4 text-center'>
                                         <div className='flex justify-center items-center'>
-                                            { user && user.party_logo && <img src={user.party_logo} alt='party logo' className='w-60 bg-gray-200 p-4 shadow rounded-full' /> }
+                                            { user && user.party_logo && <img src={user.party_logo} alt='party logo' className='w-60 h-60 object-cover bg-gray-200 p-4 shadow rounded-full' /> }
                                         </div>
                                         { user && user.party_name && <div className='mt-5'><span className='font-bold text-[#34508D]'>PARTY NAME :</span> { user.party_name}</div> }
                                     </div>
