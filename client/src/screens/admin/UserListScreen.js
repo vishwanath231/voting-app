@@ -34,7 +34,7 @@ const UserListScreen = ({ userList, getUserList }) => {
 
     const indexOfLastData = currentPage * rowLimit;
     const indexOfFirstData = indexOfLastData - rowLimit;
-    const userData = users.slice(indexOfFirstData, indexOfLastData)
+    const userData = users?.slice(indexOfFirstData, indexOfLastData)
     const filterUserData = filterData.slice(indexOfFirstData, indexOfLastData)
 
     const searchHandler = (e) => {
@@ -88,7 +88,7 @@ const UserListScreen = ({ userList, getUserList }) => {
                     <div className='w-full md:w-fit flex flex-col md:flex-row items-center'>
                         <div className='flex items-center shadow py-2 px-4 sen-font rounded bg-red-300 md:mr-10 mb-5 md:mb-0 w-full md:w-fit'>
                             <FiDownload />
-                            <CSVLink headers={headers} data={users} filename="user_list.csv" className='ml-3'>Export CSV</CSVLink>
+                           {users &&  <CSVLink headers={headers} data={users} filename="user_list.csv" className='ml-3'>Export CSV</CSVLink>}
                         </div>
                         <input
                             name='search'
