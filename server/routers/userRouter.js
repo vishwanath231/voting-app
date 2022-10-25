@@ -6,7 +6,8 @@ import {
     verfiyPin, 
     userProfile,
     getNominationList,
-    getNominationById 
+    getNominationById,
+    userVote 
 } from '../controllers/userController.js';
 import { userProtect } from '../middlewares/authMiddleware.js';
 
@@ -16,7 +17,7 @@ router.route('/verify').post(userProtect, verfiyPin)
 router.route('/profile').get(userProtect, userProfile)
 router.route('/nomination').get(userProtect, getNominationList)
 router.route('/nomination/:id').get(userProtect, getNominationById)
-
+router.route('/vote').post(userProtect, userVote)
 
 
 
