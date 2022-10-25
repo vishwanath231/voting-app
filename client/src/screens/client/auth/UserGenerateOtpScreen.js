@@ -3,10 +3,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import LOGO from '../../../assets/img/logo.jpg';
 import Loader from '../../../components/Loader';
 import Message from '../../../components/Message';
-import { userGenerateOTP } from '../../../redux/actions/authActions';
+import { userGenerateOTP, logout } from '../../../redux/actions/authActions';
 import { connect } from 'react-redux';
 
-const UserGenerateOtpScreen = ({ generateOtp , userGenerateOTP}) => {
+const UserGenerateOtpScreen = ({ generateOtp , userGenerateOTP, logout}) => {
 
     const navigate = useNavigate();
 
@@ -23,11 +23,8 @@ const UserGenerateOtpScreen = ({ generateOtp , userGenerateOTP}) => {
         phone_no: '',
         pin: '',
     });
-
-
     
     const { loading, info, error } = generateOtp;
-
 
     useEffect(() => {
       
@@ -88,6 +85,11 @@ const UserGenerateOtpScreen = ({ generateOtp , userGenerateOTP}) => {
     }
 
 
+    const logoutHandler = () => {
+        logout()
+    }
+
+    
     return (
         <main className='screen__height'>
             <div className='px-4 max-w-3xl my-9 mx-auto'>
@@ -127,8 +129,7 @@ const UserGenerateOtpScreen = ({ generateOtp , userGenerateOTP}) => {
                         </div>
                     </div>
 
-                    {
-                        contactInfo === 'email' &&
+                    { contactInfo === 'email' &&
                         <div>
                             <div className="mb-6">
                                 <label htmlFor="email" className="block mb-2 text-md font-medium text-gray-900">Verification Email <span className='text-red-500 text-base'>*</span></label>
@@ -157,11 +158,7 @@ const UserGenerateOtpScreen = ({ generateOtp , userGenerateOTP}) => {
                             </div>
                         </div>
                     }
-
-
-
-{
-                        contactInfo === 'phone' &&
+                    { contactInfo === 'phone' &&
                         <div>
                             <div className="mb-6">
                                 <label htmlFor="phone_no" className="block mb-2 text-md font-medium text-gray-900">Phone No <span className='text-red-500 text-base'>*</span></label>
@@ -192,6 +189,9 @@ const UserGenerateOtpScreen = ({ generateOtp , userGenerateOTP}) => {
                     }
                     <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Generate OTP</button>
                 </form>
+                <div className='mt-4 mb-2'>
+                    <button onClick={logoutHandler} className='underline border-none outline-none text-blue-800'>Back to Login</button>
+                </div>
             </div>
         </main>
     )
@@ -204,4 +204,4 @@ const mapStateToProps = (state) =>({
 
 
 
-export default connect(mapStateToProps,{ userGenerateOTP })(UserGenerateOtpScreen);
+export default connect(mapStateToProps,{ userGenerateOTP, logout })(UserGenerateOtpScreen);
