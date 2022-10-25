@@ -6,6 +6,7 @@ import AdminInfo from '../models/info/adminInfoModel.js';
 import Nomination from '../models/nominationModel.js';
 import UserInfo from '../models/info/userInfoModel.js';
 import cloudinary from '../utils/cloudinary.js';
+import Vote from '../models/voteModel.js';
 
 
 
@@ -104,6 +105,7 @@ const getNominationList = asyncHandler(async (req, res) => {
     res.status(200).json(nomination)
 })
 
+
 const getNominationById = asyncHandler(async (req, res) => {
 
     const nominationId = await Nomination.findById(req.params.id)
@@ -137,6 +139,15 @@ const deleteNomination = asyncHandler(async (req, res) => {
         message: 'Deleted successful!'
     })
 })
+
+
+const getUserVote = asyncHandler(async (req, res) => {
+
+    const vote = await Vote.find({})
+    
+    res.status(200).json(vote)
+})
+
 
 
 const userGenderAnalysis = asyncHandler(async (req, res) => {
@@ -190,6 +201,7 @@ export {
     getNominationList,
     getNominationById,
     deleteNomination,
+    getUserVote,
     userGenderAnalysis,
     userLocationAnalysis
 };
