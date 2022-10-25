@@ -4,7 +4,10 @@ import {
     USER_VIEW_NOMINATION_DETAILS_SUCCESS, 
     USER_VIEW_NOMINATION_LIST_FAIL, 
     USER_VIEW_NOMINATION_LIST_REQUEST, 
-    USER_VIEW_NOMINATION_LIST_SUCCESS 
+    USER_VIEW_NOMINATION_LIST_SUCCESS, 
+    VOTE_FAIL, 
+    VOTE_REQUEST,
+    VOTE_SUCCESS
 } from "../constants/userConstants"
 import axios from 'axios';
 
@@ -81,4 +84,42 @@ export const getUserViewNominationDetails = (id) => async (dispatch, getState) =
             payload: resErr
         })
     }
+}
+
+
+export const userVote = (voteData) => async (dispatch, getState) => {
+    
+    try {
+        
+        dispatch({
+            type: VOTE_REQUEST
+        })
+
+        const { verifyOtp: { info } } = getState();
+
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization : `Bearer ${info}`
+            }
+        }
+
+        const { data } = await axios.post('http://localhost:5000/api/users/vote', voteData, config)
+
+        dispatch({
+            type: VOTE_SUCCESS,
+            payload: data
+        })
+
+    } catch (error) {
+        
+        const resErr =  error.response && error.response.data.message ? error.response.data.message : error.message
+        
+        dispatch({
+            type: VOTE_FAIL,
+            payload: resErr
+        })
+    }
+
 }
