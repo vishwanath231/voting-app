@@ -8,6 +8,8 @@ import VerifyOtpScreen from '../screens/client/auth/VerifyOtpScreen';
 import HomeScreen from '../screens/client/HomeScreen';
 import VoteFormScreen from '../screens/client/VoteFormScreen';
 import NominationListScreen from '../screens/client/NominationListScreen';
+import UNominationDetailsScreen from '../screens/client/UNominationDetailsScreen';
+
 
 // ADMIN
 import AdminLoginScreen from '../screens/admin/auth/AdminLoginScreen';
@@ -62,7 +64,7 @@ const Router = () => {
                         
                         <Route path='user/vote' element={<VoteFormScreen /> } />
                         <Route path='user/nominationList' element={<NominationListScreen /> } />
-
+                        <Route path='user/nomination/:id' element={<UNominationDetailsScreen /> } />
                     </Route>
 
                 
