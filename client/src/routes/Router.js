@@ -14,7 +14,7 @@ import UNominationDetailsScreen from '../screens/client/UNominationDetailsScreen
 // ADMIN
 import AdminLoginScreen from '../screens/admin/auth/AdminLoginScreen';
 import DashboardScreen from '../screens/admin/DashboardScreen';
-import VoteScreen from '../screens/admin/VoteScreen';
+import VoteListScreen from '../screens/admin/VoteListScreen';
 import UserListScreen from '../screens/admin/UserListScreen';
 import UserDetailsScreen from '../screens/admin/UserDetailsScreen';
 import AdminNominationListScreen from '../screens/admin/AdminNominationListScreen';
@@ -75,7 +75,7 @@ const Router = () => {
                     {/* ADMIN */}
                     <Route element={ <RequireAuth allowRoles={'admin'} /> } >
                         <Route path='admin/dashboard' element={ <DashboardScreen /> } /> 
-                        <Route path='admin/vote' element={ <VoteScreen /> } /> 
+                        <Route path='admin/voteList' element={ <VoteListScreen /> } /> 
                         <Route path='admin/userList' element={ <UserListScreen /> } /> 
                         <Route path='admin/user/:id' element={ <UserDetailsScreen /> } /> 
                         <Route path='admin/nomination/add' element={ <NominationFormScreen /> } /> 
