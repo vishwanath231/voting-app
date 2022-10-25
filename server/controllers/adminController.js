@@ -158,10 +158,10 @@ const userGenderAnalysis = asyncHandler(async (req, res) => {
     const female = users.filter((val) => val.gender === "female")
     
     res.status(200).json({
-       user:{
-          male: male.length,
-       female: female.length
-       }
+        user:{
+            male: male.length,
+            female: female.length
+        }
     })
 
 })
@@ -193,6 +193,67 @@ const userLocationAnalysis = asyncHandler(async (req, res) => {
 })
 
 
+const voteCountAnalysis = asyncHandler(async (req, res) => {
+    const vote = await Vote.find({})
+
+    const pen = vote.filter((val) => val.vote.toLowerCase() === "pen")
+    const leaf = vote.filter((val) => val.vote.toLowerCase() === "leaf")
+    
+    res.status(200).json({
+        vote:{
+            pen: pen.length,
+            leaf: leaf.length
+        }
+    })
+    
+})
+
+
+const voteGenderAnalysis = asyncHandler(async (req, res) => {
+    const vote = await Vote.find({})
+
+    const male = vote.filter((val) => val.gender === "male")
+    const female = vote.filter((val) => val.gender === "female")
+    
+    res.status(200).json({
+        user:{
+            male: male.length,
+            female: female.length
+        }
+    })
+})
+
+
+const voteLocationAnalysis = asyncHandler(async (req, res) => {
+    const vote = await Vote.find({})
+ 
+    const district = [];
+
+    vote.map(val => {
+        if (typeof val.location === 'string') {
+            district.push(val.location.toLowerCase())           
+        }
+    })
+
+    const obj= {}
+       
+    for (let i = 0; i < district.length; i++){
+       if(obj[district[i]] === undefined){
+          obj[district[i]] = 1;
+       }else{
+          obj[district[i]]++;
+       }
+    }
+
+    res.status(200).json(obj)
+    
+    
+})
+
+
+
+
+
 export {
     adminLogin,
     profile,
@@ -203,5 +264,8 @@ export {
     deleteNomination,
     getUserVote,
     userGenderAnalysis,
-    userLocationAnalysis
+    userLocationAnalysis,
+    voteGenderAnalysis,
+    voteLocationAnalysis,
+    voteCountAnalysis
 };
