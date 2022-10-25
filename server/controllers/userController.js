@@ -5,7 +5,7 @@ import generateToken from '../utils/generateToken.js';
 import User from '../models/auth/userModel.js';
 import UserInfo from '../models/info/userInfoModel.js';
 import Nomination from '../models/nominationModel.js';
-
+import Vote from '../models/voteModel.js';
 
 
 
@@ -229,28 +229,30 @@ const userProfile = asyncHandler(async (req, res) => {
         throw Error("user doesn't exists!") 
     }
 
-    let _id;
-    let name;
-    let reg_no;
-    let email;
 
-    user.map(val => {
-        _id = val._id,
-        name = val.name,
-        reg_no = val.reg_no,
-        email = val.email
-    })
+    res.status(200).json(user)
+
+    // let _id;
+    // let name;
+    // let reg_no;
+    // let email;
+
+    // user.map(val => {
+    //     _id = val._id,
+    //     name = val.name,
+    //     reg_no = val.reg_no,
+    //     email = val.email
+    // })
 
 
-    res.status(200).json({
-        _id: _id,
-        name: name,
-        reg_no: reg_no,
-        email: email,
-    })
+    // res.status(200).json({
+    //     _id: _id,
+    //     name: name,
+    //     reg_no: reg_no,
+    //     email: email,
+    // })
 
 })
-
 
 
 
@@ -274,6 +276,35 @@ const getNominationById = asyncHandler(async (req, res) => {
 })
 
 
+const userVote = asyncHandler(async (req, res) => {
+
+    const { id, reg_no, gender, location, vote } = req.body;
+
+    const isCheck = await Vote.findOne({ reg_no: reg_no })
+
+    if (isCheck) {
+        res.status(400)
+        throw Error("Register number already exists, you already voted!")
+    }
+
+    const voteSaved = new Vote({
+        user: id,
+        reg_no: reg_no,
+        gender: gender,
+        location: location,
+        vote: vote
+    })
+
+
+    await voteSaved.save()
+
+    res.status(200).json({
+        msg: 'voted successful!'
+    })
+
+})
+
+
 
 export {
     userLogin,
@@ -281,5 +312,6 @@ export {
     verfiyPin,
     userProfile,
     getNominationList,
-    getNominationById
+    getNominationById,
+    userVote
 };
