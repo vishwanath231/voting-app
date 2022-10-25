@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { getUserDetails } from '../../redux/actions/adminActions';
 import Loader from '../../components/Loader';
 import Message from '../../components/Message';
+import { TbArrowBackUp } from 'react-icons/tb';
 
 
 const UserDetailsScreen = ({ userDetails, getUserDetails }) => {
@@ -22,7 +23,7 @@ const UserDetailsScreen = ({ userDetails, getUserDetails }) => {
         <div className='w-full bg-gray-100 min-h-screen'>
             <div className='px-4 max-w-screen-xl mx-auto'>
                 <div className='py-10'>
-                    <Link to='/admin/userList' className='block w-fit bg-[#34508D] shadow-lg rounded px-4 py-2 text-white text-sm'>BACK</Link>
+                    <Link to='/admin/userList' className='block flex items-center uppercase w-fit bg-[#34508D] shadow-lg rounded px-4 py-2 text-white text-sm'><TbArrowBackUp className='mr-1' />Back</Link>
                     { loading ? <Loader /> : error ? <Message error msg={error} /> : 
                         (
                             <>
