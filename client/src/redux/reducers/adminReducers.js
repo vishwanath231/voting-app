@@ -5,7 +5,6 @@ import {
     NOMINATION_LIST_REQUEST,
     NOMINATION_LIST_SUCCESS,
     NOMINATION_LIST_FAIL,
-    USER_LIST_RESET,
     NOMINATION_LIST_RESET,
     USER_DETAILS_REQUEST,
     USER_DETAILS_SUCCESS,
@@ -15,7 +14,10 @@ import {
     NOMINATION_DETAILS_FAIL,
     NEW_NOMINATION_REQUEST,
     NEW_NOMINATION_SUCCESS,
-    NEW_NOMINATION_FAIL
+    NEW_NOMINATION_FAIL,
+    VOTE_LIST_REQUEST,
+    VOTE_LIST_SUCCESS,
+    VOTE_LIST_FAIL
 } from '../constants/adminConstants';
 
 
@@ -25,7 +27,6 @@ export const userListReducer = (state = { users: [] }, { type, payload }) => {
         case USER_LIST_REQUEST:
             return {
                 loading: true,
-                users: []
             }
         
         case USER_LIST_SUCCESS:
@@ -38,11 +39,6 @@ export const userListReducer = (state = { users: [] }, { type, payload }) => {
             return {
                 loading: false,
                 error: payload
-            }
-
-        case USER_LIST_RESET:
-            return { 
-                users: [] 
             }
 
         default:
@@ -159,6 +155,34 @@ export const nominationDetailsReducer = (state = { nomination: {} }, { type, pay
             }
 
         case NOMINATION_DETAILS_FAIL:
+            return {
+                loading: false,
+                error: payload
+            }
+
+        default:
+            return state;
+    }
+}
+
+
+
+
+export const voteListReducer = (state = { votes: [] }, { type, payload }) => {
+
+    switch (type) {
+        case VOTE_LIST_REQUEST:
+            return {
+                loading: true,
+            }
+        
+        case VOTE_LIST_SUCCESS:
+            return {
+                loading: false,
+                votes: payload
+            }
+
+        case VOTE_LIST_FAIL:
             return {
                 loading: false,
                 error: payload
