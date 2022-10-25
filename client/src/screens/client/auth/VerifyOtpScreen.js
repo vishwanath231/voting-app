@@ -2,11 +2,11 @@ import React,{ useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import LOGO from '../../../assets/img/logo.jpg';
 import { connect } from 'react-redux';
-import { userVerifyOTP } from '../../../redux/actions/authActions';
+import { userVerifyOTP, logout } from '../../../redux/actions/authActions';
 import Loader from '../../../components/Loader';
 import Message from '../../../components/Message';
 
-const VerifyOtpScreen = ({ verifyOtp, userVerifyOTP }) => {
+const VerifyOtpScreen = ({ verifyOtp, userVerifyOTP, logout }) => {
 
     const navigate = useNavigate();
 
@@ -14,9 +14,7 @@ const VerifyOtpScreen = ({ verifyOtp, userVerifyOTP }) => {
         pin: ''
     })
 
-
     const { loading, info, error } = verifyOtp;
-
 
     const handleChange = e => {
         const { name, value } = e.target;
@@ -40,6 +38,10 @@ const VerifyOtpScreen = ({ verifyOtp, userVerifyOTP }) => {
         e.preventDefault();
 
         userVerifyOTP(verifyData);
+    }
+    
+    const logoutHandler = () => {
+        logout()
     }
    
 
@@ -67,7 +69,10 @@ const VerifyOtpScreen = ({ verifyOtp, userVerifyOTP }) => {
                         className="shadow-sm lowercase bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"  
                     />
                 </div>
-                <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Verify</button>
+                <div className='flex items-center sm:flex-row flex-col'>
+                    <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center w-full sm:w-fit sm:mr-3 mr-0 sm:mb-0 mb-3">Verify</button>
+                    <button type="button" onClick={logoutHandler} className="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center w-full sm:w-fit">cancel</button>
+                </div>
             </form>
         </div>
     </main>
@@ -78,4 +83,4 @@ const mapStateToProps = (state) => ({
     verifyOtp: state.verifyOtp
 })
 
-export default connect( mapStateToProps, { userVerifyOTP })(VerifyOtpScreen);
+export default connect( mapStateToProps, { userVerifyOTP, logout })(VerifyOtpScreen);
