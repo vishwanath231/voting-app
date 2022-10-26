@@ -59,22 +59,7 @@ const profile = asyncHandler(async (req, res) => {
         throw Error("user doesn't exists!") 
     }
 
-    let _id;
-    let name;
-    let email;
-
-    user.map(val => {
-        _id = val._id,
-        name = val.name,
-        email = val.email
-    })
-
-
-    res.status(200).json({
-        _id: _id,
-        name: name,
-        email: email,
-    })
+    res.status(200).json(user)
 })
 
 
