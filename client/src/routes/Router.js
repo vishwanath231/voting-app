@@ -16,6 +16,7 @@ import UserProfileScreen from '../screens/client/UserProfileScreen';
 import AdminLoginScreen from '../screens/admin/auth/AdminLoginScreen';
 import DashboardScreen from '../screens/admin/DashboardScreen';
 import VoteListScreen from '../screens/admin/VoteListScreen';
+import VoteDetailsScreen from '../screens/admin/VoteDetailsScreen';
 import UserListScreen from '../screens/admin/UserListScreen';
 import UserDetailsScreen from '../screens/admin/UserDetailsScreen';
 import AdminNominationListScreen from '../screens/admin/AdminNominationListScreen';
@@ -80,6 +81,7 @@ const Router = () => {
                         <Route path='admin/dashboard' element={ <DashboardScreen /> } /> 
                         <Route path='admin/profile' element={ <AdminProfileScreen /> } /> 
                         <Route path='admin/voteList' element={ <VoteListScreen /> } /> 
+                        <Route path='admin/vote/:id' element={ <VoteDetailsScreen /> } /> 
                         <Route path='admin/userList' element={ <UserListScreen /> } /> 
                         <Route path='admin/user/:id' element={ <UserDetailsScreen /> } /> 
                         <Route path='admin/nomination/add' element={ <NominationFormScreen /> } /> 
