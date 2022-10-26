@@ -26,7 +26,7 @@ services:
     environment:
       - NODE_ENV=development
       - PORT=5000
-      - MONGO_URI=mongodb+srv://vishwanath:vishwanath@vishwanath.zs8kw.mongodb.net/voting-app?retryWrites=true&w=majority
+      - MONGO_URI=mongodb://vishwanath:vishwanath@vishwanath-shard-00-00.zs8kw.mongodb.net:27017,vishwanath-shard-00-01.zs8kw.mongodb.net:27017,vishwanath-shard-00-02.zs8kw.mongodb.net:27017/voting-app?ssl=true&replicaSet=atlas-130lx6-shard-0&authSource=admin&retryWrites=true&w=majority
       - JWT_SECRET=vishwanath231
       - CLOUDINARY_NAME=ddni4sjyo, 
       - CLOUDINARY_API_KEY=211571946931153, 
