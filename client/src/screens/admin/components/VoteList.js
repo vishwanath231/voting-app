@@ -10,7 +10,7 @@ const VoteList = ({ val }) => {
             <td className="px-4 py-4 border border-gray-300 uppercase">{val.vote}</td>
              <td className="px-4 py-4 border border-gray-300 uppercase">{val.location}</td>
             <td className='flex justify-around items-center px-4 py-4 '>
-                <Link to='' className='bg-white shadow-md flex items-center p-2 rounded'>
+                <Link to={`/admin/vote/${val._id}`} className='bg-white shadow-md flex items-center p-2 rounded'>
                     <BiIdCard className='text-green-600 text-base mr-1' />
                     Details
                 </Link>
