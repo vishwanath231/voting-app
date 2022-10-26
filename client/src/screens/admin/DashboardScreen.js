@@ -10,19 +10,21 @@ import ReportGif from '../../assets/gif/report.gif';
 import VoteGif from '../../assets/gif/vote.gif';
 import { connect } from 'react-redux';
 import Loader from '../../components/Loader';
-import { getUserList, getNominationList } from '../../redux/actions/adminActions';
+import { getUserList, getNominationList, getVoteList } from '../../redux/actions/adminActions';
 
 
-const DashboardScreen = ({ getUserList, getNominationList, userList, nominationList }) => {
+const DashboardScreen = ({ getUserList, getNominationList, userList, nominationList, getVoteList, voteList }) => {
 
     const {loading:userLoading, users } = userList;
     const {loading:nominationLoading, nominations } = nominationList;
+    const {loading:voteLoading, votes } = voteList;
 
 
     useEffect(() => {
         getUserList()
         getNominationList()   
-    }, [getUserList, getNominationList])
+        getVoteList()
+    }, [getUserList, getNominationList, getVoteList])
     
 
     return (
@@ -38,7 +40,7 @@ const DashboardScreen = ({ getUserList, getNominationList, userList, nominationL
                         </div>
                         <div>
                             <p className='text-xl font-semibold mont-font'>Users</p>
-                            { userLoading ? <Loader /> :  <div className='mt-1 text-md font-medium'>+{ users && users.length}</div>  }
+                            { userLoading ? <Loader /> :  <div className='mt-1 text-md font-medium'>+{ users?.length}</div>  }
                         </div>
                     </Link>
                     <Link to='/admin/nominationList' className='flex bg-white items-center shadow p-4 rounded hover:shadow-xl'>
@@ -47,7 +49,7 @@ const DashboardScreen = ({ getUserList, getNominationList, userList, nominationL
                         </div>
                         <div>
                             <p className='text-xl font-semibold mont-font'>Nomination</p>
-                            { nominationLoading ? <Loader /> :  <div className='mt-1 text-md font-medium'>+{ nominations && nominations.length}</div>  }
+                            { nominationLoading ? <Loader /> :  <div className='mt-1 text-md font-medium'>+{ nominations?.length}</div>  }
                         </div>
                     </Link>
                     <Link to='/admin/voteList' className='flex bg-white items-center shadow p-4 rounded hover:shadow-xl'>
@@ -56,7 +58,7 @@ const DashboardScreen = ({ getUserList, getNominationList, userList, nominationL
                         </div>
                         <div>
                             <p className='text-xl font-semibold mont-font'>Votes</p>
-                           <div className='mt-1 text-md font-medium'>+7</div>
+                            { voteLoading ? <Loader /> :  <div className='mt-1 text-md font-medium'>+{ votes?.length}</div>  }
                         </div>
                     </Link>
                     <Link to='/admin/analysis' className='flex bg-white items-center shadow p-4 rounded hover:shadow-xl'>
@@ -82,7 +84,7 @@ const DashboardScreen = ({ getUserList, getNominationList, userList, nominationL
                             <img src={VoteGif} alt='user' className='w-14 h-14' style={{ transform: 'rotate(180deg)' }} />
                         </div>
                         <div>
-                            <p className='text-xl font-semibold mont-font'>Not Vote</p>
+                            <p className='text-xl font-semibold mont-font'>Reports</p>
                            <div className='mt-1 text-md font-medium'>+5</div>
                         </div>
                     </Link>
@@ -95,7 +97,8 @@ const DashboardScreen = ({ getUserList, getNominationList, userList, nominationL
 
 const mapStateToProps = (state) => ({
     userList: state.userList,
-    nominationList: state.nominationList
+    nominationList: state.nominationList,
+    voteList: state.voteList,
 })
 
-export default connect(mapStateToProps, { getUserList, getNominationList })(DashboardScreen);
+export default connect(mapStateToProps, { getUserList, getNominationList, getVoteList })(DashboardScreen);
