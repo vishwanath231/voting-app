@@ -32,15 +32,15 @@ const UserDetailsScreen = ({ userDetails, getUserDetails }) => {
                                 <div className='grid lg:grid-cols-3 grid-cols-1 lg:gap-x-4 gap-y-4'>
                                     <div className='col-span-2 p-4 bg-white shadow-md rounded'>
                                         <div className='uppercase mb-4 px-4 text-xl text-[#dc143c] font-bold'>peronal details</div>
-                                        <div className='grid lg:grid-cols-2 grid-cols-1  gap-4'>
-                                            <div className='p-4'>
+                                        <div className='grid lg:grid-cols-2 grid-cols-1 p-4 lg:gap-x-4'>
+                                            <div className=''>
                                                 { user && user._id && <div className='py-1'><span className='font-bold text-[#34508D]'>ID :</span> { user._id }</div>} 
                                                 { user && user.reg_no && <div className='py-1'><span className='font-bold text-[#34508D]'>REG NO :</span> { user.reg_no }</div> }
                                                 { user && user.name && <div className='py-1'><span className='font-bold text-[#34508D]'>NAME :</span> { user.name }</div> }
                                                 { user && user.email && <div className='py-1'><span className='font-bold text-[#34508D]'>EMAIL :</span> { user.email }</div> } 
                                                 { user && user.phone_no && <div className='py-1'><span className='font-bold text-[#34508D]'>PHONE :</span> { user.phone_no }</div> }
                                             </div>
-                                            <div className='p-4'>
+                                            <div className=''>
                                                 { user && user.birth_date && <div className='py-1'><span className='font-bold text-[#34508D]'>BIRTH DATE :</span> { user.birth_date }</div> }
                                                 { user && user.blood_group && <div className='py-1'><span className='font-bold text-[#34508D]'>BLOOD GROUP :</span> { user.blood_group }</div> }
                                                 { user && user.community && <div className='py-1'><span className='font-bold text-[#34508D]'>COMMUNITY :</span> { user.community }</div> }
