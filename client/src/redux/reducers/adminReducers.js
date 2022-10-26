@@ -17,7 +17,10 @@ import {
     NEW_NOMINATION_FAIL,
     VOTE_LIST_REQUEST,
     VOTE_LIST_SUCCESS,
-    VOTE_LIST_FAIL
+    VOTE_LIST_FAIL,
+    VOTE_DETAILS_REQUEST,
+    VOTE_DETAILS_SUCCESS,
+    VOTE_DETAILS_FAIL
 } from '../constants/adminConstants';
 
 
@@ -183,6 +186,32 @@ export const voteListReducer = (state = { votes: [] }, { type, payload }) => {
             }
 
         case VOTE_LIST_FAIL:
+            return {
+                loading: false,
+                error: payload
+            }
+
+        default:
+            return state;
+    }
+}
+
+
+export const voteDetailsReducer = (state = { vote:{} }, { type, payload }) => {
+
+    switch (type) {
+        case VOTE_DETAILS_REQUEST:
+            return {
+                loading: true,
+            }
+        
+        case VOTE_DETAILS_SUCCESS:
+            return {
+                loading: false,
+                vote: payload
+            }
+
+        case VOTE_DETAILS_FAIL:
             return {
                 loading: false,
                 error: payload
