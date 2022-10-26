@@ -135,6 +135,26 @@ const getUserVote = asyncHandler(async (req, res) => {
 
 
 
+
+const getUserVoteById = asyncHandler(async (req, res) => {
+    
+    const vote = await Vote.findById(req.params.id)
+
+    if (!vote.user) {
+        res.status(400)
+        throw Error("User ID not found!")
+    }
+
+    const user = await UserInfo.findById(vote.user)
+
+    res.status(200).json({
+        vote: vote,
+        user: user
+    })
+})
+
+
+
 const userGenderAnalysis = asyncHandler(async (req, res) => {
 
     const users = await UserInfo.find({});
@@ -248,6 +268,7 @@ export {
     getNominationById,
     deleteNomination,
     getUserVote,
+    getUserVoteById,
     userGenderAnalysis,
     userLocationAnalysis,
     voteGenderAnalysis,
