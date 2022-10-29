@@ -121,7 +121,7 @@ const userLoginData = [
         password: bcrypt.hashSync('2000-08-29',10)
     },{
         reg_no: '21csea53',
-        password: bcrypt.hashSync('2001-04-14',10)
+        password: bcrypt.hashSync('2001-04-12',10)
     },{
         reg_no: '21csea54',
         password: bcrypt.hashSync('2000-10-25',10)
