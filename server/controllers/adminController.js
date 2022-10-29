@@ -256,9 +256,6 @@ const voteLocationAnalysis = asyncHandler(async (req, res) => {
 })
 
 
-
-
-
 export {
     adminLogin,
     profile,
