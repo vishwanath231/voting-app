@@ -34,12 +34,12 @@ const AdminNominationListScreen = ({ nominationList, getNominationList }) => {
 
     const indexOfLastData = currentPage * rowLimit;
     const indexOfFirstData = indexOfLastData - rowLimit;
-    const nominationData = nominations.slice(indexOfFirstData, indexOfLastData)
-    const filterNominationData = filterData.slice(indexOfFirstData, indexOfLastData)
+    const nominationData = nominations?.slice(indexOfFirstData, indexOfLastData)
+    const filterNominationData = filterData?.slice(indexOfFirstData, indexOfLastData)
 
     const searchHandler = (e) => {
         if (e.target.value !== '') {
-            const filter = nominations.filter(item => {
+            const filter = nominations?.filter(item => {
                 return Object.values(item).join('').toLowerCase().includes(e.target.value.toLowerCase()) 
             })
             setFilterData(filter)
