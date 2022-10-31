@@ -71,7 +71,7 @@ const NominationFormScreen = ({ newNomination }) => {
                                     errors={errors}
                                 />
                             }
-                            {/* {
+                            {
                                 step === 2 && 
                                 <StepTwo 
                                     stepTwoCheck={stepTwoCheck} 
@@ -112,7 +112,7 @@ const NominationFormScreen = ({ newNomination }) => {
                                     values={values}
                                     errors={errors}
                                 />
-                            } */}
+                            }
                         </form>
                     </div>
                 </div>
@@ -130,6 +130,7 @@ const mapStateToProps = (state) => ({
 
 
 export default connect(mapStateToProps, null)(NominationFormScreen);
+
 
 
 const StepOne = ({ stepOneCheck, handleProfile, handleProfileClick, handleChange, values, errors }) => {
@@ -164,7 +165,6 @@ const StepOne = ({ stepOneCheck, handleProfile, handleProfileClick, handleChange
                 />
             </div>
             {errors.name && <div className="text-red-500 my-1">{errors.name}</div>}
-            <button type='submit' className='uppercase w-full bg-[#34508D] hover:bg-black text-white text-sm text-center p-2.5 rounded shadow mt-8'>submit</button>
             <button type='button' className='uppercase w-full bg-[#34508D] hover:bg-black text-white text-sm text-center p-2.5 rounded shadow mt-8' onClick={stepOneCheck} >next</button>
         </React.Fragment>
     )
