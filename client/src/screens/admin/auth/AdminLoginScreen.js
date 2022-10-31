@@ -66,7 +66,7 @@ const AdminLoginScreen = ({ adminLoginInfo, adminLogin }) => {
                             name='email' 
                             onChange={handleChange}
                             value={loginData.email}
-                            placeholder="2de3"
+                            placeholder="example@support.com"
                             className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"  
                         />
                     </div>
