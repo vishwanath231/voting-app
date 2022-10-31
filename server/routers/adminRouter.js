@@ -17,11 +17,10 @@ import {
     getUserVoteById
 } from '../controllers/adminController.js';
 import { adminProtect } from '../middlewares/authMiddleware.js';
-// import asyncHandler from 'express-async-handler';
-// import Nomination from '../models/nominationModel.js';
-// import upload from '../utils/multer.js';
-// import cloudinary from '../utils/cloudinary.js';
-// import multer from 'multer';
+import asyncHandler from 'express-async-handler';
+import Nomination from '../models/nominationModel.js';
+import upload from '../utils/multer.js';
+import cloudinary from '../utils/cloudinary.js';
 
 
 router.route('/login').post(adminLogin)
@@ -43,71 +42,58 @@ router.route('/analysis/voteCount').get(voteCountAnalysis)
 
 
 
-// router.post('/nomination/add', async (req, res) => {
+router.post('/nomination/add', 
+    upload.fields([{
+        name: 'profile', maxCount: 1
+    }, {
+        name: 'party_logo', maxCount: 1
+    }]), 
+    asyncHandler(async (req, res) => {
     
-//     try {
-//         console.log(req.body.profile);
-//         const result1 = await cloudinary.uploader.upload(req.body.profile);
-//         // // // if (req.files) {
-//         // // //     console.log(req.files);
-//         // // // }
+        try {
+            
+            const result1 = await cloudinary.uploader.upload(req.files.profile[0].path);
+            const result2 = await cloudinary.uploader.upload(req.files.party_logo[0].path);
 
-//         console.log(result1);
+            const nomination = new Nomination({
+                profile: result1.url,
+                reg_no: req.body.reg_no,
+                name: req.body.name,
+                email: req.body.email,
+                phone_no: Number(req.body.phone_no),
+                gender: req.body.gender,
+                birth_date: req.body.birth_date,
+                parent_name: req.body.parent_name,
+                community: req.body.community,
+                address: {
+                    door_no: req.body.door_no,
+                    street: req.body.street,
+                    city: req.body.city,
+                    taluk: req.body.taluk,
+                    post: req.body.post,
+                    district: req.body.district,
+                    pincode: Number(req.body.pincode)
+                },
+                party_logo: result2.url,
+                party_name: req.body.party_name,
+                profile_cloudinary_id: result1.public_id,
+                party_logo_cloudinary_id: result2.public_id
+            })
 
-//     } catch (error) {
+            await nomination.save();
 
-//         console.log(error);
+            return res.status(201).json({
+                success: true,
+                msg: 'Registration successfull',
+                data: nomination
+            })
 
-//     }
-//         // try{
-        
-        
-//         // const result2 = await cloudinary.uploader.upload(req.files.party_logo[0].path);
-        
 
-//         // const nomination = new Nomination({
-//         //     profile: result1.url,
-//         //     reg_no: req.body.reg_no,
-//         //     name: req.body.name,
-//         //     email: req.body.email,
-//         //     phone_no: Number(req.body.phone_no),
-//         //     gender: req.body.gender,
-//         //     birth_date: req.body.birth_date,
-//         //     parent_name: req.body.parent_name,
-//         //     community: req.body.community,
-//         //     address: {
-//         //         door_no: req.body.door_no,
-//         //         street: req.body.street,
-//         //         city: req.body.city,
-//         //         taluk: req.body.taluk,
-//         //         post: req.body.post,
-//         //         district: req.body.district,
-//         //         pincode: Number(req.body.pincode)
-//         //     },
-//         //     party_logo: result2.url,
-//         //     party_name: req.body.party_name,
-//         //     profile_cloudinary_id: result1.public_id,
-//         //     party_logo_cloudinary_id: result2.public_id
-//         // })
-
-//         // await nomination.save();
-
-//         // return res.status(201).json({
-//         //     success: true,
-//         //     msg: 'Registration successfull',
-//         //     data: nomination
-//         // });
-        
-//         // }catch(err){
-        
-//         // console.log(err);
-        
-//         // }
-
-        
-
-        
-//     }
-// )
+        } catch (err) {
+            res.status(400)
+            throw Error("some error on nomination")
+        }
+    })
+)
 
 export default router;
