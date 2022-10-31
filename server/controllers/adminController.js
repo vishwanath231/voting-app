@@ -201,12 +201,12 @@ const userLocationAnalysis = asyncHandler(async (req, res) => {
 const voteCountAnalysis = asyncHandler(async (req, res) => {
     const vote = await Vote.find({})
 
-    const pen = vote.filter((val) => val.vote.toLowerCase() === "pen")
+    const hand = vote.filter((val) => val.vote.toLowerCase() === "hand")
     const leaf = vote.filter((val) => val.vote.toLowerCase() === "leaf")
     
     res.status(200).json({
         vote:{
-            pen: pen.length,
+            hand: hand.length,
             leaf: leaf.length
         }
     })
