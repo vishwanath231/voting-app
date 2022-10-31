@@ -32,12 +32,11 @@ const ModelBox = ({ auth, logout  }) => {
                         <>
                             
                             {info?.map((val) => (
-                     <div className="py-3 px-4 text-md text-left">
-                                <span className="block">{val && val.name }</span>
-                                <span className="block font-semibold truncate">{val && val.email}</span>
-                            </div>
-                    
-                    ))}
+                                <div className="py-3 px-4 text-md text-left" key={val._id}>
+                                    <span className="block">{val && val.name }</span>
+                                    <span className="block font-semibold truncate">{val && val.email}</span>
+                                </div>
+                            ))}
                             <ul className="py-1 text-md text-left">
                                 <li>
                                     <Link to='/admin/profile' className="block py-2 px-4 hover:bg-gray-300 ">Profile</Link>
