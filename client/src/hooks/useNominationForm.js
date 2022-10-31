@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { postNomination }  from '../redux/actions/adminActions';
-import axios from 'axios';
+
+
+
 const useNominationForm = () => {
 
     const dispatch = useDispatch()
@@ -9,10 +11,9 @@ const useNominationForm = () => {
     const [step, setStep] = useState(1)
     const [progress, setProgress] = useState(0)
 
-    const [profile, setProfile] = useState({})
-    const [partyLogo, setPartyLogo] = useState({})
 
     const [values, setValues] = useState({
+        profile: '',
         reg_no: '',
         name: '',
         email: '',
@@ -28,6 +29,7 @@ const useNominationForm = () => {
         post: '',
         district: '',
         pincode: '',
+        party_logo: '',
         party_name: '',
     })
 
@@ -53,9 +55,10 @@ const useNominationForm = () => {
             reader.readAsDataURL(e.target.files[0])
         }
 
-        console.log(URL.createObjectURL(e.target.files[0]))
-
-       setProfile((e.target.files[0].path))
+        setValues({
+            ...values,
+            profile: e.target.files[0]
+        })
     }
 
 
@@ -73,7 +76,10 @@ const useNominationForm = () => {
             reader.readAsDataURL(e.target.files[0])
         }
 
-        setPartyLogo(e.target.files[0])
+        setValues({
+            ...values,
+            party_logo: e.target.files[0]
+        })
     }
 
 
@@ -192,55 +198,44 @@ const useNominationForm = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-    //    let error = {}; 
+       let error = {}; 
 
-    //     if (!values.party_logo) {
-    //     error.party_logo = "Party logo is required!"
-    //     }else if (!values.party_logo.name.match(/.(jpg|jpeg|png)$/i)) {
-    //         error.party_logo = "File type is not supported!"
-    //     }else if (!values.party_name) {
-    //         error.party_name = "Party name is required!"
-    //     }else {
+        if (!values.party_logo) {
+        error.party_logo = "Party logo is required!"
+        }else if (!values.party_logo.name.match(/.(jpg|jpeg|png)$/i)) {
+            error.party_logo = "File type is not supported!"
+        }else if (!values.party_name) {
+            error.party_name = "Party name is required!"
+        }else {
             
-    //         if (Object.keys(errors).length === 0) {
+            if (Object.keys(errors).length === 0) {
             
                 const formData = new FormData();
-                formData.append('profile', profile);
+                formData.append('profile', values.profile);
                 formData.append('name', values.name);
-                // formData.append('reg_no', values.reg_no);
-                // formData.append('email', values.email);
-                // formData.append('phone_no', values.phone_no);
-                // formData.append('gender', values.gender);
-                // formData.append('birth_date', values.birth_date);
-                // formData.append('community', values.community);
-                // formData.append('parent_name', values.parent_name);
-                // formData.append('door_no', values.door_no);
-                // formData.append('street', values.street);
-                // formData.append('city', values.city);
-                // formData.append('taluk', values.taluk);
-                // formData.append('post', values.post);
-                // formData.append('district', values.district);
-                // formData.append('pincode', values.pincode);
-                // formData.append('party_logo',partyLogo);
-                // formData.append('party_name', values.party_name);
-                    
-                axios.post(`http://localhost:5000/api/admin/nomination/add`, {
-                    name: values.name,
-                    profile: profile
-                })
-                .then((res) => {
-                    console.log(res);
-                } )
-                .catch((err) => {
-                    console.log(err);
-                })
-            //    dispatch(postNomination(formData))
-            //    console.log(formData)
+                formData.append('reg_no', values.reg_no);
+                formData.append('email', values.email);
+                formData.append('phone_no', values.phone_no);
+                formData.append('gender', values.gender);
+                formData.append('birth_date', values.birth_date);
+                formData.append('community', values.community);
+                formData.append('parent_name', values.parent_name);
+                formData.append('door_no', values.door_no);
+                formData.append('street', values.street);
+                formData.append('city', values.city);
+                formData.append('taluk', values.taluk);
+                formData.append('post', values.post);
+                formData.append('district', values.district);
+                formData.append('pincode', values.pincode);
+                formData.append('party_logo', values.party_logo);
+                formData.append('party_name', values.party_name);
+                
+               dispatch(postNomination(formData))
                
-        //     }
-        // }
+            }
+        }
 
-        // setErrors(error);
+        setErrors(error);
     };
     
     
