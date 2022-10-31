@@ -37,7 +37,7 @@ const NominationDetailsScreen = ({ getNominationDetails, nominationDetails }) =>
                                     <div className='uppercase mb-4 px-4 text-xl text-[#dc143c] font-bold'>Party details</div>
                                     <div className='p-4 text-center'>
                                         <div className='flex justify-center items-center'>
-                                            { user && user.party_logo && <img src={user.party_logo} alt='party logo' className='w-60 h-60 object-cover bg-gray-200 p-4 shadow rounded-full' /> }
+                                            { user && user.party_logo && <img src={user.party_logo} alt='party logo' className='w-60 h-60 object-contain bg-gray-200 p-4 shadow rounded-full' /> }
                                         </div>
                                         { user && user.party_name && <div className='mt-5'><span className='font-bold text-[#34508D]'>PARTY NAME :</span> { user.party_name}</div> }
                                     </div>
