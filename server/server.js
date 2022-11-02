@@ -4,7 +4,9 @@ import dotenv from 'dotenv';
 import morgan from 'morgan';
 import cors from 'cors';
 import connectDB from './config/db.js';
-import { errorHandle, notFound } from './middlewares/errorMiddleware.js';
+import { errorHandle } from './middlewares/errorMiddleware.js';
+// import { notFound } from './middlewares/errorMiddleware.js';
+
 import userRouter from './routers/userRouter.js';
 import adminRouter from './routers/adminRouter.js';
 import path from 'path';
@@ -41,8 +43,8 @@ app.use('/api/users', userRouter)
 app.use('/api/admin', adminRouter)
 
 // Error handle 
-app.use(notFound)
 app.use(errorHandle)
+// app.use(notFound)
 
 // Heroku deployment
 
@@ -55,6 +57,7 @@ if (process.env.NODE_ENV === 'production') {
     app.get('*', (req, res) => 
         res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
     )
+
 }else{
 
     app.get('/', (req, res) => {
