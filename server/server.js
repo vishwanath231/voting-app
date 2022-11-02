@@ -35,10 +35,6 @@ if (process.env.NODE_ENV === 'development') {
     app.use(morgan("dev")) // its help to show response code and path
 }
 
-// get request in path: http://localhost:5000
-app.get('/', (req, res) => {
-    res.send('server is running...')
-})
 
 // Router
 app.use('/api/users', userRouter)
