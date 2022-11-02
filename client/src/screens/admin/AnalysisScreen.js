@@ -20,7 +20,7 @@ const AnalysisScreen = () => {
    
    useEffect(() => {
      
-        axios.get(`http://localhost:5000/api/admin/analysis/voteCount`)
+        axios.get(`/api/admin/analysis/voteCount`)
         .then((res) => {
             setVoteCount(res.data.vote)
         })
@@ -34,7 +34,7 @@ const AnalysisScreen = () => {
 
     useEffect(() => {
      
-        axios.get(`http://localhost:5000/api/admin/analysis/userGender`)
+        axios.get(`/api/admin/analysis/userGender`)
         .then((res) => {
             setUserGender({
                 labels: ['MALE', 'FEMALE'],
@@ -60,7 +60,7 @@ const AnalysisScreen = () => {
 
     useEffect(() => {
      
-        axios.get(`http://localhost:5000/api/admin/analysis/userLocation`)
+        axios.get(`/api/admin/analysis/userLocation`)
         .then((res) => {
             setUserLocation({
                 labels: Object.keys(res.data),
@@ -124,7 +124,7 @@ const AnalysisScreen = () => {
     
     useEffect(() => {
      
-        axios.get(`http://localhost:5000/api/admin/analysis/voteGender`)
+        axios.get(`/api/admin/analysis/voteGender`)
         .then((res) => {
             setVoteGender({
                 labels: ['MALE', 'FEMALE'],
@@ -150,7 +150,7 @@ const AnalysisScreen = () => {
 
     useEffect(() => {
      
-        axios.get(`http://localhost:5000/api/admin/analysis/voteLocation`)
+        axios.get(`/api/admin/analysis/voteLocation`)
         .then((res) => {
             setVoteLocation({
                 labels: Object.keys(res.data),

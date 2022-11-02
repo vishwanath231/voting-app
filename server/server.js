@@ -7,7 +7,7 @@ import connectDB from './config/db.js';
 import { errorHandle, notFound } from './middlewares/errorMiddleware.js';
 import userRouter from './routers/userRouter.js';
 import adminRouter from './routers/adminRouter.js';
-
+import path from 'path';
 
 // config for environment vaiables
 dotenv.config()
@@ -47,6 +47,24 @@ app.use('/api/admin', adminRouter)
 // Error handle 
 app.use(notFound)
 app.use(errorHandle)
+
+// Heroku deployment
+
+const __dirname = path.resolve()
+
+if (process.env.NODE_ENV === 'production') {
+    
+    app.use(express.static(path.join(__dirname, '/client/build')))
+
+    app.get('*', (req, res) => 
+        res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
+    )
+}else{
+
+    app.get('/', (req, res) => {
+        res.send('API is running...')
+    })
+}
 
 // app port
 const PORT = process.env.PORT || 5000; 
