@@ -6,10 +6,10 @@ import cors from 'cors';
 import connectDB from './config/db.js';
 import { errorHandle } from './middlewares/errorMiddleware.js';
 // import { notFound } from './middlewares/errorMiddleware.js';
-
 import userRouter from './routers/userRouter.js';
 import adminRouter from './routers/adminRouter.js';
 import path from 'path';
+
 
 // config for environment vaiables
 dotenv.config()
@@ -19,11 +19,6 @@ connectDB()
 
 // initial express app
 const app = express();
-
-
-// Generate two digit random number 
-
-
 
 
 // Express middleware
@@ -44,7 +39,11 @@ app.use('/api/admin', adminRouter)
 
 // Error handle 
 app.use(errorHandle)
+
+
+// development mode 
 // app.use(notFound)
+
 
 // Heroku deployment
 
