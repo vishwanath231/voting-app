@@ -9,12 +9,7 @@ import {
     getNominationById,
     deleteNomination,
     getUserVote,
-    userGenderAnalysis,
-    userLocationAnalysis,
-    voteGenderAnalysis,
-    voteLocationAnalysis,
-    voteCountAnalysis, 
-    getUserVoteById
+    getUserVoteById,
 } from '../controllers/adminController.js';
 import { adminProtect } from '../middlewares/authMiddleware.js';
 import asyncHandler from 'express-async-handler';
@@ -33,12 +28,6 @@ router.route('/nomination/del/:id').delete(adminProtect, deleteNomination)
 router.route('/vote').get(adminProtect, getUserVote)
 router.route('/vote/:id').get(adminProtect, getUserVoteById)
 
-// ANALYSIS
-router.route('/analysis/userGender').get(userGenderAnalysis)
-router.route('/analysis/userLocation').get(userLocationAnalysis)
-router.route('/analysis/voteGender').get(voteGenderAnalysis)
-router.route('/analysis/voteLocation').get(voteLocationAnalysis)
-router.route('/analysis/voteCount').get(voteCountAnalysis)
 
 
 
