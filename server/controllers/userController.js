@@ -18,7 +18,7 @@ const userLogin = asyncHandler(async (req, res) => {
         throw Error('please add all fields!')
     }
 
-    const isRegNo = await User.findOne({ reg_no: reg_no })  
+    const isRegNo = await User.findOne({ reg_no: reg_no.toLowerCase() })  
     if (!isRegNo){
         res.status(400)
         throw Error("Register Number doesn't exits!")
