@@ -9,6 +9,13 @@ import Vote from '../models/voteModel.js';
 
 
 
+/**
+ * @desc    User login
+ * @method  POST
+ * @routes  /api/users/login
+ * @access  public
+ */
+
 const userLogin = asyncHandler(async (req, res) => {
 
     const { reg_no, password } = req.body;
@@ -70,6 +77,15 @@ const userLogin = asyncHandler(async (req, res) => {
 
 })
 
+
+
+
+/**
+ * @desc    User generate otp
+ * @method  POST
+ * @routes  /api/users/pin
+ * @access  public
+ */
 
 const generatePin = asyncHandler(async (req, res) => {
 
@@ -166,8 +182,6 @@ const generatePin = asyncHandler(async (req, res) => {
 
     }
 
-
-
     if (phone_no !== '') {
         
         const random = Math.floor(Math.random() * 90 + 10)
@@ -182,6 +196,14 @@ const generatePin = asyncHandler(async (req, res) => {
 })
 
 
+
+
+/**
+ * @desc    User verify otp
+ * @method  POST
+ * @routes  /api/users/verify
+ * @access  public
+ */
 
 const verfiyPin = asyncHandler(async (req, res) => {
 
@@ -220,6 +242,15 @@ const verfiyPin = asyncHandler(async (req, res) => {
 })
 
 
+
+
+/**
+ * @desc    User profile
+ * @method  GET
+ * @routes  /api/users/profile
+ * @access  public
+ */
+
 const userProfile = asyncHandler(async (req, res) => {
 
     const user = await UserInfo.find({ user: req.user._id })
@@ -229,32 +260,18 @@ const userProfile = asyncHandler(async (req, res) => {
         throw Error("user doesn't exists!") 
     }
 
-
     res.status(200).json(user)
-
-    // let _id;
-    // let name;
-    // let reg_no;
-    // let email;
-
-    // user.map(val => {
-    //     _id = val._id,
-    //     name = val.name,
-    //     reg_no = val.reg_no,
-    //     email = val.email
-    // })
-
-
-    // res.status(200).json({
-    //     _id: _id,
-    //     name: name,
-    //     reg_no: reg_no,
-    //     email: email,
-    // })
-
 })
 
 
+
+
+/**
+ * @desc    Get nomination list
+ * @method  GET
+ * @routes  /api/users/nomination
+ * @access  public
+ */
 
 const getNominationList = asyncHandler(async (req, res) => {
 
@@ -262,6 +279,16 @@ const getNominationList = asyncHandler(async (req, res) => {
 
     res.status(200).json(nomination)
 })
+
+
+
+
+/**
+ * @desc    Get individual nomination details
+ * @method  GET
+ * @routes  /api/users/nomination/:id
+ * @access  public
+ */
 
 const getNominationById = asyncHandler(async (req, res) => {
 
@@ -275,6 +302,14 @@ const getNominationById = asyncHandler(async (req, res) => {
     res.status(200).json(nominationId)
 })
 
+
+
+/**
+ * @desc    user vote form
+ * @method  POST
+ * @routes  /api/users/vote
+ * @access  public
+ */
 
 const userVote = asyncHandler(async (req, res) => {
 
