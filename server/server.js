@@ -8,6 +8,7 @@ import { errorHandle } from './middlewares/errorMiddleware.js';
 // import { notFound } from './middlewares/errorMiddleware.js';
 import userRouter from './routers/userRouter.js';
 import adminRouter from './routers/adminRouter.js';
+import analysisRouter from './routers/analysisRouter.js';
 import path from 'path';
 
 
@@ -36,6 +37,7 @@ if (process.env.NODE_ENV === 'development') {
 // Router
 app.use('/api/users', userRouter)
 app.use('/api/admin', adminRouter)
+app.use('/api/analysis', analysisRouter)
 
 // Error handle 
 app.use(errorHandle)
