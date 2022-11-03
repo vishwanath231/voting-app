@@ -246,8 +246,8 @@ const AnalysisScreen = () => {
                         </div>
                     </div>
                     
-                      <div className='w-full shadow rounded p-4 bg-white mb-10'>
-                            <div className='mb-3'>USER LOCATION ANALYSIS</div>
+                      <div className='w-full shadow rounded p-4 bg-white mb-10 '>
+                            <div className='mb-3 '>USER LOCATION ANALYSIS</div>
                             <Bar data={userLoation} /> 
                         </div>
                         
