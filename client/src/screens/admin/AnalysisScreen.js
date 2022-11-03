@@ -6,7 +6,12 @@ import axios from 'axios';
 import { Bar, Pie } from "react-chartjs-2";
 import { Chart as ChartJS } from "chart.js/auto";
 
+
+
 const AnalysisScreen = () => {
+
+    const [handGender, setHandGender] = useState({datasets: [{}]});
+    const [leafGender, setLeafGender] = useState({datasets: [{}]});
 
     const [userGender, setUserGender] = useState({datasets: [{}]});
 
@@ -18,9 +23,10 @@ const AnalysisScreen = () => {
     
     const [voteCount, setVoteCount] = useState({});
    
-   useEffect(() => {
-     
-        axios.get(`/api/admin/analysis/voteCount`)
+
+    // VOTE ANALYSIS
+    useEffect(() => {
+        axios.get(`/api/analysis/voteCount`)
         .then((res) => {
             setVoteCount(res.data.vote)
         })
@@ -30,11 +36,63 @@ const AnalysisScreen = () => {
         
     }, [])
     
-    console.log(voteCount)
 
+   // HAND GENDER ANALYSIS
     useEffect(() => {
      
-        axios.get(`/api/admin/analysis/userGender`)
+        axios.get(`/api/analysis/handGender`)
+        .then((res) => {
+            setHandGender({
+                labels: ['MALE', 'FEMALE'],
+                datasets:[{
+                    label: "HAND USER GENDER",
+                    data: [res.data.user.male, res.data.user.female],
+                    backgroundColor: [
+                        "#2a9d8f",
+                        "#e9c46a",
+                    ],
+                    borderColor: "#f4f4f4",
+                    borderWidth: 2,
+                }]
+            })
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+        
+    }, [])
+
+
+    // LEAF GENDER ANALYSIS
+    useEffect(() => {
+     
+        axios.get(`/api/analysis/leafGender`)
+        .then((res) => {
+            setLeafGender({
+                labels: ['MALE', 'FEMALE'],
+                datasets:[{
+                    label: "LEAF USER GENDER",
+                    data: [res.data.user.male, res.data.user.female],
+                    backgroundColor: [
+                        "#98c1d9",
+                        "#ee6c4d",
+                    ],
+                    borderColor: "#f4f4f4",
+                    borderWidth: 2,
+                }]
+            })
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+        
+    }, [])
+
+
+    // USER GENDER ANALYSIS
+    useEffect(() => {
+     
+        axios.get(`/api/analysis/userGender`)
         .then((res) => {
             setUserGender({
                 labels: ['MALE', 'FEMALE'],
@@ -57,10 +115,11 @@ const AnalysisScreen = () => {
     }, [])
   
 
-
+    
+   // USER LOCATION ANALYSIS
     useEffect(() => {
      
-        axios.get(`/api/admin/analysis/userLocation`)
+        axios.get(`/api/analysis/userLocation`)
         .then((res) => {
             setUserLocation({
                 labels: Object.keys(res.data),
@@ -68,7 +127,7 @@ const AnalysisScreen = () => {
                     label: "USER LOCATION",
                      data: Object.values(res.data),
                      backgroundColor: [
-                         "#264653",
+                        "#264653",
                         "#2a9d8f",
                         "#e9c46a",
                         "#f4a261",
@@ -111,8 +170,6 @@ const AnalysisScreen = () => {
                      borderWidth: 2,
                  }]
             })
-
-            // console.log(Object.values(res.data));
         })
         .catch((err) => {
             console.log(err)
@@ -122,18 +179,20 @@ const AnalysisScreen = () => {
     
     
     
+    // VOTE GENDER ANALYSIS
     useEffect(() => {
      
-        axios.get(`/api/admin/analysis/voteGender`)
+        axios.get(`/api/analysis/voteGender`)
         .then((res) => {
             setVoteGender({
                 labels: ['MALE', 'FEMALE'],
                 datasets:[{
                     label: "VOTE GENDER",
                     data: [res.data.user.male, res.data.user.female],
+                   
                     backgroundColor: [
-                        "#2a9d8f",
-                        "#e9c46a",
+                        "#d5c7bc",
+                        "#785964",
                     ],
                     borderColor: "#f4f4f4",
                     borderWidth: 2,
@@ -148,9 +207,10 @@ const AnalysisScreen = () => {
   
 
 
+    // VOTE LOCATION ANALYSIS
     useEffect(() => {
      
-        axios.get(`/api/admin/analysis/voteLocation`)
+        axios.get(`/api/analysis/voteLocation`)
         .then((res) => {
             setVoteLocation({
                 labels: Object.keys(res.data),
@@ -201,8 +261,6 @@ const AnalysisScreen = () => {
                      borderWidth: 2,
                  }]
             })
-
-            // console.log(Object.values(res.data));
         })
         .catch((err) => {
             console.log(err)
@@ -219,42 +277,44 @@ const AnalysisScreen = () => {
             <Header />
             <div className='md:ml-72 px-4'>
                 <div className='my-5'>
-                
                     <div className='grid grid-cols-1 lg:grid-cols-2 gap-4 mb-10'>
-                     
                         <div className='lg:w-96 w-full shadow rounded p-4 bg-white'>
                             <div className='mb-3 text-[#ca6702] font-medium text-3xl'>Hand</div>
                             <div className='font-medium text-2xl'>+{voteCount.hand}</div>
                         </div>
-                        
                         <div className='lg:w-96 w-full shadow rounded p-4 bg-white'>
                             <div className='mb-3 text-[#bc4749] font-medium text-3xl'>Leaf</div>
                             <div className='font-medium text-2xl'>+{voteCount.leaf}</div>
                         </div>
                     </div>
-                    
                     <div className='grid grid-cols-1 lg:grid-cols-2 gap-4 mb-10'>
-                      
+                        <div className='lg:w-96 w-full shadow rounded p-4 bg-white'>
+                            <div className='mb-3'><span className='text-[#ca6702]'>HAND</span> GENDER ANALYSIS</div>
+                            <Pie data={handGender} /> 
+                        </div>
+                        <div className='lg:w-96 w-full shadow rounded p-4 bg-white'>
+                            <div className='mb-3'><span className='text-[#bc4749]'>LEAF</span> GENDER ANALYSIS</div>
+                            <Pie data={leafGender} /> 
+                        </div>
+                    </div>
+                    <div className='grid grid-cols-1 lg:grid-cols-2 gap-4 mb-10'>
                         <div className='lg:w-96 w-full shadow rounded p-4 bg-white'>
                             <div className='mb-3'>USER GENDER ANALYSIS</div>
                             <Pie data={userGender} /> 
                         </div>
-                        
                         <div className='lg:w-96 w-full shadow rounded p-4 bg-white'>
                             <div className='mb-3'>VOTE GENDER ANALYSIS</div>
                             <Pie data={voteGender} /> 
                         </div>
                     </div>
-                    
-                      <div className='w-full shadow rounded p-4 bg-white mb-10 '>
-                            <div className='mb-3 '>USER LOCATION ANALYSIS</div>
-                            <Bar data={userLoation} /> 
-                        </div>
-                        
-                        <div className='w-full shadow rounded p-4 bg-white'>
-                            <div className='mb-3'>VOTE LOCATION ANALYSIS</div>
-                            <Bar data={voteLoation} /> 
-                        </div>
+                    <div className='w-full shadow rounded p-4 bg-white mb-10 '>
+                        <div className='mb-3 '>USER LOCATION ANALYSIS</div>
+                        <Bar data={userLoation} /> 
+                    </div>
+                    <div className='w-full shadow rounded p-4 bg-white'>
+                        <div className='mb-3'>VOTE LOCATION ANALYSIS</div>
+                        <Bar data={voteLoation} /> 
+                    </div>
                 </div>
             </div>
         </div>
