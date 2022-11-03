@@ -10,6 +10,12 @@ import Vote from '../models/voteModel.js';
 
 
 
+/**
+ * @desc    admin login
+ * @method  POST 
+ * @routes  /api/admin/login
+ * @access  private
+ */
 
 const adminLogin = asyncHandler( async (req, res) => {
 
@@ -50,6 +56,13 @@ const adminLogin = asyncHandler( async (req, res) => {
 
 
 
+/**
+ * @desc    admin profile
+ * @method  GET 
+ * @routes  /api/admin/profile
+ * @access  private
+ */
+
 const profile = asyncHandler(async (req, res) => {
 
     const user = await AdminInfo.find({ admin: req.user._id })
@@ -63,6 +76,15 @@ const profile = asyncHandler(async (req, res) => {
 })
 
 
+
+
+/**
+ * @desc    Get user list
+ * @method  GET 
+ * @routes  /api/admin/user/list
+ * @access  private
+ */
+
 const getUsersList = asyncHandler(async (req, res) => {
 
     const users = await UserInfo.find({})
@@ -70,6 +92,15 @@ const getUsersList = asyncHandler(async (req, res) => {
     res.status(200).json(users)
 })
 
+
+
+
+/**
+ * @desc    Get individual user details 
+ * @method  GET
+ * @routes  /api/admin/user/:id
+ * @access  private
+ */
 
 const getUserById = asyncHandler(async (req, res) => {
 
@@ -83,6 +114,16 @@ const getUserById = asyncHandler(async (req, res) => {
     res.status(200).json(userId)
 })
 
+
+
+
+/**
+ * @desc    Get nomination list
+ * @method  GET
+ * @routes  /api/admin/nomination/list
+ * @access  private
+ */
+
 const getNominationList = asyncHandler(async (req, res) => {
 
     const nomination = await Nomination.find({})
@@ -90,6 +131,15 @@ const getNominationList = asyncHandler(async (req, res) => {
     res.status(200).json(nomination)
 })
 
+
+
+
+/**
+ * @desc    Get individual nomination details
+ * @method  GET
+ * @routes  /api/admin/nomination/:id
+ * @access  private
+ */
 
 const getNominationById = asyncHandler(async (req, res) => {
 
@@ -105,6 +155,13 @@ const getNominationById = asyncHandler(async (req, res) => {
 
 
 
+
+/**
+ * @desc    Get individual nomination delete
+ * @method  DELETE
+ * @routes  /api/admin/nomination/del/:id
+ * @access  private
+ */
 
 const deleteNomination = asyncHandler(async (req, res) => {
 
@@ -126,6 +183,15 @@ const deleteNomination = asyncHandler(async (req, res) => {
 })
 
 
+
+
+/**
+ * @desc    Get vote list
+ * @method  GET
+ * @routes  /api/admin/vote
+ * @access  private
+ */
+
 const getUserVote = asyncHandler(async (req, res) => {
 
     const vote = await Vote.find({})
@@ -135,6 +201,13 @@ const getUserVote = asyncHandler(async (req, res) => {
 
 
 
+
+/**
+ * @desc    Get individual vote details
+ * @method  GET
+ * @routes  /api/admin/vote/:id
+ * @access  private
+ */
 
 const getUserVoteById = asyncHandler(async (req, res) => {
     
@@ -155,107 +228,6 @@ const getUserVoteById = asyncHandler(async (req, res) => {
 
 
 
-const userGenderAnalysis = asyncHandler(async (req, res) => {
-
-    const users = await UserInfo.find({});
-    
-    const male = users.filter((val) => val.gender === "male")
-    const female = users.filter((val) => val.gender === "female")
-    
-    res.status(200).json({
-        user:{
-            male: male.length,
-            female: female.length
-        }
-    })
-
-})
-
-
-const userLocationAnalysis = asyncHandler(async (req, res) => {
-
-    const users = await UserInfo.find({});
-    
-    const district = [];
-
-    users.map(val => {
-        if (typeof val.address.district === 'string') {
-            district.push(val.address.district.toLowerCase())           
-        }
-    })
-
-    const obj= {}
-       
-    for (let i = 0; i < district.length; i++){
-       if(obj[district[i]] === undefined){
-          obj[district[i]] = 1;
-       }else{
-          obj[district[i]]++;
-       }
-    }
-
-    res.status(200).json(obj)
-})
-
-
-const voteCountAnalysis = asyncHandler(async (req, res) => {
-    const vote = await Vote.find({})
-
-    const hand = vote.filter((val) => val.vote.toLowerCase() === "hand")
-    const leaf = vote.filter((val) => val.vote.toLowerCase() === "leaf")
-    
-    res.status(200).json({
-        vote:{
-            hand: hand.length,
-            leaf: leaf.length
-        }
-    })
-    
-})
-
-
-const voteGenderAnalysis = asyncHandler(async (req, res) => {
-    const vote = await Vote.find({})
-
-    const male = vote.filter((val) => val.gender === "male")
-    const female = vote.filter((val) => val.gender === "female")
-    
-    res.status(200).json({
-        user:{
-            male: male.length,
-            female: female.length
-        }
-    })
-})
-
-
-const voteLocationAnalysis = asyncHandler(async (req, res) => {
-    const vote = await Vote.find({})
- 
-    const district = [];
-
-    vote.map(val => {
-        if (typeof val.location === 'string') {
-            district.push(val.location.toLowerCase())           
-        }
-    })
-
-    const obj= {}
-       
-    for (let i = 0; i < district.length; i++){
-       if(obj[district[i]] === undefined){
-          obj[district[i]] = 1;
-       }else{
-          obj[district[i]]++;
-       }
-    }
-
-    res.status(200).json(obj)
-    
-    
-})
-
-
 export {
     adminLogin,
     profile,
@@ -266,9 +238,4 @@ export {
     deleteNomination,
     getUserVote,
     getUserVoteById,
-    userGenderAnalysis,
-    userLocationAnalysis,
-    voteGenderAnalysis,
-    voteLocationAnalysis,
-    voteCountAnalysis
 };
