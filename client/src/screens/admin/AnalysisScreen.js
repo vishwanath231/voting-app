@@ -5,29 +5,39 @@ import SideBar from './components/SideBar';
 import axios from 'axios';
 import { Bar, Pie, Doughnut, Line } from "react-chartjs-2";
 import { Chart as ChartJS } from "chart.js/auto";
+import Loader from '../../components/Loader';
 
 
 
 const AnalysisScreen = () => {
 
     const [handGender, setHandGender] = useState({datasets: [{}]});
-    const [leafGender, setLeafGender] = useState({datasets: [{}]});
+    const [handGenderLoader, setHandGenderLoader] = useState(false);
 
+    const [leafGender, setLeafGender] = useState({datasets: [{}]});
+    const [leafGenderLoader, setLeafGenderLoader] = useState(false);
+    
     const [userGender, setUserGender] = useState({datasets: [{}]});
+    const [userGenderLoader, setUserGenderLoader] = useState(false);
 
     const [userLoation, setUserLocation] = useState({datasets: [{}]});
+    const [userLoationLoader, setUserLocationLoader] = useState(false);
     
     const [voteGender, setVoteGender] = useState({datasets: [{}]});
+    const [voteGenderLoader, setVoteGenderLoader] = useState(false);
 
     const [voteLoation, setVoteLocation] = useState({datasets: [{}]});
+    const [voteLoationLoader, setVoteLocationLoader] = useState(false);
     
     const [voteCount, setVoteCount] = useState({});
+    const [voteCountLoader, setVoteCountLoader] = useState(false);
    
 
     // VOTE ANALYSIS
     useEffect(() => {
         axios.get(`/api/analysis/voteCount`)
         .then((res) => {
+            setVoteCountLoader(true)
             setVoteCount(res.data.vote)
         })
         .catch((err) => {
@@ -42,6 +52,7 @@ const AnalysisScreen = () => {
      
         axios.get(`/api/analysis/handGender`)
         .then((res) => {
+            setHandGenderLoader(true)
             setHandGender({
                 labels: ['MALE', 'FEMALE'],
                 datasets:[{
@@ -68,6 +79,7 @@ const AnalysisScreen = () => {
      
         axios.get(`/api/analysis/leafGender`)
         .then((res) => {
+            setLeafGenderLoader(true)
             setLeafGender({
                 labels: ['MALE', 'FEMALE'],
                 datasets:[{
@@ -94,6 +106,7 @@ const AnalysisScreen = () => {
      
         axios.get(`/api/analysis/userGender`)
         .then((res) => {
+            setUserGenderLoader(true)
             setUserGender({
                 labels: ['MALE', 'FEMALE'],
                 datasets:[{
@@ -121,6 +134,7 @@ const AnalysisScreen = () => {
      
         axios.get(`/api/analysis/userLocation`)
         .then((res) => {
+            setUserLocationLoader(true)
             setUserLocation({
                 labels: Object.keys(res.data),
                 datasets:[{
@@ -185,6 +199,7 @@ const AnalysisScreen = () => {
      
         axios.get(`/api/analysis/voteGender`)
         .then((res) => {
+            setVoteGenderLoader(true)
             setVoteGender({
                 labels: ['MALE', 'FEMALE'],
                 datasets:[{
@@ -213,6 +228,7 @@ const AnalysisScreen = () => {
      
         axios.get(`/api/analysis/voteLocation`)
         .then((res) => {
+            setVoteLocationLoader(true)
             setVoteLocation({
                 labels: Object.keys(res.data),
                 datasets:[{
@@ -281,40 +297,40 @@ const AnalysisScreen = () => {
                     <div className='grid grid-cols-1 lg:grid-cols-2 gap-4 mb-10'>
                         <div className='lg:w-96 w-full shadow rounded p-4 bg-white'>
                             <div className='mb-3 text-[#ca6702] font-medium text-3xl'>Hand</div>
-                            <div className='font-medium text-2xl'>+{voteCount.hand}</div>
+                            { voteCountLoader ? <div className='font-medium text-2xl'>+{voteCount.hand}</div> : <Loader /> }
                         </div>
                         <div className='lg:w-96 w-full shadow rounded p-4 bg-white'>
                             <div className='mb-3 text-[#bc4749] font-medium text-3xl'>Leaf</div>
-                            <div className='font-medium text-2xl'>+{voteCount.leaf}</div>
+                            { voteCountLoader ? <div className='font-medium text-2xl'>+{voteCount.leaf}</div> : <Loader /> }
                         </div>
                     </div>
                     <div className='grid grid-cols-1 lg:grid-cols-2 gap-4 mb-10'>
                         <div className='lg:w-96 w-full shadow rounded p-4 bg-white'>
                             <div className='mb-3'><span className='text-[#ca6702]'>HAND</span> GENDER ANALYSIS</div>
-                            <Doughnut data={handGender} /> 
+                            { handGenderLoader ? <Doughnut data={handGender} /> : <Loader /> } 
                         </div>
                         <div className='lg:w-96 w-full shadow rounded p-4 bg-white'>
                             <div className='mb-3'><span className='text-[#bc4749]'>LEAF</span> GENDER ANALYSIS</div>
-                            <Pie data={leafGender} /> 
+                            { leafGenderLoader ? <Pie data={leafGender} /> : <Loader /> } 
                         </div>
                     </div>
                     <div className='grid grid-cols-1 lg:grid-cols-2 gap-4 mb-10'>
                         <div className='lg:w-96 w-full shadow rounded p-4 bg-white'>
                             <div className='mb-3'>USER GENDER ANALYSIS</div>
-                            <Pie data={userGender} /> 
+                            { userGenderLoader ? <Pie data={userGender} />  : <Loader />  }
                         </div>
                         <div className='lg:w-96 w-full shadow rounded p-4 bg-white'>
                             <div className='mb-3'>VOTE GENDER ANALYSIS</div>
-                            <Doughnut data={voteGender} /> 
+                            { voteGenderLoader ? <Doughnut data={voteGender} /> : <Loader /> } 
                         </div>
                     </div>
                     <div className='w-full shadow rounded p-4 bg-white mb-10 '>
                         <div className='mb-3 '>USER LOCATION ANALYSIS</div>
-                        <Line data={userLoation} /> 
+                        { userLoationLoader ? <Line data={userLoation} /> : <Loader /> } 
                     </div>
                     <div className='w-full shadow rounded p-4 bg-white'>
                         <div className='mb-3'>VOTE LOCATION ANALYSIS</div>
-                        <Bar data={voteLoation} /> 
+                        { voteLoationLoader ? <Bar data={voteLoation} /> : <Loader /> } 
                     </div>
                 </div>
             </div>
