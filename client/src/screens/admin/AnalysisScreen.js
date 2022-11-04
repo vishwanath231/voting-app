@@ -3,7 +3,7 @@ import Header from './components/Header';
 import MobileNav from './components/MobileNav';
 import SideBar from './components/SideBar';
 import axios from 'axios';
-import { Bar, Pie } from "react-chartjs-2";
+import { Bar, Pie, Doughnut, Line } from "react-chartjs-2";
 import { Chart as ChartJS } from "chart.js/auto";
 
 
@@ -126,7 +126,9 @@ const AnalysisScreen = () => {
                 datasets:[{
                     label: "USER LOCATION",
                      data: Object.values(res.data),
+                     fill: false,
                      backgroundColor: [
+                        "#f7f7f7",
                         "#264653",
                         "#2a9d8f",
                         "#e9c46a",
@@ -166,9 +168,8 @@ const AnalysisScreen = () => {
                         "#d8572a",
                         "#c32f27",
                      ],
-                     borderColor: "#f4f4f4",
-                     borderWidth: 2,
-                 }]
+                     
+                }]
             })
         })
         .catch((err) => {
@@ -218,7 +219,7 @@ const AnalysisScreen = () => {
                     label: "VOTE LOCATION",
                      data: Object.values(res.data),
                      backgroundColor: [
-                         "#264653",
+                        "#264653",
                         "#2a9d8f",
                         "#e9c46a",
                         "#f4a261",
@@ -290,7 +291,7 @@ const AnalysisScreen = () => {
                     <div className='grid grid-cols-1 lg:grid-cols-2 gap-4 mb-10'>
                         <div className='lg:w-96 w-full shadow rounded p-4 bg-white'>
                             <div className='mb-3'><span className='text-[#ca6702]'>HAND</span> GENDER ANALYSIS</div>
-                            <Pie data={handGender} /> 
+                            <Doughnut data={handGender} /> 
                         </div>
                         <div className='lg:w-96 w-full shadow rounded p-4 bg-white'>
                             <div className='mb-3'><span className='text-[#bc4749]'>LEAF</span> GENDER ANALYSIS</div>
@@ -304,12 +305,12 @@ const AnalysisScreen = () => {
                         </div>
                         <div className='lg:w-96 w-full shadow rounded p-4 bg-white'>
                             <div className='mb-3'>VOTE GENDER ANALYSIS</div>
-                            <Pie data={voteGender} /> 
+                            <Doughnut data={voteGender} /> 
                         </div>
                     </div>
                     <div className='w-full shadow rounded p-4 bg-white mb-10 '>
                         <div className='mb-3 '>USER LOCATION ANALYSIS</div>
-                        <Bar data={userLoation} /> 
+                        <Line data={userLoation} /> 
                     </div>
                     <div className='w-full shadow rounded p-4 bg-white'>
                         <div className='mb-3'>VOTE LOCATION ANALYSIS</div>
