@@ -42,20 +42,15 @@ const UserDetailsScreen = ({ userDetails, getUserDetails }) => {
                                             </div>
                                             <div className=''>
                                                 { user?.birth_date && <div className='py-1'><span className='font-bold text-[#34508D]'>BIRTH DATE :</span> { user?.birth_date }</div> }
-                                                { user?.blood_group && <div className='py-1'><span className='font-bold text-[#34508D]'>BLOOD GROUP :</span> { user?.blood_group }</div> }
                                                 { user?.community && <div className='py-1'><span className='font-bold text-[#34508D]'>COMMUNITY :</span> { user?.community }</div> }
                                                 { user?.gender && <div className='py-1'><span className='font-bold text-[#34508D]'>GENDER :</span> { user?.gender }</div> }
-                                                { user?.parent_name && <div className='py-1'><span className='font-bold text-[#34508D]'>PARENT NAME :</span> { user?.parent_name }</div> }
                                             </div>
                                         </div>
                                     </div>
                                     <div className='w-full p-4 bg-white shadow-md rounded'>
                                         <div className='uppercase mb-4 px-4 text-xl text-[#dc143c] font-bold'>location details</div>
                                         <div className='p-4'>
-                                            { user?.address?.street && <div className='py-1'><span className='font-bold text-[#34508D]'>STREET :</span> { user?.address?.street }</div> }
                                             { user?.address?.city && <div className='py-1'><span className='font-bold text-[#34508D]'>CITY :</span> { user?.address?.city }</div> }
-                                            { user?.address?.post && <div className='py-1'><span className='font-bold text-[#34508D]'>POST :</span> { user?.address?.post }</div> } 
-                                            { user?.address?.taluk && <div className='py-1'><span className='font-bold text-[#34508D]'>TALUK :</span> { user?.address?.taluk }</div> }
                                             { user?.address?.district && <div className='py-1'><span className='font-bold text-[#34508D]'>DISTRICT :</span> { user?.address?.district }</div> }
                                             { user?.address?.pincode && <div className='py-1'><span className='font-bold text-[#34508D]'>PINCODE :</span> { user?.address?.pincode }</div> }
                                         </div>
