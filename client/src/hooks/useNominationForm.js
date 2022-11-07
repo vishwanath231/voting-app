@@ -22,8 +22,6 @@ const useNominationForm = () => {
         birth_date: '',
         parent_name: '',
         community: '',
-        door_no: '',
-        street: '',
         city: '',
         taluk: '',
         post: '',
@@ -169,11 +167,7 @@ const useNominationForm = () => {
         
         var code = /^[1-9]{1}[0-9]{5}$/;
         
-        if(!values.door_no){
-            error.door_no = "Door number is required!"
-        }else if (!values.street) {
-            error.street = "Street is required!" 
-        }else if (!values.city) {
+        if (!values.city) {
             error.city = "City is required!"
         }else if (!values.taluk) {
             error.taluk = "Taluk is required!"
@@ -220,8 +214,6 @@ const useNominationForm = () => {
                 formData.append('birth_date', values.birth_date);
                 formData.append('community', values.community);
                 formData.append('parent_name', values.parent_name);
-                formData.append('door_no', values.door_no);
-                formData.append('street', values.street);
                 formData.append('city', values.city);
                 formData.append('taluk', values.taluk);
                 formData.append('post', values.post);
