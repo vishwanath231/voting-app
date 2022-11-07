@@ -52,6 +52,7 @@ const VoteListScreen = ({ getVoteList, voteList }) => {
         { label: "User ID", key: "user" },
         { label: "Reg No", key: "reg_no" },
         { label: "Gender", key: "gender" },
+        { label: "Community", key: "community" },
         { label: "Location", key: "location" },
         { label: "Vote", key: "vote" },
         { label: "CreatedAt", key: "createdAt" },
