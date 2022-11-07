@@ -46,7 +46,7 @@ router.post('/nomination/add',
 
             const nomination = new Nomination({
                 profile: result1.url,
-                reg_no: req.body.reg_no,
+                reg_no: req.body.reg_no.toLowerCase(),
                 name: req.body.name,
                 email: req.body.email,
                 phone_no: Number(req.body.phone_no),
@@ -55,8 +55,6 @@ router.post('/nomination/add',
                 parent_name: req.body.parent_name,
                 community: req.body.community,
                 address: {
-                    door_no: req.body.door_no,
-                    street: req.body.street,
                     city: req.body.city,
                     taluk: req.body.taluk,
                     post: req.body.post,
