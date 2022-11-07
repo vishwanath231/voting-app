@@ -30,7 +30,6 @@ const VoteDetailsScreen = ({ getVoteDetails, voteDetails }) => {
                             <>
                                { vote?.user?.name && <div className='text-center my-10 text-2xl font-medium uppercase'>{ vote?.user?.name }</div> }
                                 
-
                                 <div className='grid lg:grid-cols-3 grid-cols-1 lg:gap-x-4 gap-y-4'>
                                     <div className='w-full p-4 bg-white shadow-md rounded'>
                                         <div className='uppercase mb-4 px-4 text-xl text-[#dc143c] font-bold'>Vote details</div>
