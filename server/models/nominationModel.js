@@ -39,14 +39,6 @@ const nominationSchema = new Schema({
         required: true
     },
     address: {
-        door_no: {
-            type: String,
-            required: true
-        },
-        street: {
-            type: String,
-            required: true
-        },
         city: {
             type: String,
             required: true
