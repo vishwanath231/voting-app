@@ -34,7 +34,7 @@ const NominationListScreen = ({ getUserViewNominationList, userViewNominationLis
                         <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
                         
                             {nominations.map((val) => (
-                                 <Link to={`/user/nomination/${val._id}`} className='flex justify-center items-center flex-col' keys={val._id}>
+                                 <Link to={`/user/nomination/${val._id}`} className='flex justify-center items-center flex-col' key={val._id}>
                                     <div className='bg-white shadow p-4 rounded-md shadow-white'>
                                         <div className='w-60 h-60'>
                                             <img src={val.profile} className='w-full h-full object-cover' alt='nomination profile' />
