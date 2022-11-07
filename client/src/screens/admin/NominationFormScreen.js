@@ -284,30 +284,6 @@ const StepFour = ({ stepFourCheck, prevStep, handleChange, values, errors  }) =>
     return (
         <React.Fragment>
             <div className='w-full mb-4'>
-                <label htmlFor="door_no" className="block mb-2 text-sm font-medium text-gray-900">Door No <span className='text-red-500 text-base'>*</span></label>
-                <input
-                    type='text'
-                    name='door_no'
-                    id='door_no'
-                    onChange={handleChange}
-                    value={values.door_no}
-                    className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                />
-                {errors.door_no && <div className="text-red-500 my-1">{errors.door_no}</div>}
-            </div>
-            <div className='w-full mb-4'>
-                <label htmlFor="street" className="block mb-2 text-sm font-medium text-gray-900">Street <span className='text-red-500 text-base'>*</span></label>
-                <input
-                    type='text'
-                    name='street'
-                    id='street'
-                    onChange={handleChange}
-                    value={values.street}
-                    className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                />
-                {errors.street && <div className="text-red-500 my-1">{errors.street}</div>}
-            </div>
-            <div className='w-full mb-4'>
                 <label htmlFor="city" className="block mb-2 text-sm font-medium text-gray-900">City <span className='text-red-500 text-base'>*</span></label>
                 <input
                     type='text'
