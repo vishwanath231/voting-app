@@ -53,7 +53,6 @@ const VoteDetailsScreen = ({ getVoteDetails, voteDetails }) => {
                                             </div>
                                             <div className=''>
                                                 { vote?.user?.birth_date && <div className='py-1'><span className='font-bold text-[#34508D]'>BIRTH DATE :</span> { vote?.user?.birth_date }</div> }
-                                                { vote?.user?.blood_group && <div className='py-1'><span className='font-bold text-[#34508D]'>BLOOD GROUP :</span> { vote?.user?.blood_group }</div> }
                                                 { vote?.user?.community && <div className='py-1'><span className='font-bold text-[#34508D]'>COMMUNITY :</span> { vote?.user?.community }</div> }
                                                 { vote?.user?.gender && <div className='py-1'><span className='font-bold text-[#34508D]'>GENDER :</span> { vote?.user?.gender }</div> }
                                                 { vote?.user?.parent_name && <div className='py-1'><span className='font-bold text-[#34508D]'>PARENT NAME :</span> { vote?.user?.parent_name }</div> }
@@ -63,10 +62,7 @@ const VoteDetailsScreen = ({ getVoteDetails, voteDetails }) => {
                                     <div className='w-full p-4 bg-white shadow-md rounded'>
                                         <div className='uppercase mb-4 px-4 text-xl text-[#dc143c] font-bold'>location details</div>
                                         <div className='p-4'>
-                                            { vote?.user?.address?.street && <div className='py-1'><span className='font-bold text-[#34508D]'>STREET :</span> { vote?.user?.address?.street }</div> }
                                             { vote?.user?.address?.city && <div className='py-1'><span className='font-bold text-[#34508D]'>CITY :</span> { vote?.user?.address?.city }</div> }
-                                            { vote?.user?.address?.post && <div className='py-1'><span className='font-bold text-[#34508D]'>POST :</span> { vote?.user?.address?.post }</div> } 
-                                            { vote?.user?.address?.taluk && <div className='py-1'><span className='font-bold text-[#34508D]'>TALUK :</span> { vote?.user?.address?.taluk }</div> }
                                             { vote?.user?.address?.district && <div className='py-1'><span className='font-bold text-[#34508D]'>DISTRICT :</span> { vote?.user?.address?.district }</div> }
                                             { vote?.user?.address?.pincode && <div className='py-1'><span className='font-bold text-[#34508D]'>PINCODE :</span> { vote?.user?.address?.pincode }</div> }
                                         </div>
