@@ -15,6 +15,8 @@ import Admin from './models/auth/adminModel.js';
 import UserInfo from './models/info/userInfoModel.js';
 import AdminInfo from './models/info/adminInfoModel.js';
 import Nomination from './models/nominationModel.js';
+import Vote from './models/voteModel.js';
+
 
 // confirguration environment
 dotenv.config()
@@ -33,18 +35,21 @@ const importData = async () => {
         await Admin.deleteMany();
         await UserInfo.deleteMany();
         await AdminInfo.deleteMany();
+        await Vote.deleteMany();
+        await Nomination.deleteMany()
 
+        // insert user login data in a database
         // insert user login data in a database
         const userLogin = await User.insertMany(userLoginData)
 
         // insert user information in a databse
         const userInfoArr = [...userInfoData]
-
-        for (let i = 0; i < userLogin.length; i++) {
-            
+        
+        for (let i = 0; i < userInfoData.length; i++) {
+    
             userInfoArr.push(userInfoData[i].user = userLogin[i]._id)
         }
-
+ 
         // remove same id in user_info collection
         userInfoArr.forEach((val) => {
             if (val.user === val.user) {
@@ -54,10 +59,10 @@ const importData = async () => {
 
         await UserInfo.insertMany(userInfoArr);
 
-        // insert admin login data in a database
+        // //insert admin login data in a database
         const adminLogin = await Admin.insertMany(adminLoginData)
 
-        // insert admin information in a database
+        // //insert admin information in a database
         const adminInfoObj = {...adminInfoData, admin: adminLogin[0]._id}
 
         await AdminInfo.create(adminInfoObj)
@@ -86,6 +91,8 @@ const destroyData = async () => {
         await Admin.deleteMany();
         await UserInfo.deleteMany();
         await AdminInfo.deleteMany();
+        await Vote.deleteMany();
+        await Nomination.deleteMany()
 
         console.log(`Data destroyed...!`.bgGreen);
 
@@ -104,6 +111,3 @@ if (process.argv[2] === '-d') {
 }else{
     importData() // npm run data:import
 }
-
-
-
