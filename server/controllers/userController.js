@@ -313,7 +313,7 @@ const getNominationById = asyncHandler(async (req, res) => {
 
 const userVote = asyncHandler(async (req, res) => {
 
-    const { id, reg_no, gender, location, vote } = req.body;
+    const { id, reg_no, gender, community, location, vote } = req.body;
     
     if(!vote){
        res.status(400)
@@ -331,6 +331,7 @@ const userVote = asyncHandler(async (req, res) => {
         user: id,
         reg_no: reg_no,
         gender: gender,
+        community: community,
         location: location,
         vote: vote
     })
