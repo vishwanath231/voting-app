@@ -17,6 +17,7 @@ const VoteFormScreen = ({ auth, userVote, getUserViewNominationList, userViewNom
         id: '',
         reg_no: '',
         gender: '',
+        community: '',
         location: '',
         vote: ''
     })
@@ -30,12 +31,13 @@ const VoteFormScreen = ({ auth, userVote, getUserViewNominationList, userViewNom
     useEffect(() => {
         if (info) {
             info.map((val) => {
-               return setVoteData({
-                   id: val?._id,
-                   reg_no: val?.reg_no?.toLowerCase(),
-                   gender: val?.gender,
-                   location: val?.address?.district
-              })
+                return setVoteData({
+                    id: val?._id,
+                    reg_no: val?.reg_no?.toLowerCase(),
+                    gender: val?.gender,
+                    community: val?.community,
+                    location: val?.address?.district
+                })
            })
         }
         
