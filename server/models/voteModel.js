@@ -14,6 +14,10 @@ const votingSchema = new Schema({
        type: String,
        required: true
     },
+    community: {
+        type: String,
+        required: true
+    },
     location:{
        type: String,
        required: true
