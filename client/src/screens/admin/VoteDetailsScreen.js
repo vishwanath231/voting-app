@@ -31,7 +31,7 @@ const VoteDetailsScreen = ({ getVoteDetails, voteDetails }) => {
                                { vote?.user?.name && <div className='text-center my-10 text-2xl font-medium uppercase'>{ vote?.user?.name }</div> }
                                 
                                 <div className='grid lg:grid-cols-3 grid-cols-1 lg:gap-x-4 gap-y-4'>
-                                    <div className='w-full p-4 bg-white shadow-md rounded'>
+                                    <div className='w-full p-4 bg-white shadow rounded'>
                                         <div className='uppercase mb-4 px-4 text-xl text-[#dc143c] font-bold'>Vote details</div>
                                         <div className='p-4'>
                                             { vote?.vote?._id && <div className='py-1'><span className='font-bold text-[#34508D]'>ID :</span> { vote?.vote?._id }</div>} 
@@ -40,7 +40,7 @@ const VoteDetailsScreen = ({ getVoteDetails, voteDetails }) => {
                                             { vote?.vote?.createdAt && <div className='py-1'><span className='font-bold text-[#34508D]'>TIME :</span> { vote?.vote?.createdAt }</div> }
                                         </div>
                                     </div>
-                                    <div className='col-span-2 p-4 bg-white shadow-md rounded'>
+                                    <div className='col-span-2 p-4 bg-white shadow rounded'>
                                         <div className='uppercase mb-4 px-4 text-xl text-[#dc143c] font-bold'>peronal details</div>
                                         <div className='grid lg:grid-cols-2 grid-cols-1 p-4 lg:gap-x-4'>
                                             <div className=''>
@@ -58,7 +58,7 @@ const VoteDetailsScreen = ({ getVoteDetails, voteDetails }) => {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className='w-full p-4 bg-white shadow-md rounded'>
+                                    <div className='w-full p-4 bg-white shadow rounded'>
                                         <div className='uppercase mb-4 px-4 text-xl text-[#dc143c] font-bold'>location details</div>
                                         <div className='p-4'>
                                             { vote?.user?.address?.city && <div className='py-1'><span className='font-bold text-[#34508D]'>CITY :</span> { vote?.user?.address?.city }</div> }

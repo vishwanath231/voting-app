@@ -41,7 +41,7 @@ const UNominationListScreen = ({ getUserViewNominationDetails, userViewNominatio
                                 {user?.name && <div className=' my-4 text-center text-xl md:text-3xl'>{ user?.name }</div> }
                             </div>
                             <div className='grid lg:grid-cols-3 grid-cols-1 lg:gap-x-4 gap-y-4'>
-                                <div className='w-full p-4 bg-white shadow-md rounded'>
+                                <div className='w-full p-4 bg-white shadow rounded'>
                                     <div className='uppercase mb-4 px-4 text-xl text-[#dc143c] font-bold'>Party details</div>
                                     <div className='p-4 text-center'>
                                         <div className='flex justify-center items-center'>
@@ -50,7 +50,7 @@ const UNominationListScreen = ({ getUserViewNominationDetails, userViewNominatio
                                         {user?.party_name && <div className='mt-5'><span className='font-bold text-[#34508D]'>PARTY NAME :</span> { user?.party_name}</div> }
                                     </div>
                                 </div>
-                                <div className='col-span-2 p-4 bg-white shadow-md rounded'>
+                                <div className='col-span-2 p-4 bg-white shadow rounded'>
                                     <div className='uppercase mb-4 px-4 text-xl text-[#dc143c] font-bold'>peronal details</div>
                                     <div className='grid lg:grid-cols-2 grid-cols-1 p-4 lg:gap-x-4'>
                                         <div>
@@ -68,7 +68,7 @@ const UNominationListScreen = ({ getUserViewNominationDetails, userViewNominatio
                                         </div>
                                     </div>
                                 </div>
-                                <div className='w-full p-4 bg-white shadow-md rounded'>
+                                <div className='w-full p-4 bg-white shadow rounded'>
                                     <div className='uppercase mb-4 px-4 text-xl text-[#dc143c] font-bold'>location details</div>
                                     <div className='p-4'>
                                         {user?.address?.city && <div className='py-1'><span className='font-bold text-[#34508D]'>CITY :</span> {user?.address?.city }</div> }
