@@ -73,8 +73,8 @@ const VerifyOtpScreen = ({ verifyOtp, userVerifyOTP, logout }) => {
         }
     }
 
-    const [ minutes, setMinutes ] = useState(0);
-    const [seconds, setSeconds ] =  useState(5);
+    const [ minutes, setMinutes ] = useState(2);
+    const [seconds, setSeconds ] =  useState(0);
 
 
     useEffect(()=>{
