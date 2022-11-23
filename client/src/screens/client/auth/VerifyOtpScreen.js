@@ -73,8 +73,8 @@ const VerifyOtpScreen = ({ verifyOtp, userVerifyOTP, logout }) => {
         }
     }
 
-    const [ minutes, setMinutes ] = useState(2);
-    const [seconds, setSeconds ] =  useState(0);
+    const [ minutes, setMinutes ] = useState(0);
+    const [seconds, setSeconds ] =  useState(5);
 
 
     useEffect(()=>{
@@ -100,10 +100,9 @@ const VerifyOtpScreen = ({ verifyOtp, userVerifyOTP, logout }) => {
         };
     });
 
-
     const HandlerResendOtp = () => {
         localStorage.removeItem('userPin')
-        document.location.href = '/generate';
+        window.location.reload(false);
     }
 
     return (
