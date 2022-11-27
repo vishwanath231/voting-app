@@ -19,7 +19,22 @@ import {
     VOTE_LIST_FAIL,
     VOTE_DETAILS_REQUEST,
     VOTE_DETAILS_SUCCESS,
-    VOTE_DETAILS_FAIL
+    VOTE_DETAILS_FAIL,
+    USER_CONTACT_LIST_REQUEST,
+    USER_CONTACT_LIST_SUCCESS,
+    USER_CONTACT_LIST_FAIL,
+    USER_CONTACT_DETAILS_REQUEST,
+    USER_CONTACT_DETAILS_SUCCESS,
+    USER_CONTACT_DETAILS_FAIL,
+    USER_CONTACT_DELETE_REQUEST,
+    USER_CONTACT_DELETE_SUCCESS,
+    USER_CONTACT_DELETE_FAIL,
+    ADMIN_LIST_REQUEST,
+    ADMIN_LIST_SUCCESS,
+    ADMIN_LIST_FAIL,
+    ADMIN_DETAILS_REQUEST,
+    ADMIN_DETAILS_SUCCESS,
+    ADMIN_DETAILS_FAIL
 } from '../constants/adminConstants';
 import axios from 'axios';
 
@@ -285,6 +300,194 @@ export const getVoteDetails = (id) => async (dispatch, getState) => {
         
         dispatch({
             type: VOTE_DETAILS_FAIL,
+            payload: resErr
+        }) 
+    }
+}
+
+
+
+
+export const getContactList = () => async (dispatch, getState) => {
+
+    try {
+        
+        dispatch({
+            type: USER_CONTACT_LIST_REQUEST
+        })
+
+        const { adminLoginInfo: { info:adminInfo } } = getState();
+
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization : `Bearer ${adminInfo.token}`
+            }
+        }
+
+        const { data } = await axios.get(`/api/admin/contact`, config)
+
+        dispatch({
+            type: USER_CONTACT_LIST_SUCCESS,
+            payload: data
+        })
+
+    } catch (error) {
+
+        const resErr =  error.response && error.response.data.message ? error.response.data.message : error.message
+        
+        dispatch({
+            type: USER_CONTACT_LIST_FAIL,
+            payload: resErr
+        }) 
+    }
+}
+
+
+export const getContactDetails = (id) => async (dispatch, getState) => {
+
+    try {
+        
+        dispatch({
+            type: USER_CONTACT_DETAILS_REQUEST
+        })
+
+        const { adminLoginInfo: { info:adminInfo } } = getState();
+
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization : `Bearer ${adminInfo.token}`
+            }
+        }
+
+        const { data } = await axios.get(`/api/admin/contact/${id}`, config)
+
+        dispatch({
+            type: USER_CONTACT_DETAILS_SUCCESS,
+            payload: data
+        })
+
+    } catch (error) {
+
+        const resErr =  error.response && error.response.data.message ? error.response.data.message : error.message
+        
+        dispatch({
+            type: USER_CONTACT_DETAILS_FAIL,
+            payload: resErr
+        }) 
+    }
+}
+
+
+
+export const deleteContact = (id) => async (dispatch, getState) => {
+
+    try {
+        
+        dispatch({
+            type: USER_CONTACT_DELETE_REQUEST
+        })
+
+        const { adminLoginInfo: { info:adminInfo } } = getState();
+
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization : `Bearer ${adminInfo.token}`
+            }
+        }
+
+        await axios.delete(`/api/admin/contact/del/${id}`, config)
+
+        dispatch({
+            type: USER_CONTACT_DELETE_SUCCESS,
+        })
+
+    } catch (error) {
+
+        const resErr =  error.response && error.response.data.message ? error.response.data.message : error.message
+        
+        dispatch({
+            type: USER_CONTACT_DELETE_FAIL,
+            payload: resErr
+        }) 
+    }
+}
+
+
+
+export const getAdminList = () => async (dispatch, getState) => {
+
+    try {
+        
+        dispatch({
+            type: ADMIN_LIST_REQUEST
+        })
+
+        const { adminLoginInfo: { info:adminInfo } } = getState();
+
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization : `Bearer ${adminInfo.token}`
+            }
+        }
+
+        const { data } = await axios.get(`/api/admin/all`, config)
+
+        dispatch({
+            type: ADMIN_LIST_SUCCESS,
+            payload: data
+        })
+
+    } catch (error) {
+
+        const resErr =  error.response && error.response.data.message ? error.response.data.message : error.message
+        
+        dispatch({
+            type: ADMIN_LIST_FAIL,
+            payload: resErr
+        }) 
+    }
+}
+
+
+export const getAdminDetails = (id) => async (dispatch, getState) => {
+
+    try {
+        
+        dispatch({
+            type: ADMIN_DETAILS_REQUEST
+        })
+
+        const { adminLoginInfo: { info:adminInfo } } = getState();
+
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization : `Bearer ${adminInfo.token}`
+            }
+        }
+
+        const { data } = await axios.get(`/api/admin/all/${id}`, config)
+
+        dispatch({
+            type: ADMIN_DETAILS_SUCCESS,
+            payload: data
+        })
+
+    } catch (error) {
+
+        const resErr =  error.response && error.response.data.message ? error.response.data.message : error.message
+        
+        dispatch({
+            type: ADMIN_DETAILS_FAIL,
             payload: resErr
         }) 
     }
