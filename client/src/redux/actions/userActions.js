@@ -1,4 +1,7 @@
 import {
+    USER_CONTACT_FAIL,
+    USER_CONTACT_REQUEST,
+    USER_CONTACT_SUCCESS,
     USER_VIEW_NOMINATION_DETAILS_FAIL, 
     USER_VIEW_NOMINATION_DETAILS_REQUEST, 
     USER_VIEW_NOMINATION_DETAILS_SUCCESS, 
@@ -118,6 +121,45 @@ export const userVote = (voteData) => async (dispatch, getState) => {
         
         dispatch({
             type: VOTE_FAIL,
+            payload: resErr
+        })
+    }
+
+}
+
+
+
+export const userContacts = (contactData) => async (dispatch, getState) => {
+    
+    try {
+        
+        dispatch({
+            type: USER_CONTACT_REQUEST
+        })
+
+        const { verifyOtp: { info } } = getState();
+
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization : `Bearer ${info}`
+            }
+        }
+
+        const { data } = await axios.post('/api/users/contact', contactData, config)
+
+        dispatch({
+            type: USER_CONTACT_SUCCESS,
+            payload: data
+        })
+
+    } catch (error) {
+        
+        const resErr =  error.response && error.response.data.message ? error.response.data.message : error.message
+        
+        dispatch({
+            type: USER_CONTACT_FAIL,
             payload: resErr
         })
     }
