@@ -11,12 +11,13 @@ import VoteGif from '../../assets/gif/vote.gif';
 import MessageGif from '../../assets/gif/message.gif';
 import { connect } from 'react-redux';
 import Loader from '../../components/Loader';
+import { logout } from '../../redux/actions/authActions';
 import { getUserList, getNominationList, getVoteList, getContactList } from '../../redux/actions/adminActions';
+import Message from '../../components/Message';
 
+const DashboardScreen = ({ getUserList, getNominationList, userList, nominationList, getVoteList, voteList, getContactList, contactList, logout }) => {
 
-const DashboardScreen = ({ getUserList, getNominationList, userList, nominationList, getVoteList, voteList, getContactList, contactList }) => {
-
-    const {loading:userLoading, users } = userList;
+    const {loading:userLoading, users, error } = userList;
     const {loading:nominationLoading, nominations } = nominationList;
     const {loading:voteLoading, votes } = voteList;
     const {loading:contactLoading, contacts } = contactList;
@@ -27,6 +28,7 @@ const DashboardScreen = ({ getUserList, getNominationList, userList, nominationL
         getNominationList()   
         getVoteList()
         getContactList()
+
     }, [getUserList, getNominationList, getVoteList, getContactList])
     
 
@@ -36,6 +38,7 @@ const DashboardScreen = ({ getUserList, getNominationList, userList, nominationL
             <MobileNav />
             <Header />
             <div className='md:ml-72 px-4'>
+            { error && <Message error msg={error} /> }
                 <div className='mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
                     <Link to='/admin/userList' className='flex bg-white items-center shadow p-4 rounded hover:shadow-xl'>
                         <div className='p-4 rounded mr-6' style={{ background: 'linear-gradient(90deg, hsla(18, 76%, 85%, 1) 0%, hsla(203, 69%, 84%, 1) 100%)'  }}>
@@ -107,4 +110,4 @@ const mapStateToProps = (state) => ({
 
 })
 
-export default connect(mapStateToProps, { getUserList, getNominationList, getVoteList, getContactList })(DashboardScreen);
+export default connect(mapStateToProps, { getUserList, getNominationList, getVoteList, getContactList, logout })(DashboardScreen);
