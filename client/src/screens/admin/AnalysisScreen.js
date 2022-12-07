@@ -6,10 +6,12 @@ import axios from 'axios';
 import { Bar, Pie, Doughnut, Line } from "react-chartjs-2";
 import { Chart as ChartJS } from "chart.js/auto";
 import Loader from '../../components/Loader';
+import Message from '../../components/Message';
+import { getVoteLocation } from '../../redux/actions/adminActions';
+import { connect } from 'react-redux';
 
 
-
-const AnalysisScreen = () => {
+const AnalysisScreen = ({ voteDistrict, getVoteLocation }) => {
 
     const [handGender, setHandGender] = useState({datasets: [{}]});
     const [handGenderLoader, setHandGenderLoader] = useState(false);
@@ -31,6 +33,15 @@ const AnalysisScreen = () => {
     
     const [voteCount, setVoteCount] = useState({});
     const [voteCountLoader, setVoteCountLoader] = useState(false);
+
+
+    const [userVoteLocation, setUserVoteLocation] = useState([]);
+
+    const [districtLocation, setDistrictLocation] = useState({
+        location: ''
+    });
+
+    const [show, setShow] = useState(false);
    
 
     // VOTE ANALYSIS
@@ -134,6 +145,7 @@ const AnalysisScreen = () => {
      
         axios.get(`/api/analysis/userLocation`)
         .then((res) => {
+            
             setUserLocationLoader(true)
             setUserLocation({
                 labels: Object.keys(res.data),
@@ -228,6 +240,7 @@ const AnalysisScreen = () => {
      
         axios.get(`/api/analysis/voteLocation`)
         .then((res) => {
+            setUserVoteLocation(Object.keys(res.data))
             setVoteLocationLoader(true)
             setVoteLocation({
                 labels: Object.keys(res.data),
@@ -284,8 +297,40 @@ const AnalysisScreen = () => {
         })
         
     }, [])
-  
-  
+
+    const {loading:districtLoading, vote, error} = voteDistrict;
+    
+    useEffect(() => {
+      
+        if (vote?.hand || vote?.leaf) {
+            setShow(true)
+        }
+
+        if (error) {
+            setShow(false)
+        }
+
+    }, [vote, error])
+    
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+
+        setDistrictLocation({
+            [name]: value
+        })
+    }
+    
+    
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        
+        getVoteLocation(districtLocation)
+
+        
+    }
+
+
 
     return (
         <div className='bg-gray-100 min-h-screen'>
@@ -293,7 +338,7 @@ const AnalysisScreen = () => {
             <MobileNav />
             <Header />
             <div className='md:ml-72 px-4'>
-                <div className='my-5'>
+                <div>
                     <div className='grid grid-cols-1 lg:grid-cols-2 gap-4 mb-10'>
                         <div className='lg:w-96 w-full shadow rounded p-4 bg-white'>
                             <div className='mb-3 text-[#ca6702] font-medium text-3xl'>Hand</div>
@@ -304,6 +349,47 @@ const AnalysisScreen = () => {
                             { voteCountLoader ? <div className='font-medium text-2xl'>+{voteCount.leaf}</div> : <Loader /> }
                         </div>
                     </div>
+                    {error && <Message error msg={error} />}
+                    
+                    <form onSubmit={handleSubmit} className='my-10'>
+                        <label htmlFor="location" className="block mb-2 text-md font-medium uppercase text-black ">Location Analysis</label>
+                        <div className='flex flex-col md:flex-row'>
+                            <select id="district" onChange={handleChange} name="location" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block md:w-60 w-full p-2.5">
+                                <option value=''>Choose a district</option>
+                                {
+                                    userVoteLocation.map((val, index) => (
+                                        <option value={val} key={index}>{val}</option>
+                                    ))
+                                }
+                            </select>
+                            <button type='submit' className='bg-black px-4 rounded text-md text-white md:ml-5 md:mt-0 mt-4 md:py-0 py-2 '>search</button>
+                        </div>
+                    </form>
+                    
+                    {
+                        show ? (
+                            <>
+                                {
+                                    districtLoading ? <Loader /> : (
+                                        <div className='mt-10  mb-16'>
+                                            <h2 className='mt-2 mb-4 uppercase text-[#34508D] font-bold text-lg'>{districtLocation.location}</h2>
+                                            <div className='grid grid-cols-1 lg:grid-cols-2 gap-4 '>
+                                                <div className='lg:w-96 w-full shadow-xl rounded p-4 bg-white'>
+                                                    <div className='mb-3 text-[#ca6702] font-medium text-3xl'>Hand</div>
+                                                    <div className='font-medium text-2xl'>+{vote?.hand ? vote?.hand : '0'}</div>
+                                                </div>
+                                                <div className='lg:w-96 w-full shadow-xl rounded p-4 bg-white'>
+                                                    <div className='mb-3 text-[#bc4749] font-medium text-3xl'>Leaf</div>
+                                                    <div className='font-medium text-2xl'>+{vote?.leaf ? vote?.leaf : '0'}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )
+                                }
+                            </>
+                        ) : null
+                    }
+                        
                     <div className='grid grid-cols-1 lg:grid-cols-2 gap-4 mb-10'>
                         <div className='lg:w-96 w-full shadow rounded p-4 bg-white'>
                             <div className='mb-3'><span className='text-[#ca6702]'>HAND</span> GENDER ANALYSIS</div>
@@ -338,5 +424,8 @@ const AnalysisScreen = () => {
     )
 }
 
+const mapStateToProps = (state) =>({
+    voteDistrict: state.voteDistrict
+})
 
-export default AnalysisScreen;
+export default connect( mapStateToProps, { getVoteLocation })(AnalysisScreen);
