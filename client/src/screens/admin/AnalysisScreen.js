@@ -7,11 +7,11 @@ import { Bar, Pie, Doughnut, Line } from "react-chartjs-2";
 import { Chart as ChartJS } from "chart.js/auto";
 import Loader from '../../components/Loader';
 import Message from '../../components/Message';
-import { getVoteLocation } from '../../redux/actions/adminActions';
+import { getVoteLocation, getVoteLocationGender } from '../../redux/actions/adminActions';
 import { connect } from 'react-redux';
 
 
-const AnalysisScreen = ({ voteDistrict, getVoteLocation }) => {
+const AnalysisScreen = ({ voteDistrict, getVoteLocation, getVoteLocationGender, voteDistrictGender }) => {
 
     const [handGender, setHandGender] = useState({datasets: [{}]});
     const [handGenderLoader, setHandGenderLoader] = useState(false);
@@ -42,7 +42,6 @@ const AnalysisScreen = ({ voteDistrict, getVoteLocation }) => {
     });
 
     const [show, setShow] = useState(false);
-   
 
     // VOTE ANALYSIS
     useEffect(() => {
@@ -232,8 +231,7 @@ const AnalysisScreen = ({ voteDistrict, getVoteLocation }) => {
         })
         
     }, [])
-  
-
+    
 
     // VOTE LOCATION ANALYSIS
     useEffect(() => {
@@ -326,11 +324,12 @@ const AnalysisScreen = ({ voteDistrict, getVoteLocation }) => {
         e.preventDefault()
         
         getVoteLocation(districtLocation)
-
-        
+        getVoteLocationGender(districtLocation)
     }
 
 
+
+    const{ loading:userVoteLoading, userVote, error:userVoteError } = voteDistrictGender;
 
     return (
         <div className='bg-gray-100 min-h-screen'>
@@ -349,7 +348,10 @@ const AnalysisScreen = ({ voteDistrict, getVoteLocation }) => {
                             { voteCountLoader ? <div className='font-medium text-2xl'>+{voteCount.leaf}</div> : <Loader /> }
                         </div>
                     </div>
+
+
                     {error && <Message error msg={error} />}
+                    {userVoteError && <Message error msg={userVoteError} />}
                     
                     <form onSubmit={handleSubmit} className='my-10'>
                         <label htmlFor="location" className="block mb-2 text-md font-medium uppercase text-black ">Location Analysis</label>
@@ -374,13 +376,45 @@ const AnalysisScreen = ({ voteDistrict, getVoteLocation }) => {
                                         <div className='mt-10  mb-16'>
                                             <h2 className='mt-2 mb-4 uppercase text-[#34508D] font-bold text-lg'>{districtLocation.location}</h2>
                                             <div className='grid grid-cols-1 lg:grid-cols-2 gap-4 '>
-                                                <div className='lg:w-96 w-full shadow-xl rounded p-4 bg-white'>
-                                                    <div className='mb-3 text-[#ca6702] font-medium text-3xl'>Hand</div>
-                                                    <div className='font-medium text-2xl'>+{vote?.hand ? vote?.hand : '0'}</div>
+                                                <div className='lg:w-96 w-full flex justify-between  shadow-xl rounded p-4 bg-white'>
+                                                    <div className='w-60'>
+                                                        <div className='mb-3 text-[#ca6702] font-medium text-3xl'>Hand</div>
+                                                        <div className='font-medium text-2xl'>+{vote?.hand ? vote?.hand : '0'}</div>
+                                                    </div>
+
+                                                    <div className='border-r-2 '></div>
+                            
+                                                    <div className='flex justify-evenly items-center w-full '>
+                                                        <div className='p-1 rounded text-center'>
+                                                            <div className='font-medium text-lg'>Male</div>
+                                                            { userVoteLoading ? <Loader /> : <div className='font-medium text-2xl'>+ {userVote?.hand ? userVote?.hand.male ? userVote?.hand.male : '0' : '0' }</div>}
+                                                        </div>
+
+                                                        <div className='p-1 rounded text-center'>
+                                                            <div className='font-medium text-lg'>Female</div>
+                                                            { userVoteLoading ? <Loader /> : <div className='font-medium text-2xl'>+ {userVote?.hand ? userVote?.hand.female ? userVote?.hand.female : '0'  : '0' }</div> }
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div className='lg:w-96 w-full shadow-xl rounded p-4 bg-white'>
-                                                    <div className='mb-3 text-[#bc4749] font-medium text-3xl'>Leaf</div>
-                                                    <div className='font-medium text-2xl'>+{vote?.leaf ? vote?.leaf : '0'}</div>
+                                                <div className='lg:w-96 w-full flex justify-between shadow-xl rounded p-4 bg-white'>
+                                                    <div className='w-60'>
+                                                        <div className='mb-3 text-[#bc4749] font-medium text-3xl'>Leaf</div>
+                                                        <div className='font-medium text-2xl'>+{vote?.leaf ? vote?.leaf : '0'}</div>
+                                                    </div>
+
+                                                    <div className='border-r-2 '></div>
+                            
+                                                    <div className='flex justify-evenly items-center w-full '>
+                                                        <div className='p-1 rounded text-center'>
+                                                            <div className='font-medium text-lg'>Male</div>
+                                                            { userVoteLoading ? <Loader /> : <div className='font-medium text-2xl'>+ {userVote?.leaf ? userVote?.leaf.male ? userVote?.leaf.male : '0' : '0' }</div> }
+                                                        </div>
+
+                                                        <div className='p-1 rounded text-center'>
+                                                            <div className='font-medium text-lg'>Female</div>
+                                                            { userVoteLoading ? <Loader /> : <div className='font-medium text-2xl'>+ {userVote?.leaf ? userVote?.leaf.female ? userVote?.leaf.female : '0' : '0' }</div> }
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -425,7 +459,8 @@ const AnalysisScreen = ({ voteDistrict, getVoteLocation }) => {
 }
 
 const mapStateToProps = (state) =>({
-    voteDistrict: state.voteDistrict
+    voteDistrict: state.voteDistrict,
+    voteDistrictGender: state.voteDistrictGender
 })
 
-export default connect( mapStateToProps, { getVoteLocation })(AnalysisScreen);
+export default connect( mapStateToProps, { getVoteLocation, getVoteLocationGender })(AnalysisScreen);
