@@ -136,7 +136,7 @@ const generatePin = asyncHandler(async (req, res) => {
         }
         
         if (otp) {
-            user.code = otp || user.code
+            user.code = otp || null;
         }
         
         await user.save();
@@ -220,6 +220,12 @@ const verfiyPin = asyncHandler(async (req, res) => {
     if (pin.length !== 4) {
         res.status(400)
         throw Error('OPT length is 4 digits!')
+    }
+
+
+    if (pin === '0000') {
+        res.status(400)
+        throw Error('Invalid OPT')
     }
 
     const user = await User.findById(req.user._id);
@@ -311,7 +317,6 @@ const getNominationById = asyncHandler(async (req, res) => {
 })
 
 
-
 /**
  * @desc    user vote form
  * @method  POST
@@ -328,82 +333,93 @@ const userVote = asyncHandler(async (req, res) => {
        throw Error("Vote is required!")
     }
 
-    const isCheck = await Vote.findOne({ reg_no: reg_no })
-
-    if (isCheck) {
+    if(reg_no.length !== 8){
         res.status(400)
-        throw Error("Register number already exists, you already voted!")
+        throw Error("Register number invalid!")
     }
 
     const voteUser = await User.findById(req.user._id)
-    
-    const usernameInfo = await UserInfo.find({ user: voteUser._id })
-   
-    const userEmail = voteUser.email;
 
-    let username;
+    const isCheck = await Vote.find({})
 
-    usernameInfo.map(val => {
-        username = val.name
-    })
-
-    const message = "YOU HAVE VOTED SUCCESSFULLY";
-
-    const voteSaved = new Vote({
-        user: id,
-        reg_no: reg_no,
-        gender: gender,
-        community: community,
-        location: location,
-        vote: vote
-    })
-
-
-    await voteSaved.save()
-
-
-    let transporter = nodemailer.createTransport({
-        service: 'gmail', 
-        auth: {
-            user: `vishwanathvishwabai@gmail.com`, 
-            pass: 'fqepeazarrgoydyy'
-        }
+    let reg;
+    isCheck.forEach(element => {
+        reg = element.reg_no;
     });
 
+    if (reg === voteUser.reg_no) {
+        res.status(400)
+        throw Error("Register number already exists, you already voted!");
 
-    ejs.renderFile(__dirname + '/templates/vote.ejs', { userEmail, message, username }, (err, data) => {
-        if (err) {
-            console.log(err);
-        } else {
+    }else{
         
-            var mailOptions = {
-                from: 'vishwanathvishwabai@gmail.com',
-                to: userEmail,
-                subject: 'E-Voting',
-                html: data
-            };
-
-            transporter.sendMail(mailOptions, (error, info) => {
-                if (error) {
-                    return res.status(401).json({
-                        msg: error
-                    });
-                }
-                
-                if (info) {
-                    res.status(200).json({
-                        msg: 'voted successful!'
-                    })
-                }
-            });
-        }
-    });
-
-
+        const usernameInfo = await UserInfo.find({ user: voteUser._id })
     
+        const userEmail = voteUser.email;
+
+        let username;
+
+        usernameInfo.map(val => {
+            username = val.name
+        })
+
+
+            
+        const message = "YOU HAVE VOTED SUCCESSFULLY";
+
+        const voteSaved = new Vote({
+            user: id,
+            reg_no: reg_no,
+            gender: gender,
+            community: community,
+            location: location,
+            vote: vote
+        })
+
+
+        await voteSaved.save()
+
+
+        let transporter = nodemailer.createTransport({
+            service: 'gmail', 
+            auth: {
+                user: `vishwanathvishwabai@gmail.com`, 
+                pass: 'fqepeazarrgoydyy'
+            }
+        });
+
+
+        ejs.renderFile(__dirname + '/templates/vote.ejs', { userEmail, message, username }, (err, data) => {
+            if (err) {
+                console.log(err);
+            } else {
+            
+                var mailOptions = {
+                    from: 'vishwanathvishwabai@gmail.com',
+                    to: userEmail,
+                    subject: 'E-Voting',
+                    html: data
+                };
+
+                transporter.sendMail(mailOptions, (error, info) => {
+                    if (error) {
+                        return res.status(401).json({
+                            msg: error
+                        });
+                    }
+                    
+                    if (info) {
+                        res.status(200).json({
+                            msg: 'voted successful!'
+                        })
+                    }
+                });
+            }
+        });
+        
+    }   
 
 })
-
 
 
 
