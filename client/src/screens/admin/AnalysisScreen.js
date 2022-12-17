@@ -340,11 +340,11 @@ const AnalysisScreen = ({ voteDistrict, getVoteLocation, getVoteLocationGender, 
                 <div>
                     <div className='grid grid-cols-1 lg:grid-cols-2 gap-4 mb-10'>
                         <div className='lg:w-96 w-full shadow rounded p-4 bg-white'>
-                            <div className='mb-3 text-[#ca6702] font-medium text-3xl'>Hand</div>
+                            <div className='mb-3 text-[#e07a5f] font-medium text-3xl'>Hand</div>
                             { voteCountLoader ? <div className='font-medium text-2xl'>+{voteCount.hand}</div> : <Loader /> }
                         </div>
                         <div className='lg:w-96 w-full shadow rounded p-4 bg-white'>
-                            <div className='mb-3 text-[#bc4749] font-medium text-3xl'>Leaf</div>
+                            <div className='mb-3 text-[#81b29a] font-medium text-3xl'>Leaf</div>
                             { voteCountLoader ? <div className='font-medium text-2xl'>+{voteCount.leaf}</div> : <Loader /> }
                         </div>
                     </div>
@@ -374,11 +374,14 @@ const AnalysisScreen = ({ voteDistrict, getVoteLocation, getVoteLocationGender, 
                                 {
                                     districtLoading ? <Loader /> : (
                                         <div className='mt-10  mb-16'>
-                                            <h2 className='mt-2 mb-4 uppercase text-[#34508D] font-bold text-lg'>{districtLocation.location}</h2>
+                                            <div className='flex items-center'>
+                                                <h2 className='mt-2 mb-4 uppercase text-[#001d3d] font-bold text-lg'>{userVote?.location}</h2>
+                                                <p className='bg-[#ef476f] text-white shadow-xl rounded-full p-2 w-10 h-10 ml-2 mb-3 text-xl font-medium'>+{userVote?.totalVotes}</p>
+                                            </div>
                                             <div className='grid grid-cols-1 lg:grid-cols-2 gap-4 '>
                                                 <div className='lg:w-96 w-full flex justify-between  shadow-xl rounded p-4 bg-white'>
                                                     <div className='w-60'>
-                                                        <div className='mb-3 text-[#ca6702] font-medium text-3xl'>Hand</div>
+                                                        <div className='mb-3 text-[#e07a5f] font-medium text-3xl'>Hand</div>
                                                         <div className='font-medium text-2xl'>+{vote?.hand ? vote?.hand : '0'}</div>
                                                     </div>
 
@@ -398,7 +401,7 @@ const AnalysisScreen = ({ voteDistrict, getVoteLocation, getVoteLocationGender, 
                                                 </div>
                                                 <div className='lg:w-96 w-full flex justify-between shadow-xl rounded p-4 bg-white'>
                                                     <div className='w-60'>
-                                                        <div className='mb-3 text-[#bc4749] font-medium text-3xl'>Leaf</div>
+                                                        <div className='mb-3  text-[#81b29a] font-medium text-3xl'>Leaf</div>
                                                         <div className='font-medium text-2xl'>+{vote?.leaf ? vote?.leaf : '0'}</div>
                                                     </div>
 
@@ -426,11 +429,11 @@ const AnalysisScreen = ({ voteDistrict, getVoteLocation, getVoteLocationGender, 
                         
                     <div className='grid grid-cols-1 lg:grid-cols-2 gap-4 mb-10'>
                         <div className='lg:w-96 w-full shadow rounded p-4 bg-white'>
-                            <div className='mb-3'><span className='text-[#ca6702]'>HAND</span> GENDER ANALYSIS</div>
+                            <div className='mb-3'><span className='text-[#e07a5f]'>HAND</span> GENDER ANALYSIS</div>
                             { handGenderLoader ? <Doughnut data={handGender} /> : <Loader /> } 
                         </div>
                         <div className='lg:w-96 w-full shadow rounded p-4 bg-white'>
-                            <div className='mb-3'><span className='text-[#bc4749]'>LEAF</span> GENDER ANALYSIS</div>
+                            <div className='mb-3'><span className=' text-[#81b29a]'>LEAF</span> GENDER ANALYSIS</div>
                             { leafGenderLoader ? <Pie data={leafGender} /> : <Loader /> } 
                         </div>
                     </div>
@@ -440,7 +443,7 @@ const AnalysisScreen = ({ voteDistrict, getVoteLocation, getVoteLocationGender, 
                             { userGenderLoader ? <Pie data={userGender} />  : <Loader />  }
                         </div>
                         <div className='lg:w-96 w-full shadow rounded p-4 bg-white'>
-                            <div className='mb-3'>VOTE GENDER ANALYSIS</div>
+                            <div className='mb-3'>VOTER GENDER ANALYSIS</div>
                             { voteGenderLoader ? <Doughnut data={voteGender} /> : <Loader /> } 
                         </div>
                     </div>
@@ -449,7 +452,7 @@ const AnalysisScreen = ({ voteDistrict, getVoteLocation, getVoteLocationGender, 
                         { userLoationLoader ? <Line data={userLoation} /> : <Loader /> } 
                     </div>
                     <div className='w-full shadow rounded p-4 bg-white'>
-                        <div className='mb-3'>VOTE LOCATION ANALYSIS</div>
+                        <div className='mb-3'>VOTERS LOCATION ANALYSIS</div>
                         { voteLoationLoader ? <Bar data={voteLoation} /> : <Loader /> } 
                     </div>
                 </div>
